@@ -1,0 +1,21 @@
+TITLE:: jostMlib
+summary:: A collection of useful classes
+related:: GUI, Classes/PathActionMenu, Classes/ActionMenu, Classes/LibraryBrowser
+
+DESCRIPTION::
+Several Helpful Gui Classes from my personal IDE Lib.
+
+SECTION:: Classes
+
+LIST::
+
+## link::Classes/ActionMenu:: - a menu for running quick actions
+
+## link::Classes/PathActionMenu::  - a multilevel menu for actions and file paths
+
+## link::Classes/MultiLevelLibraryBrowser:: - a multilevel browser for Libraries
+
+::
+
+
+

@@ -1,0 +1,98 @@
+TITLE:: PathActionMenu
+summary:: A Button with a Popup List for performing actions on file paths.
+categories:: GUI
+related:: jostMLib, Classes/ActionMenu, Classes/ListView
+
+DESCRIPTION::
+An ActionMenu, where string entries are interpreted as file/folder paths.
+A folder works multi-level, listing subfolders.
+You can still add \key->action assoiciations, just like in ActionMenu.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Create an ActionMenu
+
+ARGUMENT:: parent
+The parent view.
+
+ARGUMENT:: bounds
+A Rect
+
+ARGUMENT:: name
+The Menu Button Title
+
+ARGUMENT:: items
+An Array of Strings or Associations (\key->function)
+
+Strings ar interpreted as FilePaths
+
+ARGUMENT:: showArrow
+show a little down-tick arrow, defaults to true
+
+returns::
+an ActionMenu
+
+
+METHOD:: defaultAllowedFiles
+Default: ["rtf","rtfd","sc","scd","html","HTML","schelp"]
+
+METHOD:: defaultOpenAction
+a default function you can set for all  items.
+
+
+
+INSTANCEMETHODS::
+
+METHOD:: allowedFiles
+Default: ["rtf","rtfd","sc","scd","html","HTML","schelp"]
+
+METHOD:: openAction
+a function run on the selected path. Typically open a file.
+You can set it on the instance, or you can set a default with  PathActionMenu.defaultOpenAction
+
+
+PRIVATE:: prAddItem
+PRIVATE:: prFileItem
+PRIVATE:: prFolderItem
+PRIVATE:: prPathItem
+PRIVATE:: prPathUp
+PRIVATE:: openfunction
+PRIVATE:: prButtonAction
+PRIVATE:: prRefreshAction
+PRIVATE:: returnpaths
+
+EXAMPLES::
+
+code::
+(
+// Make sure the paths are present, or they will be ignored.
+// Associations work like ActionMenu.
+// Strings are interpreted as file or directory paths.
+// File paths directly run the openAction.
+// Directories can be browsed in a new list
+
+
+w = Window.new("PathActionMenu Examples").front;
+w.flow{arg w;
+    var m;
+    m=PathActionMenu(w,Rect(0,0,150,25),"Open Files and Dirs",[
+        \testMe->{"\testMe".postln}, // an association with a custom action
+        Association("A big key",{"A big key".postln}), // an long keyed association with a custom action
+        "~/Documents",
+        "~/Shared",
+        Platform.userAppSupportDir,
+        Platform.userAppSupportDir++"/startup.scd"
+
+    ]);
+    m.openAction= {|path|
+        Document.open(path);
+        // Or use your custom editor
+       // ("open -a  Sublime\\ Text "++path.escapeChar($ )).unixCmd;
+      };
+
+    }
+)
+
+::

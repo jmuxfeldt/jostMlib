@@ -1,0 +1,122 @@
+TITLE:: ActionMenu
+SUMMARY:: A Button with a Popup List for performing actions.
+CATEGORIES:: GUI
+related:: jostMlib,  Classes/PathActionMenu,  Classes/ListView
+
+DESCRIPTION::
+A Button with a Popup List for performing actions.
+Closes on unfocus or with esc key.
+
+Supports Button, SmoothButton, or RoundButton (RECOMMENDED) as button classes.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Create an ActionMenu
+
+ARGUMENT:: parent
+The parent view.
+
+ARGUMENT:: bounds
+A Rect
+
+ARGUMENT:: name
+The Menu Button Title
+
+ARGUMENT:: items
+An Array of Strings or Associations (\key->function)
+
+ARGUMENT:: showArrow
+show a little down-tick arrow, defaults to true
+
+returns::
+an ActionMenu
+
+
+METHOD:: buttonClass
+Default: Button
+
+but you can use the SmoothButton or RoundButton  (RECOMMENDED) from the wonderful wslib quark.
+
+
+returns:: the Button class.
+
+
+INSTANCEMETHODS::
+METHOD:: defaultAction
+a function. if you a add only a string, not an association, this function will be used.
+
+
+METHOD:: fontSize
+
+
+METHOD:: button
+the menu Button
+
+
+METHOD:: globalAction
+a global function to be evaluated on selection
+
+returns:: (describe returnvalue here)
+
+METHOD:: closeOnSelect
+default Boolean is true. Close the select window after selection.
+
+METHOD:: unfocusClose
+default Boolean is true. Close the select on unfocs (click outside).
+
+METHOD:: toolTip
+set a tooltip for the menu button
+
+
+
+PRIVATE:: prAddSpacer
+PRIVATE:: removeAt
+PRIVATE:: items
+PRIVATE:: doActionAt
+PRIVATE:: makeButton
+PRIVATE:: name
+PRIVATE:: prButtonAction
+PRIVATE:: prGetWinBounds
+PRIVATE:: prMakeListView
+PRIVATE:: prAddItem
+PRIVATE:: prSetWinPosition
+PRIVATE:: value
+PRIVATE:: valueIndexName
+PRIVATE:: valueName
+PRIVATE:: pr_makeAction
+EXAMPLES::
+
+code::
+(
+w = Window.new("ActionMenu Examples").front;
+w.flow{arg w;
+    var b;
+    ActionMenu(w,Rect(0,0,80,25),"Vocalize",[
+        \sing ->{"sing".postln},
+        \shout ->{"shout".postln},
+        \grunt ->{"grunt".postln},
+    ]);
+
+    // prevent closing, use a separator
+    b=ActionMenu(w,Rect(0,0,80,25),"No Close").closeOnSelect_(false);
+    b.items_(
+        [
+            \sing ->{"sing".postln},
+            "-", // separator. no action
+            \shout ->{"shout".postln},
+    ]).unfocusClose_(false); // don't close when clicked outside
+
+    // Chosen value shown on button label; Use a globalAction.
+    b=ActionMenu(w,Rect(0,0,80,25),"Select",["fast","medium","slow"]).globalAction_{|val|
+        b.button.states[0][0]=val.asString;
+        b.button.refresh;
+        b.button.focus(0);
+    };
+
+
+}
+)
+
+::

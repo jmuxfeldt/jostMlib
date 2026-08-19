@@ -1,0 +1,10 @@
+(
+	\name: 		"jostMlib",
+	\path: 		"jostMlib",
+	\summary:	"A Collection of useful Classes from my IDE",
+	\author: 		"Jost Muxfeldt",
+	\version:		1.00,  // must be a float
+	\url:           "http://www.glyph.de",
+	\schelp:        "jostMlib"
+
+)

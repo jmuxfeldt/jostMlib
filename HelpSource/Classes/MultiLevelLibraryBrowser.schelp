@@ -1,0 +1,119 @@
+TITLE:: MultiLevelLibraryBrowser
+summary::  A multiLevel browser for libraries
+categories:: GUI>Views
+related:: jostMLib, Classes/Library, Classes/Archive
+
+DESCRIPTION::
+A  window with a multiLevel browser for libraries
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Create a MultiLevelLibraryBrowser
+
+ARGUMENT:: title
+The window title of the view
+
+ARGUMENT:: action
+an action to be performed on the value of a bottom level item.
+code::
+{|browser,currentPath, item| [browser,currentPath, item].postln}; // example
+::
+
+ARGUMENT:: source
+A Dictionary, Library, or Archive
+
+returns:: a MultiLevelLibraryBrowser
+
+
+METHOD:: defaultPrefix
+a global directory prefix
+
+default: nil
+METHOD:: defaultSuffix
+a global directory suffix
+
+default: nil
+
+INSTANCEMETHODS::
+PRIVATE::init
+
+METHOD:: load
+ARGUMENT:: source
+An  Archive, Library,  or MultiLevelIdentityDictionary,
+ARGUMENT:: startpath
+further arguments separated by commas.
+
+example:  \idePrefs,\Documentation
+
+
+METHOD:: fontSize
+
+
+METHOD:: dirPrefix
+an ascii prefix to dir names, default ""
+
+METHOD:: dirSuffix
+an ascii suffix to dir names, default " -> ".
+
+METHOD:: currentPath
+
+METHOD:: autowidth
+boolean true
+
+PRIVATE:: attributes
+
+METHOD:: listViews
+
+
+PRIVATE:: prGetItems
+
+PRIVATE:: prClearBelow
+
+PRIVATE:: startPath
+
+
+PRIVATE:: prCurrentPath
+
+METHOD:: action
+METHOD:: selectedIndices
+METHOD:: colWidth
+
+PRIVATE:: prAddLevel
+
+
+PRIVATE:: prItemBuildAction
+
+PRIVATE:: dict
+
+METHOD:: reload
+
+PRIVATE:: prCleanKey
+
+PRIVATE:: prSetAttributes
+
+METHOD:: view
+
+PRIVATE:: itemBuildFunction
+
+
+
+EXAMPLES::
+
+code::
+MultiLevelLibraryBrowser("Archive",{|b,k,v|
+    "--".postln;
+    k.join(" -> ").post;": ".post;v.postln;
+    b.selectedIndices.postln;
+},Archive.global);
+
+// or load a subpath
+// (Just an example, that path must actually exist)
+MultiLevelLibraryBrowser("Archive",{|b,k,v|
+    "--".postln;
+    k.join(" -> ").post;": ".post;v.postln;
+    b.selectedIndices.postln;}
+).load(Archive.global, \idePrefs,\Documentation)
+
+::

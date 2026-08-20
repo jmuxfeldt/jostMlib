@@ -1,6 +1,6 @@
 TITLE:: ActionMenu
 SUMMARY:: A Button with a Popup List for performing actions.
-CATEGORIES:: GUI
+CATEGORIES:: GUI, Libraries>jostMlib
 related:: jostMlib,  Classes/PathActionMenu,  Classes/ListView
 
 DESCRIPTION::

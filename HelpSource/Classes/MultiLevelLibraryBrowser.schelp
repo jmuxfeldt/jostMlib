@@ -1,6 +1,6 @@
 TITLE:: MultiLevelLibraryBrowser
 summary::  A multiLevel browser for libraries
-categories:: GUI>Views
+categories:: GUI>Views, Libraries>jostMlib
 related:: jostMLib, Classes/Library, Classes/Archive
 
 DESCRIPTION::

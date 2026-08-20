@@ -1,6 +1,6 @@
 TITLE:: PathActionMenu
 summary:: A Button with a Popup List for performing actions on file paths.
-categories:: GUI
+categories:: GUI, Libraries>jostMlib
 related:: jostMLib, Classes/ActionMenu, Classes/ListView
 
 DESCRIPTION::

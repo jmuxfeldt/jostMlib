@@ -29,11 +29,12 @@ ActionMenu{
 
     makeButton{|parent, bounds, name,showArrow|
         var btnClass="Button";
-        showArrow.booleanValue.and(buttonClass=="Button" ).if{ name = name++" ⌄"};
         Class.findAllReferences('RoundButton').notNil.if{
             btnClass = "RoundButton";
         };
         btnClass = buttonClass ? btnClass;
+        showArrow.booleanValue.and(btnClass=="Button" ).if{ name = name++" ⌄"};
+
         button = btnClass.interpret.new(parent, bounds)
         .states_([[name,Color.black,Color.white.alpha_(0.3)]]);
         (button.class.name == 'RoundButton').or(button.class.name == 'SmoothButton').if{

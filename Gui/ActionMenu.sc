@@ -211,7 +211,7 @@ PathActionMenu : ActionMenu{
                         var newitem;
                         newitem = this.prPathItem(item);
                         newitem.notNil.if{items=items.add(newitem)};
-                        item.isFolder.if{returnpaths=returnpaths.add(this.prPathUp(item));};
+                        PathName( item ).isFolder.if{returnpaths=returnpaths.add(this.prPathUp(item));};
                     }
                 }
             }{
@@ -241,10 +241,10 @@ PathActionMenu : ActionMenu{
     }
 
     prPathItem{|path, key|
-        path.isFile.if{
+        PathName(path).isFile.if{
             ^ this.prFileItem(path)
         };
-        path.isFolder.if{
+         PathName(path).isFolder.if{
             ^ this.prFolderItem(path, key)
         };
         ^nil;

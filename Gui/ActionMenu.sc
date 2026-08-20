@@ -43,7 +43,7 @@ ActionMenu{
             showArrow.booleanValue.if{
                 button.drawFunc_{
                     Pen.color=Color.grey(0.5);
-                    Pen.drawIcon(\down,Rect(bounds.width-12,0,10,bounds.height))
+                    Pen.drawIcon(\down,Rect(bounds.width-14,0,10,bounds.height))
                 };
             };
         };

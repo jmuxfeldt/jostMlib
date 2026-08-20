@@ -89,10 +89,18 @@ w.flow{arg w;
     m.openAction= {|path|
         Document.open(path);
         // Or use your custom editor
-       // ("open -a  Sublime\\ Text "++path.escapeChar($ )).unixCmd;
-      };
+        // ("open -a  Sublime\\ Text "++path.escapeChar($ )).unixCmd;
+    };
 
-    }
+    w.startRow;
+    StaticText(w,Rect(0,0,200,40)).string_("Click outside to close.");
+    w.startRow;
+    StaticText(w,Rect(0,0,200,40)).string_("Escape key  to close.");
+
+
+};
+
+
 )
 
 ::

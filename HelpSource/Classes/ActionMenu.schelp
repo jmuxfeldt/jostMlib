@@ -114,6 +114,10 @@ w.flow{arg w;
         b.button.refresh;
         b.button.focus(0);
     };
+    w.startRow;
+    StaticText(w,Rect(0,0,200,40)).string_("Click outside to close.");
+    w.startRow;
+    StaticText(w,Rect(0,0,200,40)).string_("Escape key  to close.");
 
 
 }

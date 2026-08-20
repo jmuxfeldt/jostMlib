@@ -108,7 +108,6 @@ ActionMenu{
             {0.01.wait;window.endFrontAction_({window.close})}.fork(AppClock);
         };
         escFunc =  { arg view,char,modifier,unicode,keycode;
-            keycode.postln;
             (keycode == 53).if{window.close()};
 
         };

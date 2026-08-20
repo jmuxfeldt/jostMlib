@@ -1,5 +1,5 @@
 ActionMenu{
-    classvar padding = 36,<>buttonClass="Button";
+    classvar padding = 36,<>buttonClass;
     var <>items, listview, modifier, <button, <>defaultAction,<>unfocusClose = true,<>globalAction, winPosition, <value = "default",
     <>closeOnSelect=true, <>fontSize=15,<toolTip,
     allowedFiles,name,level=0, action, window;
@@ -28,8 +28,13 @@ ActionMenu{
     }*/
 
     makeButton{|parent, bounds, name,showArrow|
+        var btnClass="Button";
         showArrow.booleanValue.and(buttonClass=="Button" ).if{ name = name++" ⌄"};
-        button = buttonClass.interpret.new(parent, bounds)
+        Class.findAllReferences('RoundButton').notNil.if{
+            btnClass = "RoundButton";
+        };
+        btnClass = buttonClass ? btnClass;
+        button = btnClass.interpret.new(parent, bounds)
         .states_([[name,Color.black,Color.white.alpha_(0.3)]]);
         (button.class.name == 'RoundButton').or(button.class.name == 'SmoothButton').if{
             button.radius_(0)

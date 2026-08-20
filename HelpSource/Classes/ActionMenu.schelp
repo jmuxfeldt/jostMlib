@@ -7,7 +7,9 @@ DESCRIPTION::
 A Button with a Popup List for performing actions.
 Closes on unfocus or with esc key.
 
-Supports Button, SmoothButton, or RoundButton (RECOMMENDED) as button classes.
+Supports Button, SmoothButton, or RoundButton (RECOMMENDED) as a button classes.
+
+If wslib quark is active, defaults to RoundButton.
 
 
 CLASSMETHODS::
@@ -35,9 +37,11 @@ an ActionMenu
 
 
 METHOD:: buttonClass
-Default: Button
+Default: Button.
 
 but you can use the SmoothButton or RoundButton  (RECOMMENDED) from the wonderful wslib quark.
+
+If wslib quark is active, defaults to RoundButton.
 
 
 returns:: the Button class.

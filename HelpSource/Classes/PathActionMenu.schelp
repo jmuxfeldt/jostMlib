@@ -103,4 +103,12 @@ w.flow{arg w;
 
 )
 
+//You can also create a directory of files containing
+{arg v; "myFunc".postln}; // example
+// and then set the openAction to
+
+m.openAction= {|path|path.load.value(v)};
+// In this way you can separate your code functions into many small files.
+
+
 ::

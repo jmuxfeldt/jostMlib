@@ -1,7 +1,7 @@
 MultiLevelLibraryBrowser{
     classvar   >defaultPrefix,>defaultSuffix;
 
-	var currentItem=0, <view,<attributes,<>autowidth=true,hspacing=1, <>itemBuildFunction, <currentPath, selectIndices,
+	var currentItem=0, <view,<attributes,<>autowidth=true,hspacing=1, <>itemBuildFunction, <currentPath, <selectedIndecies,
 	<listViews,<>colWidth=200,
 	<dict, startPath, action, <>dirPrefix=" • ",dirSuffix=" ➡ ";
 
@@ -13,7 +13,7 @@ MultiLevelLibraryBrowser{
 		var w;
 		action = a;
 		listViews=[];
-		selectIndices=[];
+		selectedIndecies=[];
 		attributes=IdentityDictionary(); // the attributes of the ListViews
 		view = Window.new(title,Window.flipY(Rect(100,100,colWidth,400) ) ).front;
 		view.layout_(GridLayout().hSpacing_(hspacing));
@@ -44,11 +44,11 @@ MultiLevelLibraryBrowser{
 		};
 		try{
 			listViews.do{arg v,i;
-				if(v.items.size>selectIndices.at(i)){
-					v.valueAction_(selectIndices.at(i));
+				if(v.items.size>selectedIndecies.at(i)){
+					v.valueAction_(selectedIndecies.at(i));
 				}{
 					if(v.items.size>0){
-						v.valueAction_(selectIndices.at(0));
+						v.valueAction_(selectedIndecies.at(0));
 					};
 				};
 			};
@@ -64,8 +64,8 @@ MultiLevelLibraryBrowser{
 			listViews=listViews.add(lv);
 			this.prSetAttributes;
 		};
-		selectIndices[i].isNil.if{
-			selectIndices=selectIndices.add(0);
+		selectedIndecies[i].isNil.if{
+			selectedIndecies=selectedIndecies.add(0);
 		};
 		listViews[i].items=[];
 		if(i==0){
@@ -90,8 +90,8 @@ MultiLevelLibraryBrowser{
 					action.value(currentPath, item);
 				};
 			};
-			selectIndices[i]=listViews[i].value;
-			selectIndices.postln;
+			selectedIndecies[i]=listViews[i].value;
+			selectedIndecies.postln;
 
 		};
 

@@ -11,6 +11,8 @@ Supports Button, SmoothButton, or RoundButton (RECOMMENDED) as a button classes.
 
 If wslib quark is active, defaults to RoundButton.
 
+Closes on click outside or on escape.
+
 
 CLASSMETHODS::
 

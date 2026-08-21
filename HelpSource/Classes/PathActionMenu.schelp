@@ -8,6 +8,7 @@ An ActionMenu, where string entries are interpreted as file/folder paths.
 A folder works multi-level, listing subfolders.
 You can still add \key->action assoiciations, just like in ActionMenu.
 
+Closes on click outside or on escape.
 
 CLASSMETHODS::
 

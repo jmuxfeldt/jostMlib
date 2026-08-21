@@ -1,9 +1,9 @@
 MultiLevelLibraryBrowser{
-    classvar   >defaultPrefix,>defaultSuffix;
+    classvar   >defaultPrefix="",>defaultSuffix=" ➡ ";
 
 	var currentItem=0, <view,<attributes,<>autowidth=true,hspacing=1, <>itemBuildFunction, <currentPath, <selectedIndecies,
 	<listViews,<>colWidth=200,
-	<dict, startPath, action, <>dirPrefix=" • ",dirSuffix=" ➡ ";
+	<dict, startPath, action, <>dirPrefix,dirSuffix;
 
 	*new{|title ="Library Browser", action, dict, startPath|
 		^super.new.init(title, action, dict, startPath )

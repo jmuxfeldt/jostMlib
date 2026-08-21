@@ -47,6 +47,7 @@ If wslib quark is active, defaults to RoundButton.
 returns:: the Button class.
 
 
+
 INSTANCEMETHODS::
 METHOD:: defaultAction
 a function. if you a add only a string, not an association, this function will be used.

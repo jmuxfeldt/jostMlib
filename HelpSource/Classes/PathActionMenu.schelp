@@ -41,6 +41,10 @@ Default: ["rtf","rtfd","sc","scd","html","HTML","schelp"]
 METHOD:: defaultOpenAction
 a default function you can set for all  items.
 
+METHOD:: defaultPrefix
+a directory prefix default for all instances
+METHOD:: defaultSuffix
+a directory suffix default for all instances
 
 
 INSTANCEMETHODS::
@@ -52,6 +56,11 @@ METHOD:: openAction
 a function run on the selected path. Typically open a file.
 You can set it on the instance, or you can set a default with  PathActionMenu.defaultOpenAction
 
+METHOD:: dirPrefix
+a prefix for directory entries. overrides defaultPrefix. defaults to "/"
+
+METHOD:: dirSuffix
+a suffix for directory entries. overrides defaultSuffix.
 
 PRIVATE:: prAddItem
 PRIVATE:: prFileItem

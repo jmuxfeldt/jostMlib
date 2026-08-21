@@ -179,7 +179,7 @@ ActionMenu{
 PathActionMenu : ActionMenu{
     classvar <>defaultOpenAction,<>defaultAllowedFiles;
     classvar   >defaultPrefix,>defaultSuffix;
-    var  toplevel=true, toplevelarray, <returnpaths, <>openAction, <>allowedFiles, <>dirPrefix="",<>dirSuffix=" ➡ ";
+    var  toplevel=true, toplevelarray, <returnpaths, <>openAction, <>allowedFiles, <>dirPrefix="",<>dirSuffix="/ ";
 
 
     *new{|parent, bounds, name = "New Menu",items,showArrow=true|

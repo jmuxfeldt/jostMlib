@@ -110,7 +110,8 @@ MultiLevelLibraryBrowser("Archive",{|b,k,v|
     b.selectedIndices.postln;
 },Archive.global);
 
-// if the wslib quark is installed, you can delete items using the delete key.
+// If the wslib quark is installed, you can delete items using the delete key.
+// This only makes sense, if you have a means of saving the lib or the Archive.
 
 // or load a subpath
 // (Just an example, that path must actually exist)

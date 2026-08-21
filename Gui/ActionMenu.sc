@@ -194,7 +194,8 @@ PathActionMenu : ActionMenu{
         dirPrefix = dirPrefix?defaultPrefix;
         dirSuffix = dirSuffix?defaultSuffix;
         action={|val| val.value.value};
-        allowedFiles = defaultAllowedFiles?["rtf","rtfd","sc","scd","html","HTML","schelp"];
+        allowedFiles = allowedFiles?defaultAllowedFiles;
+        allowedFiles = allowedFiles?["rtf","rtfd","sc","scd","html","HTML","schelp"];
         this.prAddSpacer;
         newitems.do{|item|
             this.prAddItem(item);

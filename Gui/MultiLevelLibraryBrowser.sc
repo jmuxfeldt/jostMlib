@@ -91,7 +91,6 @@ MultiLevelLibraryBrowser{
 				};
 			};
 			selectedIndices[i]=listViews[i].value;
-			selectedIndices.postln;
 
 		};
 
@@ -105,7 +104,6 @@ MultiLevelLibraryBrowser{
 			currentPath =currentPath.add(this.prCleanKey(key));
 		};
 		currentPath = startPath ++ currentPath;
-		currentPath.postln;
 	}
 	prCleanKey{|currentKey|
 		var foundIndex;

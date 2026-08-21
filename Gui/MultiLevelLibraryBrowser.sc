@@ -1,36 +1,37 @@
 MultiLevelLibraryBrowser{
     classvar   >defaultPrefix,>defaultSuffix;
-	var currentItem=0, <view,attributes,<>autowidth=true,hspacing=1, <itemBuildFunction, <currentPath, <selectedIndices,
-	<listViews,<>colWidth=200,<>fontSize=12,
-	<dict, <startPath, <>action, <>dirPrefix="",<>dirSuffix=" ➡ ";
 
-	*new{|title ="Library Browser", action, source|
-		^super.new.init(title, action, source)
+	var currentItem=0, <view,<attributes,<>autowidth=true,hspacing=1, <>itemBuildFunction, <currentPath, selectIndices,
+	<listViews,<>colWidth=200,
+	<dict, startPath, action, <>dirPrefix=" • ",dirSuffix=" ➡ ";
+
+	*new{|title ="Library Browser", action, dict, startPath|
+		^super.new.init(title, action, dict, startPath )
 	}
 
-	init{|title , a, source|
+	init{|title , a, d, sp|
 		var w;
 		action = a;
 		listViews=[];
-		selectedIndices=[];
+		selectIndices=[];
 		attributes=IdentityDictionary(); // the attributes of the ListViews
 		view = Window.new(title,Window.flipY(Rect(100,100,colWidth,400) ) ).front;
 		view.layout_(GridLayout().hSpacing_(hspacing));
-        dirPrefix=defaultPrefix?dirPrefix;
-        dirSuffix=defaultSuffix?dirSuffix;
+        dirPrefix=dirPrefix?defaultPrefix;
+        dirSuffix=dirSuffix?defaultSuffix;
 
-		source.notNil.if{this.load(source)};
+		d.notNil.if{this.load(d)};
 	}
 
-	load{|source ... startpath|
-		startPath= startpath;
-		dict=source;
+	load{|dictionary ... args|
+		startPath= args;
+		dict=dictionary;
 		startPath.notNil.if{
 			this.prAddLevel(0,dict.at(*startPath));
 		}{
 			this.prAddLevel(0,dict.dictionary);
 		};
-		{	this.prItemBuildAction(listViews[0], dict)}.defer(0.1); // allow custom handling of list attributes
+		{	this.prItemBuildAction(listViews[0], dict)}.defer(0.1);
 	}
 	reload{
 		var pth = currentPath.copy, currenItemIndex, ind;
@@ -43,13 +44,12 @@ MultiLevelLibraryBrowser{
 		};
 		try{
 			listViews.do{arg v,i;
-				if(v.items.size>selectedIndices.at(i)){
-					v.valueAction_(selectedIndices.at(i));
+				if(v.items.size>selectIndices.at(i)){
+					v.valueAction_(selectIndices.at(i));
 				}{
 					if(v.items.size>0){
-						v.valueAction_(selectedIndices.at(0));
+						v.valueAction_(selectIndices.at(0));
 					};
-
 				};
 			};
 		};
@@ -57,21 +57,15 @@ MultiLevelLibraryBrowser{
 	}
 
 	prAddLevel{|i,currentItem|
-		var fnt,lv,b;
-		// make ListView at i , if it is not there yet
 		listViews[i].isNil.if{
-			// add the listview
-			view.layout.add(lv=ListView().font_(Font.default.size_(fontSize)),0,i);
+			var lv,b;
+			view.layout.add(lv=ListView(),0,i);
 			(autowidth &&(i>0)).if{view.bounds=view.bounds.width_(view.bounds.width+colWidth+hspacing)};
 			listViews=listViews.add(lv);
-
-			// deletfunction
-			//lv.keyUpAction = this.prMakeDeleteFunction(lv,i);
 			this.prSetAttributes;
 		};
-		// make selectedIndices at i , if it is not there yet
-		selectedIndices[i].isNil.if{
-			selectedIndices=selectedIndices.add(0);
+		selectIndices[i].isNil.if{
+			selectIndices=selectIndices.add(0);
 		};
 		listViews[i].items=[];
 		if(i==0){
@@ -89,43 +83,19 @@ MultiLevelLibraryBrowser{
 				if(item.isKindOf(IdentityDictionary)){
 					this.prAddLevel(ind+1,item);
 					listViews[ind+1].items = this.prGetItems(item);
-					this.prItemBuildAction(listViews[ind+1],dict); // allow custom handling of list attributes
+					this.prItemBuildAction(listViews[ind+1],dict);
 					this.prCurrentPath_(i);
 				}{
 					this.prCurrentPath_(i);
-					action.value(this,currentPath, item);
+					action.value(currentPath, item);
 				};
 			};
-			selectedIndices[i]=listViews[i].value;
-            // selectedIndices.postln;
+			selectIndices[i]=listViews[i].value;
+			selectIndices.postln;
 
 		};
 
 	}
-
-/*	prMakeDeleteFunction{|lv, i|
-		^{|obj, char, mod, unicode, keycode, key|
-			var ind=i;
-			((key==16777219)||(key==16777223)).if{
-				SCAlert("Really delete at "+currentPath.asString+"?",actions:[
-					{"canceled".postln},
-					{
-						var items;
-						items =obj.items;
-						this.prCurrentPath_(ind);
-
-						dict.removeAt(*currentPath);
-						items.removeAt(obj.value);
-						obj.items=items;
-						this.reload;
-					}
-				]);
-				//dict.at(*currentPath).postln;
-				//currentPath.postln;
-			}
-		}
-	}*/
-
 
 	prCurrentPath_{|i|
 		currentPath=[];
@@ -135,7 +105,7 @@ MultiLevelLibraryBrowser{
 			currentPath =currentPath.add(this.prCleanKey(key));
 		};
 		currentPath = startPath ++ currentPath;
-        // currentPath.postln;
+		currentPath.postln;
 	}
 	prCleanKey{|currentKey|
 		var foundIndex;

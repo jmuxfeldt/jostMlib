@@ -1,4 +1,4 @@
-jostMLib
+jostMlib
 
 A Quark Library for the SuperCollider Programming Language.
 

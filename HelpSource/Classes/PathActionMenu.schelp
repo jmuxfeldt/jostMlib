@@ -43,8 +43,9 @@ a default function you can set for all  items.
 
 METHOD:: defaultPrefix
 a directory prefix default for all instances
+
 METHOD:: defaultSuffix
-a directory suffix default for all instances
+a directory suffix default for all instances. defaults to "/".
 
 
 INSTANCEMETHODS::

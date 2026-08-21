@@ -87,7 +87,7 @@ MultiLevelLibraryBrowser{
 					this.prCurrentPath_(i);
 				}{
 					this.prCurrentPath_(i);
-					action.value(currentPath, item);
+					action.value(this,currentPath, item);
 				};
 			};
 			selectedIndices[i]=listViews[i].value;

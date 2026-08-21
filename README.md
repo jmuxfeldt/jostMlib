@@ -11,6 +11,7 @@ Visually best with in combination with the [wslib](https://github.com/supercolli
 
 - #### PathActionMenu
 Directories navigate to the next level with a new window and an up ../ option.
+
 ![PathActionMenu](./PathActionMenu.jpg)
 
 - #### MultiLevelLibraryBrowser

@@ -6,6 +6,8 @@ related:: jostMLib, Classes/Library, Classes/Archive
 DESCRIPTION::
 A  window with a multiLevel browser for libraries
 
+If the wslib  Quark is installed, you can delete an item with warning using the delete key.
+
 
 CLASSMETHODS::
 
@@ -107,6 +109,8 @@ MultiLevelLibraryBrowser("Archive",{|b,k,v|
     k.join(" -> ").post;": ".post;v.postln;
     b.selectedIndices.postln;
 },Archive.global);
+
+// if the wslib quark is installed, you can delete items using the delete key.
 
 // or load a subpath
 // (Just an example, that path must actually exist)

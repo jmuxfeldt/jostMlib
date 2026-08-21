@@ -13,6 +13,7 @@ Closes on click outside or on escape.
 
 - #### PathActionMenu
 Directories navigate to the next level with a new window and an up ../ option.
+
 Closes on click outside or on escape.
 
 ![PathActionMenu](./PathActionMenu.jpg)

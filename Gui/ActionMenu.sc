@@ -178,8 +178,8 @@ ActionMenu{
 
 PathActionMenu : ActionMenu{
     classvar <>defaultOpenAction,<>defaultAllowedFiles;
-    classvar   >defaultPrefix,>defaultSuffix;
-    var  toplevel=true, toplevelarray, <returnpaths, <>openAction, <>allowedFiles, <>dirPrefix="",<>dirSuffix="/ ";
+    classvar   >defaultPrefix="",>defaultSuffix="/ ";
+    var  toplevel=true, toplevelarray, <returnpaths, <>openAction, <>allowedFiles, <>dirPrefix,<>dirSuffix;
 
 
     *new{|parent, bounds, name = "New Menu",items,showArrow=true|
@@ -191,8 +191,8 @@ PathActionMenu : ActionMenu{
         openAction=defaultOpenAction?{|path| path.postln};
         returnpaths=[];
         items=[];
-        dirPrefix = defaultPrefix?dirPrefix;
-        dirSuffix = defaultSuffix?dirSuffix;
+        dirPrefix = dirPrefix?defaultPrefix;
+        dirSuffix = dirSuffix?defaultSuffix;
         action={|val| val.value.value};
         allowedFiles = defaultAllowedFiles?["rtf","rtfd","sc","scd","html","HTML","schelp"];
         this.prAddSpacer;

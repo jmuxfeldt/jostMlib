@@ -17,7 +17,6 @@ ActionMenu{
         // the action performed by the list
         this.pr_makeAction;
         // the action performed by the list when not as symbol->function association
-        defaultAction={|val| ("you chose: "+val).postln};
         globalAction={};
         argItems.do{|item|
             this.prAddItem(item);
@@ -64,7 +63,10 @@ ActionMenu{
             };
             (l.value.isKindOf(String) || l.value.isKindOf(Symbol)).if{
                 (l.value!="-").if{// do defaultFunction at key with arg l.value
-                    defaultAction.value(l.value);
+                    defaultAction.notNil.if{
+                        defaultAction.value(l.value);
+                    };
+
                 }
             };
             globalAction.value(l.value);

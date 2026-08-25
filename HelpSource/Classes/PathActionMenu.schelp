@@ -96,14 +96,15 @@ w = Window.new("PathActionMenu Examples").front;
 w.flow{arg w;
     var m;
     m=PathActionMenu(w,Rect(0,0,150,25),"Open Files and Dirs",[
-        \testMe->{"\testMe".postln}, // an association with a custom action
-        Association("A big key",{"A big key".postln}), // an long keyed association with a custom action
+        \testMe->{|path,modifier,buttonNum|[path,modifier,buttonNum].postln}, // an association with a custom action
+        Association("A key",{|path,modifier,buttonNum|[path,modifier,buttonNum].postln}), // an long keyed association with a custom action
         "~/Documents",
         "~/Shared",
         Platform.userAppSupportDir,
         Platform.userAppSupportDir++"/startup.scd"
     ]);
     m.openAction= {|path,modifier,buttonNum|
+        [path,modifier,buttonNum].postln;
         Document.open(path);
         // Or use your custom editor
         // ("open -a  Sublime\\ Text "++path.escapeChar($ )).unixCmd;

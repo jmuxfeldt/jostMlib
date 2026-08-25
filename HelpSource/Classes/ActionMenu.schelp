@@ -118,7 +118,7 @@ w.flow{arg w;
 
     // Chosen value shown on button label; Use a globalAction.
     b=ActionMenu(w,Rect(0,0,80,25),"Select",["fast","medium","slow"]).globalAction_{|val|
-        b.button.states[0][0]=val.asString;
+        b.button.states_([[val.asString]]);
         b.button.refresh;
         b.button.focus(0);
     };

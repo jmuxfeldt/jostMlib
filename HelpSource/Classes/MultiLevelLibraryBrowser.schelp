@@ -50,14 +50,13 @@ further arguments separated by commas.
 example:  \idePrefs,\Documentation
 
 
-METHOD:: fontSize
 
 
 METHOD:: dirPrefix
-an ascii prefix to dir names, default ""
+an ascii prefix to dir names
 
 METHOD:: dirSuffix
-an ascii suffix to dir names, default " -> ".
+an ascii suffix to dir names
 
 METHOD:: currentPath
 
@@ -70,6 +69,7 @@ METHOD:: listViews
 
 
 PRIVATE:: prGetItems
+PRIVATE:: prMakeDeleteFunction
 
 PRIVATE:: prClearBelow
 
@@ -78,7 +78,6 @@ PRIVATE:: startPath
 
 PRIVATE:: prCurrentPath
 
-METHOD:: action
 METHOD:: selectedIndices
 METHOD:: colWidth
 
@@ -88,8 +87,6 @@ PRIVATE:: prAddLevel
 PRIVATE:: prItemBuildAction
 
 PRIVATE:: dict
-
-METHOD:: reload
 
 PRIVATE:: prCleanKey
 

@@ -98,12 +98,13 @@ EXAMPLES::
 code::
 (
 w = Window.new("ActionMenu Examples").front;
+// action arguments are |val,modifier,buttonNum|
 w.flow{arg w;
     var b;
     ActionMenu(w,Rect(0,0,80,25),"Vocalize",[
-        \sing ->{"sing".postln},
-        \shout ->{"shout".postln},
-        \grunt ->{"grunt".postln},
+        \sing ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
+        \shout ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
+        \grunt ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
     ]);
 
     // prevent closing, use a separator

@@ -44,6 +44,8 @@ Default: ["rtf","rtfd","sc","scd","html","HTML","schelp"]
 METHOD:: defaultOpenAction
 a default function you can set for all  items.
 
+{|path,modifier,buttonNum| doSomething()}
+
 METHOD:: defaultPrefix
 a directory prefix default for all instances
 
@@ -58,6 +60,9 @@ Default: ["rtf","rtfd","sc","scd","html","HTML","schelp"]
 
 METHOD:: openAction
 a function run on the selected path. Typically open a file.
+
+{|path,modifier,buttonNum| doSomething()}
+
 You can set it on the instance, or you can set a default with  PathActionMenu.defaultOpenAction
 
 METHOD:: dirPrefix
@@ -85,7 +90,7 @@ code::
 // Strings are interpreted as file or directory paths.
 // File paths directly run the openAction.
 // Directories navigate to the next level with a new window and an up (../) option.
-
+// argumentsfor  openAction and defaultOpenAction are  path,modifier,buttonNum .
 
 w = Window.new("PathActionMenu Examples").front;
 w.flow{arg w;
@@ -97,9 +102,8 @@ w.flow{arg w;
         "~/Shared",
         Platform.userAppSupportDir,
         Platform.userAppSupportDir++"/startup.scd"
-
     ]);
-    m.openAction= {|path|
+    m.openAction= {|path,modifier,buttonNum|
         Document.open(path);
         // Or use your custom editor
         // ("open -a  Sublime\\ Text "++path.escapeChar($ )).unixCmd;

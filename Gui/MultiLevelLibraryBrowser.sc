@@ -5,11 +5,11 @@ MultiLevelLibraryBrowser{
     <listViews,<>colWidth=200,
     <dict, startPath, action, <>dirPrefix,<>dirSuffix;
 
-    *new{|title ="Library Browser", action, source, startPath|
-        ^super.new.init(title, action, source, startPath )
+    *new{|title ="Library Browser", action, source  ...startPath|
+        ^super.new.init(title, action, source,  *startPath)
     }
 
-    init{|title , a, d, sp|
+    init{|title , a, d ... startPath|
         var w;
         action = a;
         listViews=[];
@@ -20,11 +20,10 @@ MultiLevelLibraryBrowser{
         dirPrefix=dirPrefix?defaultPrefix;
         dirSuffix=dirSuffix?defaultSuffix;
 
-        d.notNil.if{this.load(d)};
+        d.notNil.if{this.load(d,*startPath)};
     }
 
-    load{|source ... args|
-        startPath= args;
+    load{|source ... startPath|
         startPath.notNil.if{
             this.prAddLevel(0,source.at(*startPath));
         }{

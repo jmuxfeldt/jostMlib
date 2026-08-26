@@ -24,7 +24,13 @@ code::
 ::
 
 ARGUMENT:: source
-A Dictionary, Library, or Archive
+A MultiLevelIdentityDictionary, Library, or Archive
+
+ARGUMENT:: ... startPath
+
+further comma-separated path items.
+
+example:  \idePrefs,\Documentation
 
 returns:: a MultiLevelLibraryBrowser
 
@@ -43,13 +49,12 @@ PRIVATE::init
 
 METHOD:: load
 ARGUMENT:: source
-An  Archive, Library,  or MultiLevelIdentityDictionary,
-ARGUMENT:: startpath
-further arguments separated by commas.
+A MultiLevelIdentityDictionary, Library, or Archive
+
+ARGUMENT:: ... startPath
+further comma-separated path items.
 
 example:  \idePrefs,\Documentation
-
-
 
 
 METHOD:: dirPrefix
@@ -111,11 +116,11 @@ MultiLevelLibraryBrowser("Archive",{|b,k,v|
 // This only makes sense, if you have a means of saving the lib or the Archive.
 
 // or load a subpath
-// (Just an example, that path must actually exist)
+// (Just an example, that path must actually exist, and the last item must be a dictionary, not a value)
 MultiLevelLibraryBrowser("Archive",{|b,k,v|
     "--".postln;
     k.join(" -> ").post;": ".post;v.postln;
     b.selectedIndices.postln;}
-).load(Archive.global, \idePrefs,\Documentation)
+).load(Archive.global, \idePrefs)
 
 ::

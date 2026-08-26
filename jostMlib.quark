@@ -3,8 +3,7 @@
 	\path: 		"jostMlib",
 	\summary:	"A Collection of useful Classes from my IDE",
 	\author: 		"Jost Muxfeldt",
-	\version:		"1.0.0",
-	\url:           "http://www.glyph.de",
-	\schelp:        "jostMlib"
+	\version:		"1.0.1",
+	\url:           "https://github.com/jmuxfeldt/jostMlib",
 
 )

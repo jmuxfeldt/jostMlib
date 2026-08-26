@@ -3,10 +3,10 @@ MultiLevelLibraryBrowser{
 
     var currentItem=0, <view,<attributes,<>autowidth=true,hspacing=1, <>itemBuildFunction, <currentPath, <selectedIndices,
     <listViews,<>colWidth=200,
-    <dict, startPath, action, <>dirPrefix,dirSuffix;
+    <dict, startPath, action, <>dirPrefix,<>dirSuffix;
 
-    *new{|title ="Library Browser", action, dict, startPath|
-        ^super.new.init(title, action, dict, startPath )
+    *new{|title ="Library Browser", action, source, startPath|
+        ^super.new.init(title, action, source, startPath )
     }
 
     init{|title , a, d, sp|
@@ -23,15 +23,14 @@ MultiLevelLibraryBrowser{
         d.notNil.if{this.load(d)};
     }
 
-    load{|dictionary ... args|
+    load{|source ... args|
         startPath= args;
-        dict=dictionary;
         startPath.notNil.if{
-            this.prAddLevel(0,dict.at(*startPath));
+            this.prAddLevel(0,source.at(*startPath));
         }{
-            this.prAddLevel(0,dict.dictionary);
+            this.prAddLevel(0,source.dictionary);
         };
-        {	this.prItemBuildAction(listViews[0], dict)}.defer(0.1);
+        {	this.prItemBuildAction(listViews[0], source)}.defer(0.1);
     }
 
     prAddLevel{|i,currentItem|

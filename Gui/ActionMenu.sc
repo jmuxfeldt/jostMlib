@@ -1,8 +1,8 @@
 ActionMenu{
     classvar padding = 36,<>buttonClass;
-    var <>items, listview, modifier, <button, <>defaultAction,<>unfocusClose = true,<>globalAction, winPosition, <value = "default",
+    var <>items, listview, modifier,buttonNum, <button, <>defaultAction,<>unfocusClose = true,<>globalAction, winPosition, <value = "default",
     <>closeOnSelect=true, <>fontSize=15,<toolTip,
-    allowedFiles,name,level=0, action, window;
+    name,level=0, action, window;
 
     *new{|parent, bounds, name = "default",items,showArrow=true|
         ^super.new.init(parent, bounds, name,items,showArrow);
@@ -22,9 +22,6 @@ ActionMenu{
             this.prAddItem(item);
         };
     }
-/*    asView{
-        ^button.asView;
-    }*/
 
     makeButton{|parent, bounds, name,showArrow|
         var btnClass="Button";
@@ -54,22 +51,19 @@ ActionMenu{
     }
 
     pr_makeAction{
-        action={arg l;
-            l.value.isKindOf(Function).if{
-                l.value.value(this,modifier); // do function at key
+        action={arg item;
+            item.isKindOf(Association).if{
+                item.value.value(item.key,modifier,buttonNum); // do function at key
             };
-            l.value.isKindOf(Association).if{
-                l.value.value(this,modifier); // do function at key
-            };
-            (l.value.isKindOf(String) || l.value.isKindOf(Symbol)).if{
-                (l.value!="-").if{// do defaultFunction at key with arg l.value
+            (item.value.isKindOf(String) || item.value.isKindOf(Symbol)).if{
+                (item.value!="-").if{// do defaultFunction at key with arg l.value
                     defaultAction.notNil.if{
-                        defaultAction.value(l.value);
+                        defaultAction.value(item.value,modifier,buttonNum);
                     };
 
                 }
             };
-            globalAction.value(l.value);
+            globalAction.value(item.value,modifier,buttonNum);
 
         };
     }
@@ -105,7 +99,7 @@ ActionMenu{
         listview.action= {arg l; action.value(items[l.value])};
         closeOnSelect.if{listview.mouseUpAction_({window.close})};
 
-        listview.mouseDownAction={arg v,x,y,mod; modifier = mod};
+        listview.mouseDownAction={arg v,x,y,mod,btn; modifier = mod;buttonNum=btn;};
         listview.font_(Font.default.size_(fontSize));
         unfocusClose.if{
             {0.01.wait;window.endFrontAction_({window.close})}.fork(AppClock);
@@ -190,12 +184,12 @@ PathActionMenu : ActionMenu{
 
     init{|parent, bounds, nm,newitems, showArrow|
         super.init(parent, bounds, nm, showArrow: showArrow);
-        openAction=defaultOpenAction?{|path| path.postln};
+        openAction=defaultOpenAction?{|path,modifier,buttonNum| [path,modifier,buttonNum].postln};
         returnpaths=[];
         items=[];
         dirPrefix = dirPrefix?defaultPrefix;
         dirSuffix = dirSuffix?defaultSuffix;
-        action={|val| val.value.value};
+        action={|path,modifier,buttonNum| path.value.value};
         allowedFiles = allowedFiles?defaultAllowedFiles;
         allowedFiles = allowedFiles?["rtf","rtfd","sc","scd","html","HTML","schelp"];
         this.prAddSpacer;
@@ -263,7 +257,7 @@ PathActionMenu : ActionMenu{
                 level=0;
                 winPosition=nil;
                 items=toplevelarray.copy;
-                openAction.value(path);
+                openAction.value(path,modifier,buttonNum);
 
             }
             ^ key.asSymbol->action;

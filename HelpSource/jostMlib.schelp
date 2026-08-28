@@ -1,7 +1,7 @@
 TITLE:: jostMlib
 CATEGORIES:: GUI>Views, Libraries>jostMlib
 summary:: A collection of useful classes
-related:: Classes/PathActionMenu, Classes/ActionMenu, Classes/LibraryBrowser
+related:: Classes/PathActionMenu, Classes/ActionMenu, Classes/MultiLevelLibraryBrowser
 
 DESCRIPTION::
 Several Helpful Gui Classes from my personal IDE Lib.

@@ -10,6 +10,7 @@ SECTION:: Classes
 
 LIST::
 
+
 ## link::Classes/ActionMenu:: - a menu for running quick actions
 
 ## link::Classes/PathActionMenu::  - a multilevel menu for actions and file paths

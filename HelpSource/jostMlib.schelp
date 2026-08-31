@@ -1,7 +1,7 @@
 TITLE:: jostMlib
-CATEGORIES:: GUI>Views, Libraries>jostMlib
+CATEGORIES:: Libraries>jostMlib
 summary:: A collection of useful classes
-related:: Classes/PathActionMenu, Classes/ActionMenu, Classes/MultiLevelLibraryBrowser
+related:: Classes/PathActionMenu, Classes/ActionMenu, Classes/MultiLevelLibraryBrowser, Classes/Debouncer:Classes/DebounceCounter:
 
 DESCRIPTION::
 Several Helpful Gui Classes from my personal IDE Lib.
@@ -16,6 +16,11 @@ LIST::
 ## link::Classes/PathActionMenu::  - a multilevel menu for actions and file paths
 
 ## link::Classes/MultiLevelLibraryBrowser:: - a multilevel browser for Libraries
+
+## link::Classes/Debouncer: - a debouncer
+
+## link::Classes/DebounceCounter:: - a debounce counter -- good for detecting double clicks
+
 
 ::
 

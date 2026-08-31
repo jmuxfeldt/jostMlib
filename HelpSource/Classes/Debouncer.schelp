@@ -1,0 +1,80 @@
+TITLE:: Debouncer
+summary:: A  function debouncer
+categories:: Utilities
+related:: jostMlib
+
+
+
+DESCRIPTION::
+A debouncer counter for functions. Has an option to fire immediately.
+
+
+
+CLASSMETHODS::
+
+METHOD:: new
+
+
+ARGUMENT:: func
+any function to be debounced
+
+ARGUMENT:: wait
+the debounce wait time
+
+ARGUMENT:: immediate
+whether to fire the first item immediately.
+
+returns:: a Debouncer
+
+
+INSTANCEMETHODS::
+
+PRIVATE: init
+(describe method here)
+
+METHOD:: trigger
+triggers the function, only once within the wait period
+
+ARGUMENT::  ... args
+any arguments that need to be  passed to the function.
+
+
+METHOD:: reset
+reset the debouncer, setting the counts to 0
+
+
+
+EXAMPLES::
+
+code::
+
+// Test Debouncer
+(
+var db = Debouncer({ "Debouncer fired".postln; }, 0.5);
+db.trigger;
+db.trigger;
+db.trigger;
+// should fire once after 0.5s
+)
+
+(
+var db = Debouncer({ "Debouncer immediate fired".postln; }, 0.5, immediate: true);
+
+Routine({
+    db.trigger;
+    0.1.wait;
+    db.trigger;
+    0.1.wait;
+    db.trigger;
+    // should fire only once
+}).play;
+)
+
+(
+var db = Debouncer({ "Debouncer reset - should not fire".postln; }, 0.5);
+
+db.trigger;
+db.reset;
+// should not fire
+)
+::

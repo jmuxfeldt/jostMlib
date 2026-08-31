@@ -6,6 +6,12 @@ The menus work nearly identically to html popup menus.
 
 Visually best in combination with the [wslib](https://github.com/supercollider-quarks/wslib) quark. 
 
+### Debouncer
+a debouncer for functions
+
+### DebounceCounter
+A debounce counter -- good for double-click detection.
+
 ### ActionMenu
 Closes on click outside or on escape.
 

@@ -1,0 +1,88 @@
+TITLE:: DebounceCounter
+summary:: A  function debounce counter. good for double click detection
+categories:: Utilities
+related:: jostMlib
+
+
+DESCRIPTION::
+A debounce counter for functions. Has an option to fire immediately.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+defaults are set for double-click detection
+
+returns:: a DebounceCounter
+
+
+INSTANCEMETHODS::
+
+
+METHOD:: reset
+resets the counter to 0
+
+
+METHOD:: trigger
+triggers the function after counter attempts within the wait period
+
+PRIVATE:: prInitCount
+
+
+
+EXAMPLES::
+
+code::
+// Test DebounceCounter
+(
+var dbc = DebounceCounter({ "DebounceCounter fired".postln; });
+Routine({
+    dbc.trigger;
+    // should not fire
+    0.4.wait;
+    dbc.trigger;
+    // should fire on second trigger
+}).play;
+)
+
+(
+var dbc = DebounceCounter({ "DebounceCounter different args - should not fire".postln; });
+dbc.trigger("a");
+dbc.trigger("b");
+// should not fire since args differ...
+// NOTE: this only works if you add an equality check in the class
+)
+
+(
+var dbc = DebounceCounter({ "DebounceCounter reset - should not fire".postln; });
+dbc.trigger;
+dbc.reset;
+dbc.trigger;
+// should not fire, count resets
+)
+
+(
+var dbc = DebounceCounter({ |txt| ("DebounceCounter arg passed:" + txt).postln; });
+Routine({
+    dbc.trigger("hello");
+    0.4.wait;
+    dbc.trigger("hello");
+}).play;
+// should print "hello"
+)
+
+// A double click detector might look like this:
+v=TreeView.new;
+// ... add items
+
+var dbc = DebounceCounter({ |item|
+    item.postln;
+});
+
+v.mouseDownAction_({ |tr|
+    dbc.trigger(tr.currentItem.strings[1]);
+});
+
+// will only trigger dbc on double click.
+
+::

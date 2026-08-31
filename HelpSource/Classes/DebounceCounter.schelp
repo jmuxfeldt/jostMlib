@@ -79,7 +79,7 @@ var dbc = DebounceCounter({ |item|
     item.postln;
 });
 
-v.mouseDownAction_({ |tr|
+v.mouseUpAction_({ |tr| // do NOT use mouseDownAction here.  It won't  know which item was selected in time.
     dbc.trigger(tr.currentItem.strings[1]);
 });
 

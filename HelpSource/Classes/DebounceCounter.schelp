@@ -6,9 +6,10 @@ related:: jostMlib
 
 DESCRIPTION::
 A debounce counter for functions. Has an option to fire immediately.
-The mouseDownAction  of View conains a clickCount, but it is currently useless, because
+The mouseDownAction  of View contains a clickCount, but it is currently useless, because
 its interval between clicks is much too long. Unless you wait several seconds, you always get a double click.
-You can use DebounceCounter to only execute the funcition every nth time within a certain period.
+
+You can use DebounceCounter to only execute the function every nth time within a certain period.
 This means you can use mouseUpAction too, which has no clickCount, and is much better for use in lists or TreeViews.
 See the example below.  You can use it for other things too, of course, like for games.
 

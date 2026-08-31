@@ -37,7 +37,7 @@ Debouncer {
 DebounceCounter : Debouncer {
     var count, hits, storedArgs;
 
-    *new { |func, wait=0.4, count=2, immediate=true|
+    *new { |func, wait=0.5, count=2, immediate=true|
         ^super.new(func, wait, immediate).prInitCount(count)
     }
 

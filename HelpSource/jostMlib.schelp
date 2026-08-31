@@ -17,7 +17,7 @@ LIST::
 
 ## link::Classes/MultiLevelLibraryBrowser:: - a multilevel browser for Libraries
 
-## link::Classes/Debouncer: - a debouncer
+## link::Classes/Debouncer:: - a debouncer
 
 ## link::Classes/DebounceCounter:: - a debounce counter -- good for detecting double clicks
 

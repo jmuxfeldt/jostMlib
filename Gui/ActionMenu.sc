@@ -1,6 +1,6 @@
 ActionMenu{
     classvar padding = 36,<>buttonClass;
-    var <>items, listview, modifier,buttonNum, <button, <>defaultAction,<>unfocusClose = true,<>globalAction, winPosition, <value = "default",
+    var <>items, listview, modifier,buttonNum, <button,>arrowColor, <>defaultAction,<>unfocusClose = true,<>globalAction, winPosition, <value = "default",
     <>closeOnSelect=true, <>fontSize=15,<toolTip,
     name,level=0, action, window;
 
@@ -13,6 +13,7 @@ ActionMenu{
         items=[];
         name=nm;
         this.prAddSpacer;
+        arrowColor = Color.grey(0.5);
         this.makeButton(parent, bounds, name, showArrow);
         // the action performed by the list
         this.pr_makeAction;
@@ -32,19 +33,19 @@ ActionMenu{
         showArrow.booleanValue.and(btnClass=="Button" ).if{ name = name++" ⌄"};
 
         button = btnClass.interpret.new(parent, bounds)
-        .states_([[name,Color.black,Color.white.alpha_(0.3)]]);
-        (button.class.name == 'RoundButton').or(button.class.name == 'SmoothButton').if{
-            button.radius_(0)
-            .background_(Color.clear).extrude_(true);
+        .states_([[name]]);
+        (button.class.name == 'RoundButton').if{
+            button.radius_(0).extrude_(true);
             showArrow.booleanValue.if{
                 button.drawFunc_{
-                    Pen.color=Color.grey(0.5);
+                    Pen.color= arrowColor;
                     Pen.drawIcon(\down,Rect(bounds.width-14,0,10,bounds.height))
                 };
             };
         };
         button.action=this.prButtonAction;
     }
+
     toolTip_{arg str;
         button.toolTip_(str);
         button.refresh;
@@ -52,20 +53,22 @@ ActionMenu{
 
     pr_makeAction{
         action={arg item;
+            value=item;
             item.isKindOf(Association).if{
                 item.value.value(item.key,modifier,buttonNum); // do function at key
+
             };
             (item.value.isKindOf(String) || item.value.isKindOf(Symbol)).if{
                 (item.value!="-").if{// do defaultFunction at key with arg l.value
                     defaultAction.notNil.if{
                         defaultAction.value(item.value,modifier,buttonNum);
                     };
-
                 }
             };
             globalAction.value(item.value,modifier,buttonNum);
 
         };
+
     }
 
     prButtonAction{

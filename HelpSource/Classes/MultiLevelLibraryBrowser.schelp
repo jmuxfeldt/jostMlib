@@ -8,6 +8,7 @@ A  window with a multiLevel browser for libraries
 
 If the wslib  Quark is installed, you can delete an item with warning using the delete key.
 
+For deletion, the source must be a top level MultiLevelIdentityDictionary or its subclass.
 
 CLASSMETHODS::
 
@@ -106,6 +107,7 @@ PRIVATE:: itemBuildFunction
 EXAMPLES::
 
 code::
+
 MultiLevelLibraryBrowser("Archive",{|b,k,v|
     "--".postln;
     k.join(" -> ").post;": ".post;v.postln;
@@ -117,6 +119,7 @@ MultiLevelLibraryBrowser("Archive",{|b,k,v|
 
 // or load a subpath
 // (Just an example, that path must actually exist, and the last item must be a dictionary, not a value)
+// Deletion will not work if loading a sub-path.
 MultiLevelLibraryBrowser("Archive",{|b,k,v|
     "--".postln;
     k.join(" -> ").post;": ".post;v.postln;

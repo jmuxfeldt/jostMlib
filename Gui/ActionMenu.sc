@@ -26,13 +26,13 @@ ActionMenu{
 
     makeButton{|parent, bounds, name,showArrow|
         var btnClass="Button";
-        Class.findAllReferences('RoundButton').notNil.if{
+        'RoundButton'.asClass.notNil.if{
             btnClass = "RoundButton";
         };
         btnClass = buttonClass ? btnClass;
         showArrow.booleanValue.and(btnClass=="Button" ).if{ name = name++" ⌄"};
 
-        button = btnClass.interpret.new(parent, bounds)
+        button = btnClass.asSymbol.asClass.new(parent, bounds)
         .states_([[name]]);
         (button.class.name == 'RoundButton').if{
             button.radius_(0).extrude_(true);

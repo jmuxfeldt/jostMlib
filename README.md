@@ -27,7 +27,13 @@ Closes on click outside or on escape.
 ### MultiLevelLibraryBrowser
 ![LibraryBrowser](./LibraryBrowser.jpg)
 
-  
+### CollapseView
+
+A collapsing view for managing screen realestate.
+
+![CollapseView](./CollapseView.jpg)
+
+
 
 
 

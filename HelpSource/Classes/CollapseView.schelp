@@ -1,0 +1,169 @@
+TITLE:: CollapseView
+summary:: A FlowView  that can be collapsed with an arrow button.
+categories:: GUI>Views, Libraries>jostMlib
+related:: jostMlib,  Classes/CollapseButton
+
+DESCRIPTION::
+A collapsible view for helping to manange your screen realestate.
+
+NOTE::
+If you option-click on a CollapseButton,all items _below_ and including the clicked item will collapse or expand.
+You can change the modifier-kay with CollapseButton.clickModifier_(myModifier);
+
+Hittin
+::
+
+
+CLASSMETHODS::
+
+PRIVATE: viewClass
+
+METHOD:: new
+
+ARGUMENT:: parent
+
+ARGUMENT:: bounds
+
+ARGUMENT:: buttonBounds
+default 16@16
+
+an optional  Rect or Point for the size of the CollapseButton
+
+returns:: a CollapseView
+
+
+INSTANCEMETHODS::
+
+METHOD:: flow
+works like a FlowView.flow. See examples below.
+
+
+METHOD:: button
+gets the CollapseButton
+
+returns:: a  CollapseButton
+
+NOTE::  The button variable is not populated until you have called .flow
+::
+
+METHOD:: offset
+default 2. How many items to keep visible on view collapse. If you put your first row  of items in its own sub-FlowView, then they will remian visible with the default.
+
+Hit return or enter on an active collapse, view, and it will toggle.
+
+
+METHOD:: view
+returns::  the FlowView containing the CollapseButton and all of your other items.
+
+
+PRIVATE:: init
+
+
+
+EXAMPLES::
+
+code::
+
+(
+q=CollapseView(nil,Window.flipY(Rect(300,300,300,300))).offset_(4).flow({|w| // prevent hiding the first 4 items.
+				Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
+				Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
+				Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);
+				w.startRow;
+				7.do{|i|
+					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
+				};
+});
+q.parent.name_("test");
+q.button.valueAction_(0);
+)
+
+// TIP: Save the button states in your Archive !
+
+(
+FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
+	w.flow{arg w;
+		3.do{arg i;var cv;
+			cv =CollapseView(w,Rect(0,0,300,300)).offset_(4).flow{|w| // prevent hiding the first 4 items.
+				Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
+				Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
+				Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);
+				w.startRow;
+				7.do{|i|
+					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
+				};
+			};
+			cv.button.valueAction_(i-1); // converts to boolean.  collapse the first two.
+			// You must call button AFTER running .flow
+		};
+	}
+}
+)
+
+// put the top row in a container to use the default offset (2).
+(
+FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
+	w.flow{arg w;
+		3.do{arg i;var cv;
+			cv =CollapseView(w,Rect(0,0,300,300)).flow{|w|
+				w.flow{|w| // put the top row in a container to use the default offset.
+					Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
+					Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
+					Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);
+				};
+				w.startRow;
+				7.do{|i|
+					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
+				};
+			};
+			cv.button.valueAction_(0); // converts to boolean.  collapse the first tow.
+		};
+	}
+}
+)
+
+// Multiple Columns
+
+(
+FlowView(bounds:Window.flipY(Rect(300,200,650,600))).flow{|w|
+
+	FlowView(w,Rect(0,0,300,w.bounds.height)).flow{arg w;
+			w.bounds=w.bounds.width_(300);
+		3.do{arg i;var cv;
+			cv =CollapseView(w,Rect(0,0,300,300)).flow{|w|
+				w.flow{|w| // put the top row in a container to use the default offset.
+					Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
+					Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
+					Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);
+				};
+				w.startRow;
+				7.do{|i|
+					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
+				};
+			};
+			cv.button.valueAction_(0); // converts to boolean.  collapse the first tow.
+		};
+	};
+	FlowView(w,Rect(0,0,300,w.bounds.height)).flow{arg w;
+			w.bounds=w.bounds.width_(300);
+		3.do{arg i;var cv;
+			cv =CollapseView(w,Rect(0,0,300,300)).flow{|w|
+				w.flow{|w| // put the top row in a container to use the default offset.
+					Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
+					Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
+					Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);
+				};
+				w.startRow;
+				7.do{|i|
+					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
+				};
+			};
+			cv.button.valueAction_(0); // converts to boolean.  collapse the first tow.
+		};
+	}
+
+}
+)
+
+::
+

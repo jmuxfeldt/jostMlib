@@ -1,0 +1,35 @@
+TITLE:: CollapseButton
+summary:: A button for the CollapseView
+categories:: GUI>Views, Libraries>jostMlib
+related:: jostMlib,  Classes/CollapseView
+
+
+NOTE::
+Not meant for direct instantiation, unless you know what you are doing.
+Use CollapseView.
+::
+
+CLASSMETHODS::
+METHOD:: clickModifier
+default 524288 ("option" key  on macos)
+
+PRIVATE:: viewClass
+PRIVATE:: new
+
+INSTANCEMETHODS::
+
+PRIVATE:: value
+PRIVATE:: parent
+PRIVATE:: storeBounds
+PRIVATE:: minHeight
+PRIVATE:: offset
+
+PRIVATE:: button
+
+PRIVATE:: drawFunction
+PRIVATE:: collapseFunction
+
+PRIVATE:: valueAction
+PRIVATE:: color
+PRIVATE:: init
+

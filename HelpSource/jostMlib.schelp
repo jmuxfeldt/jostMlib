@@ -21,6 +21,7 @@ LIST::
 
 ## link::Classes/DebounceCounter:: - a debounce counter -- good for detecting double clicks
 
+## link::Classes/CollapseView: - A FlowView  that can be collapsed with an arrow button.
 
 ::
 

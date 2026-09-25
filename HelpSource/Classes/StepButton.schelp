@@ -42,6 +42,8 @@ PRIVATE:: mouseDown
 
 PRIVATE:: init
 
+METHOD:: target
+the targeted input view. The target View (must accept value and valueAction);
 
 METHOD:: step
 default 1
@@ -90,6 +92,13 @@ w=FlowView.new.flow{|w|
 	c=EZSlider(w,300@27,"demo", [0,10,'linear',0.1]).value_(0);
 	// gets the ControlSpec step automatically, if it is present ( and not zero)
 	StepButton(w,27@20,target:c,horz:true);
+	w.startRow;
+	q=StepButton(w,20@27);
+	b=NumberBox(w,40@27).value_(1);
+	q.target=b;
+
+
+
 }
 )
 

@@ -1,6 +1,6 @@
 StepButton :  SCViewHolder {
 	classvar >defaultIncrColor,parent,bounds, >defaultDecrColor;
-	var  drawRect, drawFunc,target,horz,  incrColor, decrColor,color1,
+	var  drawRect, drawFunc,>target,horz,  incrColor, decrColor,color1,
 	color2,>modifier=524288, >step=1,>bigStep=5,>gap=0.5, >customAction,inset;
 
 	*initClass{

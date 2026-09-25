@@ -21,9 +21,9 @@ LIST::
 
 ## link::Classes/DebounceCounter:: - a debounce counter -- good for detecting double clicks
 
-## link::Classes/CollapseView: - A FlowView  that can be collapsed with an arrow button.
+## link::Classes/CollapseView:: - A FlowView  that can be collapsed with an arrow button.
 
-## link::Classes/StepButton - A value step button that can easily be attached to input widgets.
+## link::Classes/StepButton:: - A value step button that can easily be attached to input widgets.
 
 
 ::

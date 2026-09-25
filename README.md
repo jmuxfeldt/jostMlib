@@ -39,7 +39,7 @@ A collapsing view for managing screen realestate.
 
  ### StepButton
 
-A SteppButton that can easily be attached to input widgets.
+A StepButton that can easily be attached to input widgets.
 
 ![StepButton](./StepButton.jpg)
 

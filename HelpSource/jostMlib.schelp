@@ -23,6 +23,9 @@ LIST::
 
 ## link::Classes/CollapseView: - A FlowView  that can be collapsed with an arrow button.
 
+## link::Classes/StepButton - A value step button that can easily be attached to input widgets.
+
+
 ::
 
 

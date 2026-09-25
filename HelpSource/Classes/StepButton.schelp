@@ -83,12 +83,12 @@ code::
 (
 w=FlowView.new.flow{|w|
 	b=NumberBox(w,40@27).value_(1);
-	StepButton(w,27@27,b);
+	StepButton(w,20@27,target:b);
 	w.startRow;
 
 	c=EZSlider(w,300@27,"demo", [0,10,'linear',0.1]).value_(0);
 	// use the controlSpec of a EZSlider to get the correct step;
-	StepButton(w,27@27,c,horz:true).step_(c.controlSpec.step).bigStep_(c.controlSpec.step*10);
+	StepButton(w,27@20,target:c,horz:true).step_(c.controlSpec.step).bigStep_(c.controlSpec.step*10);
 
 }
 )

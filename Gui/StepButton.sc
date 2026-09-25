@@ -80,7 +80,7 @@ StepButton :  SCViewHolder {
 		(modifier==modifiers).if{newVal=bigStep}{newVal=step};
 
 		horz.if{
-			(x>(bounds.width*0.5)).if{
+			(x>(view.bounds.width*0.5)).if{
 				color1=incrColor.copy.alpha_(0.2);
 				this.prDoAction(newVal);
 
@@ -91,7 +91,7 @@ StepButton :  SCViewHolder {
 
 			}
 		}{
-			(y<(bounds.height*0.5)).if{
+			(y<(view.bounds.height*0.5)).if{
 				this.prDoAction(newVal);
 				color1=incrColor.copy.alpha_(0.2);
 			}{
@@ -106,14 +106,14 @@ StepButton :  SCViewHolder {
 	mouseUp{ arg x, y, modifiers, buttonNumber, clickCount;
 		var newVal;
 		horz.if{
-			(x>(bounds.width*0.5)).if{
+			(x>(view.bounds.width*0.5)).if{
 				color1=incrColor;
 
 			}{
 				color2=decrColor;
 			}
 		}{
-			(y<(bounds.height*0.5)).if{
+			(y<(view.bounds.height*0.5)).if{
 				color1=incrColor;
 			}{
 				color2=decrColor;

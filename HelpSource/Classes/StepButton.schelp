@@ -1,0 +1,98 @@
+TITLE:: StepButton
+summary:: Increment/decrement arrows for stepping.
+categories:: GUI>Views, Libraries>jostMlib
+related:: jostMLib, Classes/View
+
+DESCRIPTION::
+Increment/decrement arrows for stepping values. Simply attach it to any View which has value and valueAction using "target",
+or use a custom Action for the stepper. A customizeable meta key increases the step.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+
+ARGUMENT:: parent
+
+ARGUMENT:: bounds
+
+ARGUMENT:: target
+The target View (must accept value and valueAction);
+
+
+ARGUMENT:: incrColor
+
+ARGUMENT:: decrColor
+
+ARGUMENT:: horz
+true for horizontal arrows
+
+
+METHOD:: defaultIncrColor
+METHOD:: defaultDecrColor
+
+PRIVATE:: initClass
+
+
+
+INSTANCEMETHODS::
+
+PRIVATE:: mouseDown
+
+PRIVATE:: init
+
+
+METHOD:: step
+default 1
+METHOD:: bigStep
+default 5
+
+
+METHOD:: gap
+default 0.5. The gap between the arrows.
+
+
+METHOD:: customAction
+a custom action instead of calling valueAction on the target.
+code::
+{|step| step.postln}
+::
+
+
+PRIVATE:: prDoAction
+(describe method here)
+
+
+
+PRIVATE:: drawRect
+(describe method here)
+
+PRIVATE:: drawWidget
+
+
+
+METHOD:: modifier
+default 524288. Set the modifier for the bigStep
+
+
+PRIVATE:: mouseUp
+
+
+
+EXAMPLES::
+
+code::
+(
+w=FlowView.new.flow{|w|
+	b=NumberBox(w,40@27).value_(1);
+	StepButton(w,27@27,b);
+	w.startRow;
+
+	c=EZSlider(w,300@27,"demo", [0,10,'linear',0.1]).value_(0);
+	// use the controlSpec of a EZSlider to get the correct step;
+	StepButton(w,27@27,c,horz:true).step_(c.controlSpec.step).bigStep_(c.controlSpec.step*10);
+
+}
+)
+
+::

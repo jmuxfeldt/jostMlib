@@ -60,12 +60,10 @@ code::
 
 
 PRIVATE:: prDoAction
-(describe method here)
 
 
 
 PRIVATE:: drawRect
-(describe method here)
 
 PRIVATE:: drawWidget
 

@@ -59,14 +59,14 @@ StepButton :  SCViewHolder {
 
 			Pen.fillColor_(color1);
 			Pen.moveTo(centerh@drawRect.top);
-			Pen.lineTo( drawRect.right@(centerh-gap));
-			Pen.lineTo( drawRect.left@(centerh-gap));
+			Pen.lineTo( drawRect.right@(centerv-gap));
+			Pen.lineTo( drawRect.left@(centerv-gap));
 			Pen.lineTo(centerh@drawRect.top);
 			Pen.fill;
 			Pen.fillColor_(color2);
 			Pen.moveTo(centerh@drawRect.bottom);
-			Pen.lineTo( drawRect.right@(centerh+gap));
-			Pen.lineTo( drawRect.left@(centerh+gap));
+			Pen.lineTo( drawRect.right@(centerv+gap));
+			Pen.lineTo( drawRect.left@(centerv+gap));
 			Pen.lineTo(centerh@drawRect.bottom);
 			Pen.fill;
 

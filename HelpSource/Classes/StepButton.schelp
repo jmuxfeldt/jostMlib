@@ -6,6 +6,7 @@ related:: jostMLib, Classes/View
 DESCRIPTION::
 Increment/decrement arrows for stepping values. Simply attach it to any View which has value and valueAction using "target",
 or use a custom Action for the stepper. A customizeable meta key increases the step.
+Gets the ControlSpec step automatically, if it is present ( and not zero).
 
 
 CLASSMETHODS::
@@ -87,9 +88,8 @@ w=FlowView.new.flow{|w|
 	w.startRow;
 
 	c=EZSlider(w,300@27,"demo", [0,10,'linear',0.1]).value_(0);
-	// use the controlSpec of a EZSlider to get the correct step;
-	StepButton(w,27@20,target:c,horz:true).step_(c.controlSpec.step).bigStep_(c.controlSpec.step*10);
-
+	// gets the ControlSpec step automatically, if it is present ( and not zero)
+	StepButton(w,27@20,target:c,horz:true);
 }
 )
 

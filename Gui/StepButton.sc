@@ -23,6 +23,12 @@ StepButton :  SCViewHolder {
 		decrColor=argDecrColor?defaultDecrColor;
 		color1=incrColor;
 		color2=decrColor;
+		target.respondsTo(\controlSpec).if{
+			(target.controlSpec.step!=0).if{
+				step=target.controlSpec.step;
+				bigStep=target.controlSpec.step*10;
+			}
+		};
 		parent=argHorz;
 		this.view = UserView(argParent, bounds);
 		view.mouseDownAction={ arg v, x, y, modifiers, buttonNumber, clickCount;

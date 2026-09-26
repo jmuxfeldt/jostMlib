@@ -115,9 +115,12 @@ w=FlowView.new.flow{|w|
 
 	// inset the icon, and no eq
 	c=EZSlider(w,300@27,"demo", [0,10,'linear',0.1]).value_(0);
-	// gets the ControlSpec step automatically, if it is present ( and not zero)
 	StepButton(w,27@27,target:c,horz:true,eq:false, inset: 5@5);
 
+
+	// use a larger gap
+	c=EZSlider(w,300@27,"demo", [0,10,'linear',0.1]).value_(0);
+    StepButton(w,50@27,target:c,horz:true,eq:false).gap_(5);
 
 }
 );

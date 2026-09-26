@@ -35,6 +35,16 @@ ARGUMENT:: inset
 inset the icon by a Point(x,y)
 
 
+METHOD:: newHorz
+convenience method for horz=true
+
+METHOD:: newFill
+convenience method for eq=false
+
+METHOD:: newHorzFill
+convenience method for horz=true, eq=false
+
+
 METHOD:: defaultIncrColor
 METHOD:: defaultDecrColor
 

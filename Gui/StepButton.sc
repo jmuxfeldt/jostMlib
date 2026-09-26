@@ -18,12 +18,12 @@ StepButton :  SCViewHolder {
 		^super.new.init( parent, bounds, target, incrColor,decrColor, horz,eq, inset);
 	}
 
-	*newFill { arg parent, bounds, target, incrColor,decrColor, horz=false, eq=false, inset;
+	*newFillBounds { arg parent, bounds, target, incrColor,decrColor, horz=false, eq=false, inset;
 
 		^super.new.init( parent, bounds, target, incrColor,decrColor, horz,eq, inset);
 	}
 
-	*newHorzFill { arg parent, bounds, target, incrColor,decrColor, horz=true, eq=false, inset;
+	*newHorzFillBounds { arg parent, bounds, target, incrColor,decrColor, horz=true, eq=false, inset;
 
 		^super.new.init( parent, bounds, target, incrColor,decrColor, horz,eq, inset);
 	}

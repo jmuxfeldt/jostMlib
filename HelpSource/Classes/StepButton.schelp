@@ -38,10 +38,10 @@ inset the icon by a Point(x,y)
 METHOD:: newHorz
 convenience method for horz=true
 
-METHOD:: newFill
+METHOD:: newFillBounds
 convenience method for eq=false
 
-METHOD:: newHorzFill
+METHOD:: newHorzFillBounds
 convenience method for horz=true, eq=false
 
 

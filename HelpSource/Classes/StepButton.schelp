@@ -26,7 +26,13 @@ ARGUMENT:: incrColor
 ARGUMENT:: decrColor
 
 ARGUMENT:: horz
-true for horizontal arrows
+default: true  for horizontal arrows
+
+ARGUMENT:: eq
+default: true use equallateral triangles
+
+ARGUMENT:: inset
+inset the icon by a Point(x,y)
 
 
 METHOD:: defaultIncrColor
@@ -86,20 +92,34 @@ code::
 (
 w=FlowView.new.flow{|w|
 	b=NumberBox(w,40@27).value_(1);
-	StepButton(w,20@27,target:b);
+	StepButton(w,27@27,target:b);
 	w.startRow;
 
 	c=EZSlider(w,300@27,"demo", [0,10,'linear',0.1]).value_(0);
 	// gets the ControlSpec step automatically, if it is present ( and not zero)
-	StepButton(w,27@20,target:c,horz:true);
+	StepButton(w,27@27,target:c,horz:true);
 	w.startRow;
-	q=StepButton(w,20@27);
+	q=StepButton(w,27@27);
 	b=NumberBox(w,40@27).value_(1);
 	q.target=b;
+	w.startRow;
+	q=StepButton(w,27@27, inset: 5@5);
+	b=NumberBox(w,40@27).value_(1);
+	q.target=b;
+	w.startRow;
 
+	// fill the rect
+	b=NumberBox(w,40@27).value_(1);
+	StepButton(w,27@27,target:b,eq:false);
+	w.startRow;
+
+	// inset the icon, and no eq
+	c=EZSlider(w,300@27,"demo", [0,10,'linear',0.1]).value_(0);
+	// gets the ControlSpec step automatically, if it is present ( and not zero)
+	StepButton(w,27@27,target:c,horz:true,eq:false, inset: 5@5);
 
 
 }
-)
+);
 
 ::

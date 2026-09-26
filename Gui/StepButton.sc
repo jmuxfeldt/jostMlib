@@ -8,17 +8,18 @@ StepButton :  SCViewHolder {
 		defaultDecrColor=Color.grey.alpha_(0.6);
 	}
 
-	*new { arg parent, bounds, target, incrColor,decrColor, horz=false;
+	*new { arg parent, bounds, target, incrColor,decrColor, horz=false, eq=true, inset;
 
-		^super.new.init( parent, bounds, target, incrColor,decrColor, horz);
+		^super.new.init( parent, bounds, target, incrColor,decrColor, horz,eq, inset);
 	}
 
-	init {| argParent, argBounds, argTarget, argIncrColor,argDecrColor, argHorz|
+	init {| argParent, argBounds, argTarget, argIncrColor,argDecrColor, argHorz, argEq, argInset|
+		var wr,hr,size;
 		parent=argParent;
 		bounds=argBounds.asRect;
 		target=argTarget;
 		horz=argHorz;
-		inset=Point(0,0);
+		inset=argInset?Point(0,0);
 		incrColor=argIncrColor?defaultIncrColor;
 		decrColor=argDecrColor?defaultDecrColor;
 		color1=incrColor;
@@ -37,7 +38,23 @@ StepButton :  SCViewHolder {
 		view.mouseUpAction={ arg v, x, y, modifiers, buttonNumber, clickCount;
 			this.mouseUp(x, y, modifiers, buttonNumber, clickCount)
 		};
-		drawRect = this.view.bounds.moveTo(0,0).insetBy(inset.x,inset.y);
+		size=bounds.insetBy(inset.x,inset.y).width.min(bounds.height);
+		argEq.if{
+			horz.if{
+				wr=(size*0.5)-gap;
+				hr=wr*0.5*(2/3.sqrt);
+			}{
+				hr=(size*0.5)-gap;
+				wr=hr*0.5*(2/3.sqrt);
+
+			};
+
+		}{
+			wr=(bounds.width*0.5)-inset.x;
+			hr=(bounds.height*0.5)-inset.y;
+		};
+		drawRect = Rect.aboutPoint(bounds.center,wr,hr);
+
 
 		view.drawFunc= {arg uview; this.drawWidget(uview)};
 
@@ -45,8 +62,8 @@ StepButton :  SCViewHolder {
 
 	drawWidget{|uview|
 		var centerh,centerv;
-		centerh = drawRect.left+drawRect.width/2;
-		centerv = drawRect.top+drawRect.height/2;
+		centerh = drawRect.center.x;
+		centerv = drawRect.center.y;
 		horz.if{
 			Pen.fillColor_(color1);
 			Pen.moveTo(drawRect.right@centerv);

@@ -29,7 +29,7 @@ ARGUMENT:: horz
 default: true  for horizontal arrows
 
 ARGUMENT:: eq
-default: true use equallateral triangles
+default: true use equilateral triangles
 
 ARGUMENT:: inset
 inset the icon by a Point(x,y)

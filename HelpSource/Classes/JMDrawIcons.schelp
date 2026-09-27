@@ -1,7 +1,7 @@
 TITLE:: JMDrawIcons
 summary:: Extra icons for the wslib Quark
 categories:: GUI>Views, Libraries>jostMlib
-related::  GUI>DrawIcon, Libraries>wslib
+related::  Classes/UserView
 
 DESCRIPTION::
 Adds some nice icons to wslib's DrawIcon collection

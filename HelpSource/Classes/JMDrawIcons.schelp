@@ -26,10 +26,12 @@ code::
 // Use WITH wslib Quark
 (
 JMDrawIcons.listKeys;
-FlowView.new.flow{|w|
-	JMDrawIcons.getFuncs.order.do{|key|
-		RoundButton(w,50@40).states_([[key]]).radius_(0);
-	};
+FlowView.new(nil, Window.flipY(Rect(300,300,350,600))).flow{|w|
+    JMDrawIcons.getFuncs.order.do{|key,i|
+		StaticText(w,Rect(0,0,70,50)).string_("\\"++key.asString);
+        RoundButton(w,50@40).states_([[key]]).radius_(0);
+        (i%2).booleanValue.if{ w.startRow;};
+    };
 }
 )
 
@@ -37,10 +39,12 @@ FlowView.new.flow{|w|
 
 (
 JMDrawIcons.listKeys;
-FlowView.new.flow{|w|
-	JMDrawIcons.getFuncs.keysValuesDo{|key,val|
-		UserView(w,50@50).drawFunc_({val.value(Rect(0,0,50,50))}).background_(Color.grey(0.7));
-	};
+FlowView.new(nil, Window.flipY(Rect(300,300,350,600))).flow{|w|
+    JMDrawIcons.getFuncs.keysValuesDo{|key,val,i|
+    	StaticText(w,Rect(0,0,70,50)).string_("\\"++key.asString);
+        UserView(w,50@50).drawFunc_({val.value(Rect(0,0,50,50))}).background_(Color.grey(0.7));
+       	(i%2).booleanValue.if{ w.startRow;};
+    };
 }
 )
 

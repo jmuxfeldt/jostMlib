@@ -1,0 +1,47 @@
+TITLE:: JMDrawIcons
+summary:: Extra icons for the wslib Quark
+categories:: GUI>Views, Libraries>jostMlib
+related::  GUI>DrawIcon, Libraries>wslib
+
+DESCRIPTION::
+Adds some nice icons to wslib's DrawIcon collection
+Checks if wslib is preset. You can still use the draw functions independently with getFuncs.at(\key);
+Can be used WITHOUT wslib too. see below.
+
+
+CLASSMETHODS::
+
+METHOD:: initClass
+
+METHOD:: getFuncs
+gets all of the draw function
+
+returns:: an Event (\key1: func, \key2: func)
+
+METHOD:: listKeys
+lists all the functions
+EXAMPLES::
+
+code::
+// Use WITH wslib Quark
+(
+JMDrawIcons.listKeys;
+FlowView.new.flow{|w|
+	JMDrawIcons.getFuncs.order.do{|key|
+		RoundButton(w,50@40).states_([[key]]).radius_(0);
+	};
+}
+)
+
+// Use WITHOUT wslib Quark
+
+(
+JMDrawIcons.listKeys;
+FlowView.new.flow{|w|
+	JMDrawIcons.getFuncs.keysValuesDo{|key,val|
+		UserView(w,50@50).drawFunc_({val.value(Rect(0,0,50,50))}).background_(Color.grey(0.7));
+	};
+}
+)
+
+::

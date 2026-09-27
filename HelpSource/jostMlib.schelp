@@ -25,6 +25,8 @@ LIST::
 
 ## link::Classes/StepButton:: - A value step button that can easily be attached to input widgets.
 
+## link::Classes/JMDrawIcons:: - A nice set of extra icons for wslib
+
 
 ::
 

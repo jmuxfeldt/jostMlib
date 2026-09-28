@@ -41,7 +41,7 @@ w=Window.new(nil, Window.flipY(Rect(300,300,300,800))).front;
 ScrollView.new(w, w.bounds.width@w.bounds.height).flow{|w|
 
 	DrawIcon.drawFuncs.order.do{|key,i|
-		StaticText(w,Rect(0,0,90,50)).string_("\\"++key.asString).align_(\right);
+		StaticText(w,Rect(0,0,90,50)).string_(key.asString).align_(\right);
         RoundButton(w,50@40).states_([[key]]).radius_(0);
     };
 }
@@ -63,7 +63,7 @@ FlowView.new.flow{|w|
 JMDrawIcon.listKeys;
 FlowView.new(nil, Window.flipY(Rect(300,300,350,600))).flow{|w|
     JMDrawIcon.drawFuncs.order.do{|key,i|
-    	StaticText(w,70@50).string_("\\"++key.asString).align_(\right);
+		StaticText(w,70@50).string_(key.asString).align_(\right);
 		UserView(w,50@50).drawFunc_({JMDrawIcon(key,50@50)}).background_(Color.grey(0.7));
        	(i%2).booleanValue.if{ w.startRow;};
     };

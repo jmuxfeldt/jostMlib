@@ -1,0 +1,73 @@
+TITLE:: JMDrawIcon
+summary:: Extra icons for the wslib Quark
+categories:: GUI>Views, Libraries>jostMlib
+related::  Classes/UserView
+
+DESCRIPTION::
+Adds some nice icons to wslib's DrawIcon collection
+Checks if wslib is preset. You can still use the draw functions independently with getFuncs.at(\key);
+Can be used WITHOUT wslib too. see below.
+
+
+CLASSMETHODS::
+METHOD:: new
+
+
+METHOD:: initClass
+
+METHOD:: drawFuncs
+gets all of the draw function
+
+returns:: an Event (\key1: func, \key2: func)
+
+METHOD:: listKeys
+lists all the functions
+EXAMPLES::
+SUBSECTION:: Use WITH wslib Quark
+code::
+// list new icons
+JMDrawIcon.listKeys;
+
+// simple example
+(
+FlowView.new.flow{|w|
+	RoundButton(w,50@40).states_([[\bug]]).radius_(0);
+}
+)
+
+(
+// Lists ALL available icons under wslib DrawIcon, including  JMDrawIcon
+w=Window.new(nil, Window.flipY(Rect(300,300,300,800))).front;
+ScrollView.new(w, w.bounds.width@w.bounds.height).flow{|w|
+
+	DrawIcon.drawFuncs.order.do{|key,i|
+		StaticText(w,Rect(0,0,90,50)).string_("\\"++key.asString).align_(\right);
+        RoundButton(w,50@40).states_([[key]]).radius_(0);
+    };
+}
+)
+::
+
+SUBSECTION:: Use WITHOUT wslib Quark
+code::
+// list new icons
+JMDrawIcon.listKeys;
+// Simple Example
+(
+FlowView.new.flow{|w|
+	UserView(w,50@50).drawFunc_({JMDrawIcon(\bug,50@50)}).background_(Color.grey(0.7));
+}
+
+)
+(
+JMDrawIcon.listKeys;
+FlowView.new(nil, Window.flipY(Rect(300,300,350,600))).flow{|w|
+    JMDrawIcon.drawFuncs.order.do{|key,i|
+    	StaticText(w,70@50).string_("\\"++key.asString).align_(\right);
+		UserView(w,50@50).drawFunc_({JMDrawIcon(key,50@50)}).background_(Color.grey(0.7));
+       	(i%2).booleanValue.if{ w.startRow;};
+    };
+}
+)
+
+::

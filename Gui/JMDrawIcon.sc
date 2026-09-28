@@ -103,6 +103,35 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
+			\del: { | rect|
+				var iconSize=rect.width.min(rect.height);
+				var inset=iconSize*0.1;
+				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
+				var interval = drawRect.width/3;
+				var intervalV = drawRect.height/8;
+				var rad =drawRect.width*0.16;
+				var xSq=drawRect.insetBy(interval).moveBy(interval*0.33,0);
+				Pen.joinStyle=1;
+				Pen.capStyle=1;
+
+				Pen.width = drawRect.width * 0.08;
+				Pen.line(Point(drawRect.left,drawRect.center.y),Point(drawRect.left+interval,drawRect.top+intervalV));
+				Pen.arcTo(Point(drawRect.right,drawRect.top+intervalV),Point(drawRect.right,drawRect.center.y),rad);
+				Pen.arcTo(Point(drawRect.right,drawRect.bottom-intervalV),Point(drawRect.left+interval,drawRect.bottom-intervalV),rad);
+				Pen.lineTo(Point(drawRect.left+interval,drawRect.bottom-intervalV));
+				Pen.line(Point(drawRect.left,drawRect.center.y),Point(drawRect.left+interval,drawRect.bottom-intervalV));
+				Pen.stroke;
+				Pen.line(
+					Polar( xSq.width / 2, 1.25pi ).asPoint + xSq.center,
+					Polar( xSq.width / 2, 0.25pi ).asPoint + xSq.center
+				);
+				Pen.line(
+					Polar( xSq.width / 2, 1.75pi ).asPoint + xSq.center,
+					Polar( xSq.width / 2, 0.75pi ).asPoint + xSq.center
+				);
+
+				Pen.stroke;
+			},
 
 			\bug: { | rect|
 				var rectSize=rect.width.min(rect.height);

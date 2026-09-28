@@ -43,6 +43,6 @@ A StepButton that can easily be attached to input widgets.
 
 ![StepButton](./StepButton.jpg)
 
-### JMDrawIcons
+### JMDrawIcon
 
 ![DrawIcons](./DrawIcons.jpg)

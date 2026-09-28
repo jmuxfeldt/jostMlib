@@ -52,6 +52,9 @@ default 2. How many items to keep visible on view collapse. If you put your firs
 Hit return or enter on an active collapse, view, and it will toggle.
 
 
+METHOD:: state
+0 or 1 for collapsed or expanded
+
 METHOD:: view
 returns::  the FlowView containing the CollapseButton and all of your other items.
 
@@ -75,7 +78,7 @@ q=CollapseView(nil,Window.flipY(Rect(300,300,300,300))).offset_(4).flow({|w| // 
 				};
 });
 q.parent.name_("test");
-q.button.valueAction_(0);
+q.state_(0);
 )
 
 // TIP: Save the button states in your Archive !
@@ -93,7 +96,7 @@ FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
 					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
 				};
 			};
-			cv.button.valueAction_(i-1); // converts to boolean.  collapse the first two.
+			cv.state_(i-1); // converts to boolean.  collapse the first two.
 			// You must call button AFTER running .flow
 		};
 	}
@@ -141,7 +144,7 @@ FlowView(bounds:Window.flipY(Rect(300,200,650,600))).flow{|w|
 					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
 				};
 			};
-			cv.button.valueAction_(0); // converts to boolean.  collapse the first tow.
+			cv.state_(0); // converts to boolean.  collapse the first tow.
 		};
 	};
 	FlowView(w,Rect(0,0,300,w.bounds.height)).flow{arg w;
@@ -158,7 +161,7 @@ FlowView(bounds:Window.flipY(Rect(300,200,650,600))).flow{|w|
 					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
 				};
 			};
-			cv.button.valueAction_(0); // converts to boolean.  collapse the first tow.
+			cv.state_(0); // converts to boolean.  collapse the first tow.
 		};
 	}
 

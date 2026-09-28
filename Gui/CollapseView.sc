@@ -25,6 +25,10 @@ CollapseView : SCViewHolder{
 		^button;
 	}
 
+	state_{|int|
+		button.valueAction_(int);
+	}
+
 
 }
 

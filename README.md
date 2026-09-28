@@ -45,4 +45,6 @@ A StepButton that can easily be attached to input widgets.
 
 ### JMDrawIcon
 
+Use on its own, or with wslib Quark. Adds its drawFunctions to wslib Quark.
+
 ![DrawIcons](./DrawIcons.jpg)

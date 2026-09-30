@@ -47,7 +47,7 @@ NOTE::  The button variable is not populated until you have called .flow
 ::
 
 METHOD:: offset
-default 2. How many items to keep visible on view collapse. If you put your first row  of items in its own sub-FlowView, then they will remian visible with the default.
+default 2. How many items to keep visible on view collapse, including the arrow. If you put your first row  of items in its own sub-FlowView, then they will remian visible with the default.
 
 Hit return or enter on an active collapse, view, and it will toggle.
 
@@ -76,7 +76,7 @@ EXAMPLES::
 code::
 
 (
-q=CollapseView(nil,Window.flipY(Rect(300,300,300,300))).offset_(4).flow({|w| // prevent hiding the first 4 items.
+q=CollapseView(nil,Window.flipY(Rect(300,300,300,300))).offset_(4).flow({|w| // prevent hiding the first 4 items (including arrow).
 				Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
 				Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
 				Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);
@@ -95,7 +95,7 @@ q.state_(0);
 FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
 	w.flow{arg w;
 		3.do{arg i;var cv;
-			cv =CollapseView(w,Rect(0,0,300,300)).offset_(4).flow{|w| // prevent hiding the first 4 items.
+			cv =CollapseView(w,Rect(0,0,300,300)).offset_(4).flow{|w| // prevent hiding the first 4 items (including arrow).
 				Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
 				Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
 				Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);

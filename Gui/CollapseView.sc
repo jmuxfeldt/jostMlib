@@ -1,5 +1,5 @@
 CollapseView : SCViewHolder{
-	var buttonBounds, button,<>offset=2,<view;
+	var buttonBounds, button,<>offset=2,<view,>buttonScale=0.5, >buttonEq=false;
 
 	*viewClass { ^CompositeView }
 
@@ -15,7 +15,7 @@ CollapseView : SCViewHolder{
 
 	flow { arg func, bounds;
 		view.flow({|w|
-			button=CollapseButton(w, buttonBounds).offset_(offset);
+			button=CollapseButton(w, buttonBounds).offset_(offset).eq_(buttonEq).scale_(buttonScale);
 			func.value(w);
 		},bounds);
 		view.resizeToFit;
@@ -36,7 +36,7 @@ CollapseButton : SCViewHolder {
 	classvar >clickModifier=524288;
 
 	var	<parent,<>value=0;
-	var	autoRemoves, <>offset=2, pview,<collapseFunction,<button,
+	var	autoRemoves, <>offset=2, pview,<collapseFunction,>scale = 0.5, >eq = false,
 	<>storeBounds,>color, <>minHeight=25,>drawFunction;
 
 
@@ -52,7 +52,7 @@ CollapseButton : SCViewHolder {
 
 		color=Color.grey;
 		parentView = argParent.asView;
-		argBounds=argBounds ? (14@14);
+		argBounds=argBounds ? (16@16);
 
 		view = this.class.viewClass.new(parentView, argBounds.asRect);
 		if(parentView.children[parentView.children.size-1] === view,{
@@ -68,8 +68,10 @@ CollapseButton : SCViewHolder {
 		{storeBounds=pview.parent.bounds.copy;}
 		{storeBounds=pview.bounds.copy};
 
-		triangle={ |rect, angle = 0, size = 1, width = 1, mode = \fill|
-			var radius, center, backCenter;
+		triangle={ |rect, angle = 0|
+			var radius, center, backCenter,size, width=1;
+			size=2*scale;
+			eq.if{ width = 1.1547}{ width = 1};
 			radius = (rect.width.min( rect.height ) / 4) * size;
 			center = rect.center + Polar( radius * (2/9), angle );
 			backCenter =  center + Polar( radius, angle + pi ).asPoint;
@@ -78,12 +80,14 @@ CollapseButton : SCViewHolder {
 			Pen.lineTo( center + Polar( radius, angle ).asPoint );
 			Pen.lineTo( backCenter + Polar( radius * width, angle + 0.5pi ).asPoint );
 			Pen.lineTo( backCenter );
-			Pen.perform( \fill );
+			Pen.fill;
+			// Pen.addRect(rect);
+			// Pen.stroke;
 
 		};
 		this.drawFunc={
 			var bnds;
-			bnds=this.bounds;
+			bnds=view.bounds.copy.moveTo(0,0);
 			Pen.use{
 				Pen.color_(color);
 				triangle.value(bnds,[0,pi/2].at(value));

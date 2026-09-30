@@ -58,6 +58,14 @@ METHOD:: state
 METHOD:: view
 returns::  the FlowView containing the CollapseButton and all of your other items.
 
+METHOD:: buttonScale
+default:  0.5
+
+METHOD:: buttonEq
+use equilateral triangle
+
+default:  false
+
 
 PRIVATE:: init
 

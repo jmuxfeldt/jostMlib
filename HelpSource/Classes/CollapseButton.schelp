@@ -32,4 +32,6 @@ PRIVATE:: collapseFunction
 PRIVATE:: valueAction
 PRIVATE:: color
 PRIVATE:: init
+PRIVATE:: eq
+PRIVATE:: scale
 

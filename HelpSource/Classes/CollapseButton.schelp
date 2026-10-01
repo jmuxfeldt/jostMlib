@@ -19,7 +19,7 @@ METHOD:: clickModifier
 default 524288 ("option" key  on macos)
 
 PRIVATE:: viewClass
-PRIVATE:: new
+METHOD:: new
 
 INSTANCEMETHODS::
 

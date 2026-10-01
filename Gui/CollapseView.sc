@@ -1,5 +1,6 @@
 CollapseView : SCViewHolder{
-	var buttonBounds, button,<>offset=2,<view,>buttonScale=0.5, >buttonEq=false;
+	classvar <>defaultMinHeight=25;
+	var buttonBounds, button,<>offset=2,>minHeight, <view,>buttonScale=0.5, >buttonEq=false;
 
 	*viewClass { ^CompositeView }
 
@@ -9,13 +10,16 @@ CollapseView : SCViewHolder{
 
 	init{ arg argParent, bounds,argButtonBounds;
 		view = FlowView(argParent, bounds);
+		minHeight=defaultMinHeight;
+		view.decorator.margin_(0@0); // no extra space for the outer container
+		view.decorator.gap_(0@0); // no extra space for the outer container
 		buttonBounds=argButtonBounds?Point(16,16);
 		^this;
 	}
 
 	flow { arg func, bounds;
-		view.flow({|w|
-			button=CollapseButton(w, buttonBounds).offset_(offset).eq_(buttonEq).scale_(buttonScale);
+		view.flow({|w| // we need an inner flow view for the CollapseButton to work correctly
+			button=CollapseButton(w, buttonBounds).offset_(offset).eq_(buttonEq).scale_(buttonScale).minHeight_(minHeight);
 			func.value(w);
 		},bounds);
 		view.resizeToFit;
@@ -37,7 +41,7 @@ CollapseButton : SCViewHolder {
 
 	var	<parent,<>value=0;
 	var	autoRemoves, <>offset=2, pview,<collapseFunction,>scale = 0.5, >eq = false,
-	<>storeBounds,>color, <>minHeight=25,>drawFunction;
+	<>storeBounds,>color, <>minHeight,>drawFunction;
 
 
 	*viewClass {^ UserView}
@@ -49,7 +53,7 @@ CollapseButton : SCViewHolder {
 
 	init { arg argParent, argBounds;
 		var  w,switch=0,parentView,triangle;
-
+		minHeight=CollapseView.defaultMinHeight;
 		color=Color.grey;
 		parentView = argParent.asView;
 		argBounds=argBounds ? (16@16);

@@ -32,11 +32,16 @@ an optional  Rect or Point for the size of the CollapseButton
 returns:: a CollapseView
 
 
+METHOD:: defaultMinHeight
+defualt=25. Set a custom default minHeight for all your instances of CollapseView
+
 INSTANCEMETHODS::
 
 METHOD:: flow
 works like a FlowView.flow. See examples below.
 
+METHOD:: minHeight
+default: 25. Set the CollapseView instance collapsed height according to your first row widgets.
 
 METHOD:: button
 gets the CollapseButton
@@ -116,15 +121,16 @@ FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
 FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
 	w.flow{arg w;
 		3.do{arg i;var cv;
-			cv =CollapseView(w,Rect(0,0,300,300)).flow{|w|
+			cv =CollapseView(w,Rect(0,0,300,300)).minHeight_(18) //  Set the minHeight to your top row widget height.
+			.flow{|w|
 				w.flow{|w| // put the top row in a container to use the default offset.
-					Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
-					Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
-					Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);
+					Button.new(w,Rect(0,0,50,18)).states_([["Start"]]);
+					Button.new(w,Rect(0,0,50,18)).states_([["Pause"]]);
+					Button.new(w,Rect(0,0,50,18)).states_([["Stop"]]);
 				};
 				w.startRow;
 				7.do{|i|
-					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
+					EZSlider.new(w,Rect(0,0,270,18), "slider"+i);
 				};
 			};
 			cv.button.valueAction_(0); // converts to boolean.  collapse the first tow.

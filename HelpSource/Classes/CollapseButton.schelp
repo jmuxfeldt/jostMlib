@@ -6,7 +6,12 @@ related:: jostMlib,  Classes/CollapseView
 
 NOTE::
 Not meant for direct instantiation, unless you know what you are doing.
-Use CollapseView.
+Using CollapseView is recommended.
+
+However if you do use CollapseButton, you can instantly convert a FlowView into a CollapseView,
+but you must watch out for the warnings below.
+
+NOTE THE DOUBLE LAYER OF FLOW VIEWS!
 ::
 
 CLASSMETHODS::
@@ -18,20 +23,53 @@ PRIVATE:: new
 
 INSTANCEMETHODS::
 
-PRIVATE:: value
-PRIVATE:: parent
-PRIVATE:: storeBounds
-PRIVATE:: minHeight
-PRIVATE:: offset
+METHOD:: value
+the button value
 
-PRIVATE:: button
+METHOD:: parent
+PRIVATE:: storeBounds
+METHOD:: minHeight
+The collapsed height. the default is CollapseView.defaultMinHeight (25).
+METHOD:: offset
+
 
 PRIVATE:: drawFunction
 PRIVATE:: collapseFunction
 
-PRIVATE:: valueAction
-PRIVATE:: color
+METHOD:: valueAction
+set 1 or zero to collaps or expand the view
+METHOD:: color
 PRIVATE:: init
-PRIVATE:: eq
-PRIVATE:: scale
+METHOD:: eq
+boolean. default false. Use equilateral triangle
+METHOD:: scale
+scale the triangle in the button rect. default=0.5;
+
+EXAMPLES::
+code::
+(
+FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
+	3.do{arg i;var cb;
+		FlowView(w,Rect(0,0,300,300))
+		.flow{|w|
+			w.flow{arg w; // NOTE THE DOUBLE LAYER OF FLOW VIEWS. This is mandatory for the CollapseButton to work.
+				cb= CollapseButton(w).offset_(4); // prevent hiding the first 4 items (including arrow).
+				Button.new(w,Rect(0,0,50,25)).states_([["Start"]]);
+				Button.new(w,Rect(0,0,50,25)).states_([["Pause"]]);
+				Button.new(w,Rect(0,0,50,25)).states_([["Stop"]]);
+				w.startRow;
+				7.do{|i|
+					EZSlider.new(w,Rect(0,0,270,20), "slider"+i);
+				};
+			}
+		};
+		cb.valueAction_(i-1); // converts to boolean.  collapse the first two.
+		// You must call button AFTER running .flow
+	};
+
+
+}
+)
+
+::
 

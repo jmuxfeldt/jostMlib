@@ -110,7 +110,7 @@ FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
 				};
 			};
 			cv.state_(i-1); // converts to boolean.  collapse the first two.
-			// You must call button AFTER running .flow
+			// You must call state_ AFTER running .flow
 		};
 	}
 }
@@ -133,7 +133,8 @@ FlowView(bounds:Window.flipY(Rect(300,200,400,600))).flow{|w|
 					EZSlider.new(w,Rect(0,0,270,18), "slider"+i);
 				};
 			};
-			cv.button.valueAction_(0); // converts to boolean.  collapse the first tow.
+			cv.state_(0); // converts to boolean.  collapse the first tow.
+			 //You must call state_ AFTER running .flow
 		};
 	}
 }

@@ -1,6 +1,6 @@
 CollapseView : SCViewHolder{
 	classvar <>defaultMinHeight=25;
-	var buttonBounds, button,<>offset=2,>minHeight, <view,>buttonScale=0.5, >buttonEq=false;
+	var buttonBounds, button,<>offset=2,>minHeight,>buttonScale=0.5, >buttonEq=false;
 
 	*viewClass { ^CompositeView }
 

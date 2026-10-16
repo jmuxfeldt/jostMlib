@@ -98,17 +98,21 @@ JMDrawIcon {
 				Pen.lineTo(Point(drawRect.left+(7*interval),drawRect.top+(drawRect.height*0.9)));
 				Pen.lineTo(Point(drawRect.left+(8*interval),drawRect.center.y));
 				Pen.lineTo(Point(drawRect.right,drawRect.center.y));
+				Pen.stroke;
+				Pen.width= drawRect.height*0.035;
 				Pen.addRect(drawRect);
 				Pen.stroke;
+
 			},
 			\fscope2: { | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.2;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
+
+
 				Pen.width= drawRect.height*0.07;
-				Pen.moveTo(Point(drawRect.left,drawRect.bottom));
-				Pen.lineTo(Point(drawRect.left+(1*interval),drawRect.bottom));
+				Pen.moveTo(Point(drawRect.left+(2*interval),drawRect.bottom));
 				Pen.lineTo(Point(drawRect.left+(2*interval),drawRect.bottom));
 				Pen.lineTo(Point(drawRect.left+(3*interval),drawRect.top));
 				Pen.lineTo(Point(drawRect.left+(4*interval),drawRect.top+(drawRect.height*0.9)));
@@ -116,7 +120,8 @@ JMDrawIcon {
 				Pen.lineTo(Point(drawRect.left+(6*interval),drawRect.top+(drawRect.height)));
 				Pen.lineTo(Point(drawRect.left+(7*interval),drawRect.top+(drawRect.height*0.3)));
 				Pen.lineTo(Point(drawRect.left+(8*interval),drawRect.bottom));
-				Pen.lineTo(Point(drawRect.right,drawRect.bottom));
+				Pen.stroke;
+				Pen.width= drawRect.height*0.035;
 				Pen.addRect(drawRect);
 				Pen.stroke;
 
@@ -142,6 +147,28 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
+			\freq2: { | rect|
+				var iconSize=rect.width.min(rect.height);
+				var inset=iconSize*0.2;
+				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
+				var interval= drawRect.width*0.1;
+				var amp = drawRect.height*0.35;
+				Pen.width= drawRect.height*0.07;
+				Pen.moveTo(Point(drawRect.left,drawRect.center.y));
+				Pen.lineTo(Point(drawRect.left+(2*interval),drawRect.center.y));
+				Pen.lineTo(Point(drawRect.left+(3*interval),drawRect.center.y-(amp*0.5)));
+				Pen.lineTo(Point(drawRect.left+(4*interval),drawRect.center.y+(amp)));
+				Pen.lineTo(Point(drawRect.left+(5*interval),drawRect.center.y-(amp)));
+				Pen.lineTo(Point(drawRect.left+(6*interval),drawRect.center.y+(amp)));
+				Pen.lineTo(Point(drawRect.left+(7*interval),drawRect.center.y-(amp*0.5)));
+				Pen.lineTo(Point(drawRect.left+(8*interval),drawRect.center.y));
+				Pen.lineTo(Point(drawRect.right,drawRect.center.y));
+
+				Pen.stroke;
+				Pen.width= drawRect.height*0.035;
+				Pen.addRect(drawRect);
+				Pen.stroke;
+			},
 			\del: { | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.1;

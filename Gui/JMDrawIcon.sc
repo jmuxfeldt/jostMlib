@@ -612,7 +612,85 @@ JMDrawIcon {
 				Pen.lineTo(Point(x-(segx*1.7),y-segy));
 
 				Pen.stroke;
+			},
+			\fithorz:{  | rect, direction = 0, mode = \fill|
+				var square, wd;
+
+				square = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 4,
+					rect.width.min( rect.height ) / 4 );
+
+				Pen.rotate( direction, square.center.x, square.center.y );
+
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate(square.width/2,0);
+				Pen.perform( mode );
+
+				Pen.rotate( pi, square.center.x, square.center.y );
+
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate(square.width,0);
+
+				Pen.perform( mode );
+
+				Pen.rotate( direction.neg, square.center.x, square.center.y );
+			},
+			\fitvert:{  | rect, direction = 0.5pi, mode = \fill|
+				var square, wd;
+
+				square = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 4,
+					rect.width.min( rect.height ) / 4 );
+
+				Pen.rotate( direction, square.center.x, square.center.y );
+
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate(square.width/2,0);
+				Pen.perform( mode );
+
+				Pen.rotate( pi, square.center.x, square.center.y );
+
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate(square.width,0);
+
+				Pen.perform( mode );
+
+				Pen.rotate( direction.neg, square.center.x, square.center.y );
 			}
+
+
 		);
 
 
@@ -625,10 +703,3 @@ JMDrawIcon {
 	}
 }
 
-JMDrawIcons : JMDrawIcon{ // deprecated
-
-	*new { |name, rect ... more|
-		"JMDrawIcons is deprecated. use JMDrawIcon,instead".warn;
-		^super.new(name, rect , *more); // returns pen function
-	}
-}

@@ -617,8 +617,8 @@ JMDrawIcon {
 				var square, wd;
 
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 4,
-					rect.width.min( rect.height ) / 4 );
+					rect.width.min( rect.height ) / 4.25,
+					rect.width.min( rect.height ) / 4.25 );
 
 				Pen.rotate( direction, square.center.x, square.center.y );
 
@@ -655,8 +655,8 @@ JMDrawIcon {
 				var square, wd;
 
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 4,
-					rect.width.min( rect.height ) / 4 );
+					rect.width.min( rect.height ) / 4.25,
+					rect.width.min( rect.height ) / 4.25 );
 
 				Pen.rotate( direction, square.center.x, square.center.y );
 
@@ -688,8 +688,150 @@ JMDrawIcon {
 				Pen.perform( mode );
 
 				Pen.rotate( direction.neg, square.center.x, square.center.y );
-			}
+			},
+			\xArrow:{  | rect, direction = 0, mode = \fill|
+				var square,square2, wd;
 
+				square = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 5,
+					rect.width.min( rect.height ) / 5 );
+
+				square2 = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 15,
+					rect.width.min( rect.height ) / 15 );
+
+
+				Pen.rotate( direction, square.center.x, square.center.y );
+				Pen.addRect(square2);
+				Pen.perform( mode );
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate((square.width*0.5)+(square.width*(1/8)),0);
+				Pen.perform( mode );
+
+				Pen.rotate( pi, square.center.x, square.center.y );
+
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate(square.width+(square.width*(2/8)),0);
+
+				Pen.perform( mode );
+				Pen.rotate( 0.5pi, square.center.x, square.center.y );
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate((square.width*0.5)+(square.width*(1/8)),(square.width*0.5)+(square.width*(1/8)));
+				Pen.perform( mode );
+
+				Pen.rotate( pi, square.center.x, square.center.y );
+
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate(square.width+(square.width*(2/8)),0);
+
+				Pen.perform( mode );
+				Pen.rotate( 0.5pi, square.center.x, square.center.y );
+
+			},
+
+			\xArrow2:{  | rect, direction = 0.25pi, mode = \fill|
+				var square,square2, wd;
+
+				square = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 5,
+					rect.width.min( rect.height ) / 5 );
+
+				square2 = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 15,
+					rect.width.min( rect.height ) / 15 );
+
+
+				Pen.rotate( direction, square.center.x, square.center.y );
+				Pen.addRect(square2);
+				Pen.perform( mode );
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate((square.width*0.5)+(square.width*(1/8)),0);
+				Pen.perform( mode );
+
+				Pen.rotate( pi, square.center.x, square.center.y );
+
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate(square.width+(square.width*(2/8)),0);
+
+				Pen.perform( mode );
+				Pen.rotate( 0.5pi, square.center.x, square.center.y );
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate((square.width*0.5)+(square.width*(1/8)),(square.width*0.5)+(square.width*(1/8)));
+				Pen.perform( mode );
+
+				Pen.rotate( pi, square.center.x, square.center.y );
+
+				Pen.moveTo( (square.left)@(square.center.y) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
+				Pen.lineTo( (square.center.x)@(square.top) );
+				Pen.lineTo( (square.right)@(square.center.y) );
+				Pen.lineTo( (square.center.x)@(square.bottom) );
+				Pen.lineTo( (square.center.x)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
+				Pen.lineTo( (square.left)@(square.center.y) );
+				Pen.translate(square.width+(square.width*(2/8)),0);
+
+				Pen.perform( mode );
+				Pen.rotate( 0.5pi, square.center.x, square.center.y );
+
+			}
 
 		);
 

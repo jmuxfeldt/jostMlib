@@ -613,7 +613,7 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\fithorz:{  | rect, direction = 0, mode = \fill|
+			\fitH:{  | rect, direction = 0, mode = \fill|
 				var square, wd;
 
 				square = Rect.aboutPoint( rect.center,
@@ -651,7 +651,7 @@ JMDrawIcon {
 
 				Pen.rotate( direction.neg, square.center.x, square.center.y );
 			},
-			\fitvert:{  | rect, direction = 0.5pi, mode = \fill|
+			\fitV:{  | rect, direction = 0.5pi, mode = \fill|
 				var square, wd;
 
 				square = Rect.aboutPoint( rect.center,

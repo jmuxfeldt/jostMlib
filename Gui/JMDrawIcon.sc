@@ -372,15 +372,18 @@ JMDrawIcon {
 				var rad = ir.width*0.9;
 				var matrix = [scale, 0, 0, scale, inset*scale, inset*scale];
 				var cy = rect2.left+rad;
+				var stand1Y=rect2.center.y+(rectSize*0.07);
+				var stand2Y=stand1Y+rad;
 
 				Pen.matrix_(matrix);
 
 				Pen.width_(rect2.width*0.08);
 				Pen.addRoundedRect(ir.height_(ir.height*0.7),ir.width*0.5,ir.width*0.5);
 				Pen.fill;
-				Pen.addArc(Point(rect2.center.x,rect2.height*0.55), rad, 2*pi, pi);
-				Pen.line(Point(rect2.center.x,(rect2.height*0.55+rad)),Point(rect2.center.x,rect2.height));
+				Pen.addArc(Point(rect2.center.x,stand1Y), rad, 2*pi, pi);
+				Pen.line(Point(rect2.center.x,stand2Y),Point(rect2.center.x,stand2Y+(rad*0.7)));
 				Pen.stroke;
+
 			},
 
 			\midi:{ | rect|

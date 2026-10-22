@@ -75,6 +75,11 @@ default Boolean is true. Close the select on unfocs (click outside).
 
 METHOD:: toolTip
 set a tooltip for the menu button
+METHOD:: arrowSize
+default 6.5
+
+METHOD:: arrowColor
+
 
 
 
@@ -93,6 +98,7 @@ PRIVATE:: value
 PRIVATE:: valueIndexName
 PRIVATE:: valueName
 PRIVATE:: pr_makeAction
+PRIVATE:: pr_drawArrow
 EXAMPLES::
 
 code::

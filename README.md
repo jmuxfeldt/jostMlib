@@ -4,7 +4,7 @@ A Quark Library for the SuperCollider Programming Language.
 
 The menus work nearly identically to html popup menus. 
 
-Visually best in combination with the [wslib](https://github.com/supercollider-quarks/wslib) quark. 
+Works well together with the [wslib](https://github.com/supercollider-quarks/wslib) quark. 
 
 ### Debouncer
 a debouncer for functions

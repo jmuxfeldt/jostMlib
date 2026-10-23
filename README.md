@@ -24,7 +24,16 @@ Closes on click outside or on escape.
 
 ![PathActionMenu](./PathActionMenu.jpg)
 
+### ActionQMenu and PathActionQMenu
+
+use Menu and MenuAction instead of a window.
+
+![PathActionQMenu](./PathActionQMenu.jpg)
+
+
+
 ### MultiLevelLibraryBrowser
+
 ![LibraryBrowser](./LibraryBrowser.jpg)
 
 ### CollapseView

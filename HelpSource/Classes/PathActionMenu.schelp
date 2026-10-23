@@ -102,7 +102,7 @@ w.flow{arg w;
         "~/Shared",
 		Platform.userAppSupportDir++"/startup.scd",
 		"-",
-		Platform.userAppSupportDir++"/*", //* will expand the dir on the top level
+		Platform.userAppSupportDir++"/*",  // '*' will iterate over the dir on the top level
 
     ]);
     m.openAction= {|path,modifier,buttonNum|

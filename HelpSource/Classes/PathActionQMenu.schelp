@@ -100,7 +100,7 @@ w.flow{arg w;
         "~/Shared/",
 		Platform.userAppSupportDir++"/startup.scd",
 		"-",
-		Platform.userAppSupportDir++"/*", //* will expand the dir on the top level
+		Platform.userAppSupportDir++"/*", // '*' will iterate over the dir on the top level
 
     ],preload: false); // some directories are huge, so we need to lazy load them
     m.openAction= {|path,modifier,buttonNum|

@@ -13,7 +13,11 @@ LIST::
 
 ## link::Classes/ActionMenu:: - a menu for running quick actions
 
+## link::Classes/ActionQMenu:: - a menu for running quick actions using QMenu
+
 ## link::Classes/PathActionMenu::  - a multilevel menu for actions and file paths
+
+## link::Classes/PathActionQMenu::  - a multilevel menu for actions and file paths  using QMenu
 
 ## link::Classes/MultiLevelLibraryBrowser:: - a multilevel browser for Libraries
 

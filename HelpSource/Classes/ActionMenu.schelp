@@ -1,13 +1,13 @@
 TITLE:: ActionMenu
 SUMMARY:: A Button with a popup list window for performing actions.
 CATEGORIES:: GUI>Views, Libraries>jostMlib
-related:: jostMlib,  Classes/PathActionMenu,  Classes/ListView
+related:: jostMlib,  Classes/ActionQMenu,Classes/PathActionMenu, Classes/PathActionQMenu,   Classes/ListView
 
 DESCRIPTION::
 A Button with a Popup List for performing actions.
 Closes on unfocus or with esc key.
 
-Supports Button, SmoothButton, or RoundButton (RECOMMENDED) as a button classes.
+Supports Button or RoundButton  as a button classes.
 
 If wslib quark is active, defaults to RoundButton.
 

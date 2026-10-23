@@ -1,0 +1,132 @@
+TITLE:: PathActionQMenu
+summary:: A Button with a popup Menu for performing actions on file paths.
+categories:: GUI>Views, Libraries>jostMlib
+related:: jostMlib,  Classes/ActionQMenu, Classes/ActionMenu, Classes/PathActionMenu, Classes/Menu, Classes/MenuAction
+
+DESCRIPTION::
+An ActionQMenu, where string entries are interpreted as file/folder paths.
+A folder works multi-level, listing subfolders.
+
+You can still add \key->action associations, just like in ActionMenu.
+
+Closes on click outside or on escape key.
+
+CLASSMETHODS::
+
+METHOD:: new
+Create an ActionMenu
+
+ARGUMENT:: parent
+The parent view.
+
+ARGUMENT:: bounds
+A Rect
+
+ARGUMENT:: name
+The Menu Button Title
+
+ARGUMENT:: items
+An Array of Strings or Associations (\key->function)
+
+Strings ar interpreted as FilePaths
+
+ARGUMENT:: preload
+default: defaultPreload. Preload the submenus. Makes menu items more respnsive.  Caution: can slow things down with large directories.
+
+ARGUMENT:: showArrow
+show a little down-tick arrow, defaults to true
+
+returns::
+an ActionQMenu
+
+
+METHOD:: defaultAllowedFiles
+Default: ["rtf","rtfd","sc","scd","html","HTML","schelp"]
+
+METHOD:: defaultOpenAction
+a default function you can set for all  items.
+
+{|path,modifier,buttonNum| doSomething()}
+
+METHOD:: defaultPreload
+default: true. Preload the submenus. Makes menu items more respnsive.  Caution: can slow things down with large directories.
+
+
+INSTANCEMETHODS::
+
+METHOD:: allowedFiles
+Default: ["rtf","rtfd","sc","scd","html","HTML","schelp"]
+
+
+METHOD:: openAction
+a function run on the selected path. Typically open a file.
+
+{|path,modifier,buttonNum| doSomething()}
+
+You can set it on the instance, or you can set a default with  PathActionMenu.defaultOpenAction
+
+
+PRIVATE:: prAddItem
+PRIVATE:: prFileItem
+PRIVATE:: prFolderItem
+PRIVATE:: prPathItem
+PRIVATE:: prPathUp
+PRIVATE:: openfunction
+PRIVATE:: prButtonAction
+PRIVATE:: prRefreshAction
+PRIVATE:: prPopulateSubmenu
+PRIVATE:: prHandleString
+PRIVATE:: addItem
+PRIVATE:: returnpaths
+
+EXAMPLES::
+
+code::
+(
+// Make sure the paths are present, or they will be ignored.
+// Associations work like ActionMenu.
+// Strings are interpreted as file or directory paths.
+// File paths directly run the openAction.
+// Directories navigate to the next level with a new window and an up (../) option.
+// argumentsfor  openAction and defaultOpenAction are  path,modifier,buttonNum .
+
+w = Window.new("PathActionMenu Examples").front;
+w.flow{arg w;
+    var m;
+    m=PathActionQMenu(w,Rect(0,0,150,25),"Open Files and Dirs",[
+        \testMe->{|path,modifier,buttonNum|[path,modifier,buttonNum].postln}, // an association with a custom action
+        Association("*testMe 2*",{|path,modifier,buttonNum|[path,modifier,buttonNum].postln}), // an long keyed association with a custom action
+        "~/Documents/",
+        "~/Shared/",
+		Platform.userAppSupportDir++"/startup.scd",
+		"-",
+		Platform.userAppSupportDir++"/*", //* will expand the dir on the top level
+
+    ],preload: false); // some directories are huge, so we need to lazy load them
+    m.openAction= {|path,modifier,buttonNum|
+        [path,modifier,buttonNum].postln;
+        Document.open(path);
+        // Or use your custom editor
+        // ("open -a  Sublime\\ Text "++path.escapeChar($ )).unixCmd;
+    };
+
+    w.startRow;
+    StaticText(w,Rect(0,0,200,40)).string_("Click outside to close.");
+    w.startRow;
+    StaticText(w,Rect(0,0,200,40)).string_("Escape key  to close.");
+
+
+};
+
+
+)
+
+//You can also create a directory of files containing
+{arg v; "myFunc".postln}; // example
+// and then set the openAction to
+
+m.openAction= {|path|path.load.value(v)};
+// In this way you can separate your code functions into many small files.
+
+
+::

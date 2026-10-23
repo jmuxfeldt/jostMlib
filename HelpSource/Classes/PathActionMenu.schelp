@@ -1,7 +1,7 @@
 TITLE:: PathActionMenu
 summary:: A Button with a popup list window for performing actions on file paths.
 categories:: GUI>Views, Libraries>jostMlib
-related:: jostMLib, Classes/ActionMenu, Classes/ListView
+related:: jostMlib,  Classes/ActionMenu, Classes/PathActionQMenu,   Classes/ListView
 
 DESCRIPTION::
 An ActionMenu, where string entries are interpreted as file/folder paths.
@@ -100,8 +100,10 @@ w.flow{arg w;
         Association("A key",{|path,modifier,buttonNum|[path,modifier,buttonNum].postln}), // an long keyed association with a custom action
         "~/Documents",
         "~/Shared",
-        Platform.userAppSupportDir,
-        Platform.userAppSupportDir++"/startup.scd"
+		Platform.userAppSupportDir++"/startup.scd",
+		"-",
+		Platform.userAppSupportDir++"/*", //* will expand the dir on the top level
+
     ]);
     m.openAction= {|path,modifier,buttonNum|
         [path,modifier,buttonNum].postln;

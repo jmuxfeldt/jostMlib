@@ -74,7 +74,7 @@ ActionQMenu{
 		}
 	}
 
-	instertItem{|before,item|
+	insertItem{|before,item|
 		var action;
 		action = this.prMakeMenuAction(item);
 
@@ -136,20 +136,17 @@ ActionQMenu{
 }
 
 PathActionQMenu : ActionQMenu{
-	classvar <>defaultOpenAction,>defaultAllowedFiles,>preloadDefault=false;
-	classvar   >defaultPrefix="",>defaultSuffix="/ ";
-	var  toplevel=true, toplevelarray,  <>openAction, <>allowedFiles, <>dirPrefix,<>dirSuffix,>preload;
+	classvar <>defaultOpenAction,>defaultAllowedFiles,>defaultPreload=true;
+	var  toplevel=true, toplevelarray,  <>openAction, <>allowedFiles,preload;
 
-	*new{|parent, bounds, name = "New Menu",items,showArrow=true|
-		^super.new.init(parent, bounds, name,items, showArrow);
+	*new{|parent, bounds, name = "New Menu",items,preload,showArrow=true|
+		^super.new.init(parent, bounds, name,items,preload,showArrow);
 	}
 
-	init{|parent, bounds, nm,argItems, showArrow|
+	init{|parent, bounds, nm,argItems,argPreload, showArrow|
 		super.init(parent, bounds, nm, showArrow: showArrow);
 		openAction=defaultOpenAction?{|string,action,what,val| [string,action,what,val].postln};
-		preload=preload??preloadDefault;
-		dirPrefix = dirPrefix?defaultPrefix;
-		dirSuffix = dirSuffix?defaultSuffix;
+		preload=argPreload??defaultPreload;
 		action={|path,modifier,buttonNum| path.value.value};
 		allowedFiles = allowedFiles?defaultAllowedFiles;
 		allowedFiles = allowedFiles?["rtf","rtfd","sc","scd","html","HTML","schelp"];

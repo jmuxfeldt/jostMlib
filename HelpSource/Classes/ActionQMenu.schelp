@@ -1,0 +1,145 @@
+TITLE:: ActionQMenu
+SUMMARY:: A Button with a popup Menu for performing actions.
+CATEGORIES:: GUI>Views, Libraries>jostMlib
+related:: jostMlib,  Classes/ActionMenu,Classes/PathActionMenu, Classes/PathActionQMenu, Classes/Menu, Classes/MenuAction
+
+DESCRIPTION::
+A Button with a Popup List for performing actions.
+Closes on unfocus or with esc key.
+
+Supports Button or RoundButton  as a button classes.
+
+If wslib quark is active, defaults to RoundButton.
+
+Closes on click outside or on escape.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Create an ActionQMenu
+
+ARGUMENT:: parent
+The parent view.
+
+ARGUMENT:: bounds
+A Rect
+
+ARGUMENT:: name
+The Menu Button Title
+
+ARGUMENT:: items
+An Array of String, Association (\key->function), MenuAction.
+
+MenuAction will give you the most customizability.
+
+ARGUMENT:: showArrow
+show a little down-tick arrow, defaults to true
+
+returns::
+an ActionMenu
+
+
+METHOD:: buttonClass
+Default: Button.
+
+but you can use the RoundButton  from the wonderful wslib quark.
+
+If wslib quark is active, defaults to RoundButton.
+
+
+returns:: the Button class.
+
+
+
+INSTANCEMETHODS::
+METHOD:: defaultAction
+a function. if you a add only a string, not an association, this function will be used.
+
+
+METHOD:: fontSize
+
+
+METHOD:: button
+the menu Button
+
+METHOD:: menu
+the Menu
+
+METHOD:: addItem
+add an item:  String, Association (\key->function), MenuAction.
+
+MenuAction will give you the most customizability.
+
+METHOD:: insertItem
+insert an item.
+before: A MenuAction or in index integer
+item:  String, Association (\key->function), MenuAction.
+MenuAction will give you the most customizability.
+
+METHOD:: globalAction
+a global function to be evaluated on selection
+
+returns:: (describe returnvalue here)
+
+
+METHOD:: toolTip
+set a tooltip for the menu button
+METHOD:: arrowSize
+default 6.5
+
+METHOD:: arrowColor
+
+
+
+
+PRIVATE:: prAddSpacer
+PRIVATE:: removeAt
+PRIVATE:: items
+PRIVATE:: doActionAt
+PRIVATE:: makeButton
+PRIVATE:: name
+PRIVATE:: prButtonAction
+PRIVATE:: prGetWinBounds
+PRIVATE:: prMakeListView
+PRIVATE:: prAddItem
+PRIVATE:: prSetWinPosition
+PRIVATE:: value
+PRIVATE:: valueIndexName
+PRIVATE:: valueName
+PRIVATE:: pr_makeAction
+PRIVATE:: pr_drawArrow
+PRIVATE:: prHandleString
+PRIVATE:: prMakeMenuAction
+PRIVATE:: closeOnSelect
+PRIVATE:: unfocusClose
+EXAMPLES::
+
+code::
+(
+w = Window.new("ActionMenu Examples").front;
+// action arguments are |val,modifier,buttonNum|
+w.flow{arg w;
+    var b;
+    ActionQMenu(w,Rect(0,0,80,25),"Vocalize",[
+        \sing ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
+        \shout ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
+        \grunt ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
+    ]);
+
+    // Chosen value shown on button label; Use a globalAction.
+    b=ActionQMenu(w,Rect(0,0,80,25),"Select",["fast","medium","slow"]).globalAction_{|val|
+        b.button.states_([[val.asString]]);
+        b.button.refresh;
+        b.button.focus(0);
+    };
+    w.startRow;
+    StaticText(w,Rect(0,0,200,40)).string_("Click outside to close.");
+    w.startRow;
+    StaticText(w,Rect(0,0,200,40)).string_("Escape key  to close.");
+
+
+}
+)
+
+::

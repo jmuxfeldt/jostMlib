@@ -171,7 +171,7 @@ ActionMenu{
 		^ bounds;
 	}
 
-	name_{|nm| button.states[0][0] = nm;button.refresh}
+	name_{|nm| button.states[0][0] = nm; button.refresh}
 	name{button.states[0][0]}
 	value_{|val| value = val;button.refresh}
 	valueName_{|val|

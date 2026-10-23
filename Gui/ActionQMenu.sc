@@ -90,14 +90,15 @@ ActionQMenu{
 		};
 
 		item.isKindOf(Association).if{
-			^MenuAction(item.key).action_({|a,b,c| item.value(item.key.asString,a,b,c);globalAction.value(item.key.asString,a,b,c); menu.visible_( false )});
+			^MenuAction(item.key).font_(Font.default.size_(fontSize))
+			.action_({|a,b,c| item.value.value(item.key.asString,a,b,c);globalAction.value(item.key.asString,a,b,c); menu.visible_( false )});
 		};
 
 		(item.isKindOf(String) || item.isKindOf(Symbol)).if{
 
 			item.asString.beginsWith("-").if{
 				// item.removeAt(0);
-				^MenuAction.separator;
+				^MenuAction.separator.font_(Font.default.size_(fontSize));
 			}{
 				^this.prHandleString(item);
 			};
@@ -108,7 +109,8 @@ ActionQMenu{
 	}
 	prHandleString{|item|
 
-		^MenuAction(item.asString).action_({|a,b,c| defaultAction.value(item.asString,a,b,c);globalAction.value(item.asString,a,b,c); menu.visible_( false )});
+		^MenuAction(item.asString).font_(Font.default.size_(fontSize))
+		.action_({|a,b,c| defaultAction.value(item.asString,a,b,c);globalAction.value(item.asString,a,b,c); menu.visible_( false )});
 
 	}
 
@@ -155,6 +157,21 @@ PathActionQMenu : ActionQMenu{
 			this.addItem(menu,item);
 		};
 	}
+	addItem{|menu,item|
+		var action;
+		item.isKindOf(String).if{
+			item.endsWith("*").if{
+				item.escapeChar($ ).pathMatch.do{|str|
+					this.addItem(menu,str);
+				};
+				^nil;
+			}
+		};
+		action =this.prMakeMenuAction(item);
+		action.notNil.if{
+			menu.addAction(action);
+		}
+	}
 
 	prHandleString{|item|
 		var submenu, submenuAction, submenuAsAction;
@@ -167,11 +184,13 @@ PathActionQMenu : ActionQMenu{
 				submenu.addDependant(submenuAction);
 				submenu.onClose_({ submenu.removeDependant(submenuAction) });
 			};
+			submenuAsAction= submenu.asMenuAction.font_(Font.default.size_(fontSize));
 
-			^submenu;
+			^submenuAsAction;
 		};
 		if(allowedFiles.occurrencesOf( pathName.extension ) > 0){
-			^MenuAction(pathName.fileName).action_({|a,b,c|item.postln; openAction.value(item);globalAction.value(item,a,b,c); menu.visible_( false )});
+			^MenuAction(pathName.fileName).font_(Font.default.size_(fontSize))
+			.action_({|a,b,c|item.postln; openAction.value(item);globalAction.value(item,a,b,c); menu.visible_( false )});
 		};
 		^nil;
 

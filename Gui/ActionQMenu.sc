@@ -1,21 +1,22 @@
 ActionQMenu{
 	classvar padding = 36,<>buttonClass;
 	var  <button,>arrowColor, <>defaultAction,<>globalAction, <value = "default",
-	<>fontSize=15,<toolTip, >arrowSize=6.5,
+	<>fontSize=15,<toolTip, >arrowSize=6.5,>useDefaultFont,
 	name, action, <menu;
 
-	*new{|parent, bounds, name = "default",items,showArrow=true|
-		^super.new.init(parent, bounds, name,items,showArrow);
+	*new{|parent, bounds, name = "default",items,defaultAction,globalAction,useDefaultFont=true,showArrow=true|
+		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,showArrow);
 	}
 
-	init{|parent, bounds, nm, argItems, showArrow|
+	init{|parent, bounds, nm, argItems,dAction,gAction,argUseDefaultFont, showArrow|
 		bounds=bounds.asRect;
 		name=nm;
+		defaultAction=dAction?{};
+		globalAction=gAction?{};
+		useDefaultFont=argUseDefaultFont;
 		arrowColor = Color.grey(0.5);
-		defaultAction={};
-		globalAction={};
 		this.makeButton(parent, bounds, name, showArrow);
-		menu = Menu();
+		menu = Menu().title_(name);
 		argItems.do{|item|
 			this.addItem(menu,item);
 		};
@@ -66,7 +67,12 @@ ActionQMenu{
 		Pen.lineTo(drawRect.left@drawRect.top);
 		Pen.fill;
 	}
+
 	addItem{|menu,item|
+		this.prAddItem(menu,item);
+	}
+
+	prAddItem{|menu,item|
 		var action;
 		action =this.prMakeMenuAction(item);
 		action.notNil.if{
@@ -77,28 +83,36 @@ ActionQMenu{
 	insertItem{|before,item|
 		var action;
 		action = this.prMakeMenuAction(item);
-
 		action.notNil.if{
-
 			menu.insertAction(before,action);
 		}
 	}
+
 	prMakeMenuAction{|item|
 
 		item.isKindOf(MenuAction).if{
+			var act;
+			useDefaultFont.if{item.font_(Font.default.size_(fontSize))};
+			item.action.notNil.if{act=item.action.copy}{act=defaultAction};
+			item.action_({|action, what, value| act.value(action, what, value);globalAction.value(action, what, value); menu.visible_( false )});
 			^item;
+		};
+
+		item.isKindOf(ActionQSubMenu).if{
+			^item.prMakeMenu(defaultAction,globalAction, useDefaultFont).asMenuAction.font_(Font.default.size_(fontSize));
 		};
 
 		item.isKindOf(Association).if{
 			^MenuAction(item.key).font_(Font.default.size_(fontSize))
-			.action_({|a,b,c| item.value.value(item.key.asString,a,b,c);globalAction.value(item.key.asString,a,b,c); menu.visible_( false )});
+			.action_({|action, what, value| item.value.value(action, what, value);globalAction.value(action, what, value); menu.visible_( false )});
 		};
 
 		(item.isKindOf(String) || item.isKindOf(Symbol)).if{
 
 			item.asString.beginsWith("-").if{
 				// item.removeAt(0);
-				^MenuAction.separator.font_(Font.default.size_(fontSize));
+				item=item.copyRange(1, item.size - 1)++" ";
+				^MenuAction.separator.string_(item).font_(Font.default.size_(fontSize));
 			}{
 				^this.prHandleString(item);
 			};
@@ -110,7 +124,7 @@ ActionQMenu{
 	prHandleString{|item|
 
 		^MenuAction(item.asString).font_(Font.default.size_(fontSize))
-		.action_({|a,b,c| defaultAction.value(item.asString,a,b,c);globalAction.value(item.asString,a,b,c); menu.visible_( false )});
+		.action_({|action, what, value| defaultAction.value(action, what, value);globalAction.value(action, what, value); menu.visible_( false )});
 
 	}
 
@@ -136,17 +150,20 @@ ActionQMenu{
 }
 
 PathActionQMenu : ActionQMenu{
-	classvar <>defaultOpenAction,>defaultAllowedFiles,>defaultPreload=true;
-	var  toplevel=true, toplevelarray,  <>openAction, <>allowedFiles,preload;
+	classvar <>defaultOpenAction,>defaultAllowedFiles,>defaultLazyLoad=false;
+	var  toplevel=true, toplevelarray,  <>openAction, <>allowedFiles,lazyLoad;
 
-	*new{|parent, bounds, name = "New Menu",items,preload,showArrow=true|
-		^super.new.init(parent, bounds, name,items,preload,showArrow);
+	*new{|parent, bounds, name = "New Menu",items,defaultAction,globalAction,useDefaultFont=true,lazyLoad,showArrow=true|
+		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,lazyLoad,showArrow);
 	}
 
-	init{|parent, bounds, nm,argItems,argPreload, showArrow|
+	init{|parent, bounds, nm,argItems,dAction,gAction,argUseDefaultFont,argLazyLoad, showArrow|
 		super.init(parent, bounds, nm, showArrow: showArrow);
-		openAction=defaultOpenAction?{|string,action,what,val| [string,action,what,val].postln};
-		preload=argPreload??defaultPreload;
+		openAction=defaultOpenAction?{|path,action,what,val| [path,action,what,val].postln};
+		defaultAction=dAction?{};
+		globalAction=gAction?{};
+		lazyLoad=argLazyLoad??defaultLazyLoad;
+		useDefaultFont=argUseDefaultFont;
 		action={|path,modifier,buttonNum| path.value.value};
 		allowedFiles = allowedFiles?defaultAllowedFiles;
 		allowedFiles = allowedFiles?["rtf","rtfd","sc","scd","html","HTML","schelp"];
@@ -154,10 +171,11 @@ PathActionQMenu : ActionQMenu{
 			this.addItem(menu,item);
 		};
 	}
-	addItem{|menu,item|
+
+	prAddItem{|menu,item|
 		var action;
 		item.isKindOf(String).if{
-			item.endsWith("*").if{
+			item.endsWith("/*").if{
 				item.escapeChar($ ).pathMatch.do{|str|
 					this.addItem(menu,str);
 				};
@@ -174,20 +192,19 @@ PathActionQMenu : ActionQMenu{
 		var submenu, submenuAction, submenuAsAction;
 		var pathName=PathName(item);
 		pathName.isFolder.if{
+			item.endsWith("/").not.if{pathName=PathName(item++"/")};
 			submenu = Menu().string_(pathName.folderName);
-			preload.if{this.prPopulateSubmenu(submenu,item);}
-			{
+			lazyLoad.if{
 				submenuAction={|a,w| (w == \aboutToShow).if{this.prPopulateSubmenu(submenu,item,submenuAction)}};
 				submenu.addDependant(submenuAction);
 				submenu.onClose_({ submenu.removeDependant(submenuAction) });
-			};
+			}{this.prPopulateSubmenu(submenu,item)};
 			submenuAsAction= submenu.asMenuAction.font_(Font.default.size_(fontSize));
-
 			^submenuAsAction;
 		};
 		if(allowedFiles.occurrencesOf( pathName.extension ) > 0){
 			^MenuAction(pathName.fileName).font_(Font.default.size_(fontSize))
-			.action_({|a,b,c|item.postln; openAction.value(item);globalAction.value(item,a,b,c); menu.visible_( false )});
+			.action_({|action, what, value|openAction.value(item,action, what, value);globalAction.value(action, what, value); menu.visible_( false )});
 		};
 		^nil;
 
@@ -203,5 +220,28 @@ PathActionQMenu : ActionQMenu{
 
 	}
 
+}
+
+ActionQSubMenu : ActionQMenu{
+	var items;
+	*new{|name = "default",items|
+		^super.new.init(name,items);
+	}
+
+	init{| name, argItems|
+		menu = Menu().title_(name);
+		items=argItems;
+		^this;
+	}
+	prMakeMenu{|dAction,gAction,ufont|
+		defaultAction=dAction.copy;
+		globalAction=gAction.copy;
+		useDefaultFont=ufont;
+		items.do{|item|
+
+			this.addItem(menu,item);
+		};
+		^menu;
+	}
 }
 

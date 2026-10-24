@@ -1,0 +1,68 @@
+TITLE:: ActionQSubMenu
+SUMMARY:: A Button with a popup Menu for performing actions.
+CATEGORIES:: GUI>Views, Libraries>jostMlib
+related:: jostMlib,  Classes/ActionQMenu,Classes/Menu, Classes/MenuAction
+
+DESCRIPTION::
+A Submenu for ActionQMenu.
+
+See  link::Classes/ActionQMenu::.
+
+
+CLASSMETHODS::
+
+METHOD:: new
+Create an ActionQSubMenu
+
+ARGUMENT:: name
+The submenu  Title
+
+ARGUMENT:: items
+An Array of link::Classes/String::, link::Classes/Association:: (\key->function), link::Classes/MenuAction::, or link::Classes/ActionQSubMenu::.
+
+
+MenuAction will give you the most customizability.
+
+returns::
+an ActionMenu
+
+
+INSTANCEMETHODS::
+
+
+PRIVATE:: prMakeMenu
+EXAMPLES::
+
+code::
+(
+w = Window.new("ActionMenu Examples").front;
+// action arguments are |val,modifier,buttonNum|
+w.flow{arg w;
+	var r=ActionQMenu(w,120@30,"testmenu",[
+		"-divider example",
+		'Test1'->{"-> Test1".postln},
+		"-test2",
+		MenuAction("Test2").action_({|a|"-> ".post; a.postln}),
+		MenuAction("Test3"),
+		"Test4",
+		"-",
+		ActionQSubMenu("Submenu1",[
+			'Submenu1.test1'->{"-> Submenu1.test1".postln},
+			MenuAction("Submenu1.test2"),
+			"Submenu1.test3",
+			ActionQSubMenu("SubSubmenu",[
+				'Submenu2.test1'->{"-> SubSubmenu.test1".postln},
+				MenuAction("SubSubmenu.test2"),
+				"SubSubmenu.test3"
+			])
+
+		])
+
+	],{"-> default action".postln},{"-> global action".postln;"".postln});
+	// if you want defaultAction and globalAction to propogate to submenus,
+	// they must be in the top menu constructor.
+
+};
+)
+
+::

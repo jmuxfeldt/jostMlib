@@ -127,7 +127,7 @@ w.flow{arg w;
 		"-UserAppSupportDir", // a divider with text
 		Platform.userAppSupportDir++"/*", // '/*' will iterate over the dir on the top level
 
-    ],globalAction: ("globalAction:".postln),lazyLoad: true);
+	],globalAction: {"globalAction".postln},lazyLoad: true);
 	// some directories are huge, so we need to lazy load them
 	// if you want defaultAction and globalAction to propogate to submenus,
     // they must be in the top menu constructor.

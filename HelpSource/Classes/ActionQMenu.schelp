@@ -224,10 +224,12 @@ amenu=ActionQMenu(nil,120@30,"testmenu",[
 	])
 
 ],{"-> default action".postln},{"-> global action".postln;"".postln}, noButton:true);
+
 MainMenu.register(amenu.menu, "TestActions");
-)
+
 amenu.menu.actions.do{|act|
 	MainMenu.register(act, "TestActions2");
 }
+
 )
 ::

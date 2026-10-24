@@ -416,7 +416,26 @@ JMDrawIcon {
 
 
 			},
+			\resume:{ | rect|
+				var rectSize=min(rect.width,rect.height);
+				var inset=rectSize*0.20;
+				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5),(rectSize * 0.5)-inset).insetBy(inset*0.1,inset*0.1);
+				var innerSize=rectSize-inset;
+				var penwidth = 0;
+				Pen.width=penwidth;
+				Pen.moveTo(drawRect.left@drawRect.top);
+				Pen.lineTo(drawRect.center.x@drawRect.center.y);
+				Pen.lineTo(drawRect.left@drawRect.bottom);
+				Pen.lineTo(drawRect.left@drawRect.top);
+				Pen.addRect(Rect(drawRect.center.x,drawRect.top,innerSize*0.2,drawRect.height));
+				Pen.addRect(Rect(drawRect.center.x+(innerSize*0.4),drawRect.top,innerSize*0.2,drawRect.height));
 
+
+				Pen.fill;
+
+
+
+			},
 
 			\eye: { | rect|
 				var rectSize=min(rect.width,rect.height);

@@ -55,6 +55,14 @@ Caution: false can slow things down with large directories and subdirectories.
 ARGUMENT:: showArrow
 show a little down-tick arrow, defaults to true
 
+ARGUMENT:: noButton
+default false.
+
+construct without the button, so you can attach the menu to link::Classes/MainMenu::
+
+See code example below
+
+
 returns::
 an ActionQMenu
 
@@ -154,6 +162,47 @@ code::
 
 m.openAction= {|path|path.load.value(v)};
 // In this way you can separate your code functions into many small files.
+
+
+::
+code::
+
+(
+// attach to MainMenu with  noButton:true
+
+var pamenu;
+FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
+   pamenu=PathActionQMenu(w,Rect(0,0,150,25),"Open Files and Dirs",[
+        'An Action'->{|action,what,val|[action,what,val].postln},
+        ActionQSubMenu("ActionQSubMenu",[
+            "SubAction1",
+            "SubAction2"
+        ]),
+        "-", // a divider
+        "~/Documents",
+        "~/Shared",
+        Platform.userAppSupportDir++"/startup.scd",
+        "-UserAppSupportDir",
+        Platform.userAppSupportDir++"/*",
+
+    ],globalAction: {"globalAction".postln},lazyLoad: true, noButton:true);
+
+
+    pamenu.openAction= {|path,action,what,val|
+        [path,action,what,val].postln;
+        Document.open(path);
+        // Or use your custom editor
+        // ("open -a  Sublime\\ Text "++path.escapeChar($ )).unixCmd;
+    };
+
+
+MainMenu.register(pamenu.menu, "TestPathActions");
+
+pamenu.menu.actions.do{|act|
+
+MainMenu.register(act, "TestPathActions2");
+}
+)
 
 
 ::

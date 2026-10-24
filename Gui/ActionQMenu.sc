@@ -4,18 +4,18 @@ ActionQMenu{
 	<>fontSize=15,<toolTip, >arrowSize=6.5,>useDefaultFont,
 	name, action, <menu;
 
-	*new{|parent, bounds, name = "default",items,defaultAction,globalAction,useDefaultFont=true,showArrow=true|
-		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,showArrow);
+	*new{|parent, bounds, name = "default",items,defaultAction,globalAction,useDefaultFont=true,showArrow=true, noButton=false|
+		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,showArrow,noButton);
 	}
 
-	init{|parent, bounds, nm, argItems,dAction,gAction,argUseDefaultFont, showArrow|
+	init{|parent, bounds, nm, argItems,dAction,gAction,argUseDefaultFont, showArrow, noButton|
 		bounds=bounds.asRect;
 		name=nm;
 		defaultAction=dAction?{};
 		globalAction=gAction?{};
 		useDefaultFont=argUseDefaultFont;
 		arrowColor = Color.grey(0.5);
-		this.makeButton(parent, bounds, name, showArrow);
+		noButton.booleanValue.not.if{this.makeButton(parent, bounds, name, showArrow)};
 		menu = Menu().title_(name);
 		argItems.do{|item|
 			this.addItem(menu,item);
@@ -153,12 +153,12 @@ PathActionQMenu : ActionQMenu{
 	classvar <>defaultOpenAction,>defaultAllowedFiles,>defaultLazyLoad=false;
 	var  toplevel=true, toplevelarray,  <>openAction, <>allowedFiles,lazyLoad;
 
-	*new{|parent, bounds, name = "New Menu",items,defaultAction,globalAction,useDefaultFont=true,lazyLoad,showArrow=true|
-		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,lazyLoad,showArrow);
+	*new{|parent, bounds, name = "New Menu",items,defaultAction,globalAction,useDefaultFont=true,lazyLoad,showArrow=true, noButton=false|
+		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,lazyLoad,showArrow, noButton);
 	}
 
-	init{|parent, bounds, nm,argItems,dAction,gAction,argUseDefaultFont,argLazyLoad, showArrow|
-		super.init(parent, bounds, nm, showArrow: showArrow);
+	init{|parent, bounds, nm,argItems,dAction,gAction,argUseDefaultFont,argLazyLoad, showArrow, noButton|
+		super.init(parent, bounds, nm, showArrow: showArrow, noButton: noButton);
 		openAction=defaultOpenAction?{|path,action,what,val| [path,action,what,val].postln};
 		defaultAction=dAction?{};
 		globalAction=gAction?{};

@@ -50,6 +50,13 @@ defaults to true. If you want to completely customize MenuAction items, set it t
 ARGUMENT:: showArrow
 show a little down-tick arrow, defaults to true
 
+ARGUMENT:: noButton
+default false.
+
+construct without the button, so you can attach the menu to link::Classes/MainMenu::
+
+See code example below
+
 returns::
 an ActionMenu
 
@@ -188,5 +195,39 @@ w.flow{arg w;
 	// if you want defaultAction and globalAction to propogate to submenus,
 	// they must be in the top menu constructor.
 };
+)
+::
+code::
+
+(
+// attach to MainMenu with  noButton:true
+var amenu;
+FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
+amenu=ActionQMenu(nil,120@30,"testmenu",[
+	"-divider example",
+	'Test1'->{"-> Test1".postln},
+	"-test2",
+	MenuAction("Test2").action_({|a|"-> ".post; a.postln}),
+	MenuAction("Test3"),
+	"Test4", // Plain text item uses defaultAction
+	"-",
+	ActionQSubMenu("Submenu1",[
+		'Submenu1.test1'->{"-> Submenu1.test1".postln},
+		MenuAction("Submenu1.test2"),
+		"Submenu1.test3",
+		ActionQSubMenu("SubSubmenu",[
+			'Submenu2.test1'->{"-> SubSubmenu.test1".postln},
+			MenuAction("SubSubmenu.test2"),
+			"SubSubmenu.test3"
+		])
+
+	])
+
+],{"-> default action".postln},{"-> global action".postln;"".postln}, noButton:true);
+MainMenu.register(amenu.menu, "TestActions");
+)
+amenu.menu.actions.do{|act|
+	MainMenu.register(act, "TestActions2");
+}
 )
 ::

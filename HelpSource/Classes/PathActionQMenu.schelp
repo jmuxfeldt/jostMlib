@@ -28,12 +28,20 @@ The Menu Button Title
 
 ARGUMENT:: items
 An Array of link::Classes/String::, link::Classes/Association:: (\key->function), link::Classes/MenuAction::, or link::Classes/ActionQSubMenu::.
+Note:: items
 
-Strings are interpreted as file or folder paths (except if they start with "-");
+A String is interpreted as file or folder paths (except if they start with "-");
 
-A string ending in "/*" will iterated over the files in the directory on the top level.
+A String ending in "/*" will iterated over the files in the directory on the top level.
 
-All other items are actions like in  link::Classes/ActionQMenu:: .
+If a String starts with "-", it creates a menu separator.
+
+Use an Association to trigger the associated function (and globalAction).
+
+Use a MenuAction to customize all aspects of the menu, and trigger the associated action (and globalAction).
+
+Use a ActionQSubMenu to create a sub-menu.
+::
 
 
 ARGUMENT:: defaultAction
@@ -55,16 +63,56 @@ Caution: false can slow things down with large directories and subdirectories.
 ARGUMENT:: showArrow
 show a little down-tick arrow, defaults to true
 
-ARGUMENT:: noButton
-default false.
-
-construct without the button, so you can attach the menu to link::Classes/MainMenu::
-
-See code example below
-
 
 returns::
 an ActionQMenu
+
+METHOD:: newMenuOnly
+Create an ActionMenu without the trigger button, so you can attach the menu to link::Classes/MainMenu::
+
+See code examples below.
+
+ARGUMENT:: parent
+The parent view.
+
+ARGUMENT:: bounds
+A Rect
+
+ARGUMENT:: name
+The Menu Button Title
+
+ARGUMENT:: items
+An Array of link::Classes/String::, link::Classes/Association:: (\key->function), link::Classes/MenuAction::, or link::Classes/ActionQSubMenu::.
+
+Note:: items
+
+A String is interpreted as file or folder paths (except if they start with "-");
+
+A String ending in "/*" will iterated over the files in the directory on the top level.
+
+If a String starts with "-", it creates a menu separator.
+
+Use an Association to trigger the associated function (and globalAction).
+
+Use a MenuAction to customize all aspects of the menu, and trigger the associated action (and globalAction).
+
+Use a ActionQSubMenu to create a sub-menu.
+::
+
+
+ARGUMENT:: defaultAction
+a default action, in case not action is specified.
+
+ARGUMENT:: globalAction
+a global action which is run for any item.
+
+ARGUMENT:: lazyLoad
+default: defaultLazyLoad. lazy load the submenus. False makes menu items more respnsive.
+
+Caution: false can slow things down with large directories and subdirectories.
+
+returns::
+an ActionQMenu without a trigger button
 
 
 METHOD:: defaultAllowedFiles
@@ -109,6 +157,20 @@ PRIVATE:: addItem
 PRIVATE:: returnpaths
 
 EXAMPLES::
+Note:: items
+
+A String is interpreted as file or folder paths (except if they start with "-");
+
+A String ending in "/*" will iterated over the files in the directory on the top level.
+
+If a String starts with "-", it creates a menu separator.
+
+Use an Association to trigger the associated function (and globalAction).
+
+Use a MenuAction to customize all aspects of the menu, and trigger the associated action (and globalAction).
+
+Use a ActionQSubMenu to create a sub-menu.
+::
 
 code::
 (
@@ -168,11 +230,11 @@ m.openAction= {|path|path.load.value(v)};
 code::
 
 (
-// attach to MainMenu with  noButton:true
+// to attach to MainMenu use  *newMenuOnly
 
 var pamenu;
 FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
-   pamenu=PathActionQMenu(w,Rect(0,0,150,25),"Open Files and Dirs",[
+   pamenu=PathActionQMenu.newMenuOnly(w,Rect(0,0,150,25),"Open Files and Dirs",[
         'An Action'->{|action,what,val|[action,what,val].postln},
         ActionQSubMenu("ActionQSubMenu",[
             "SubAction1",
@@ -185,7 +247,7 @@ FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
         "-UserAppSupportDir",
         Platform.userAppSupportDir++"/*",
 
-    ],globalAction: {"globalAction".postln},lazyLoad: true, noButton:true);
+    ],globalAction: {"globalAction".postln},lazyLoad: true);
 
 
     pamenu.openAction= {|path,action,what,val|

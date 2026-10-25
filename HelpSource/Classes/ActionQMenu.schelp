@@ -33,7 +33,18 @@ The Menu Button Title
 ARGUMENT:: items
 An Array of link::Classes/String::, link::Classes/Association:: (\key->function), link::Classes/MenuAction::, or link::Classes/ActionQSubMenu::.
 
+Note:: items
+
+Use a String to trigger the defaultAction (and globalAction).
+
 If a String starts with "-", it creates a menu separator.
+
+Use an Association to trigger the associated function (and globalAction).
+
+Use a MenuAction to customize all aspects of the menu, and trigger the associated action (and globalAction).
+
+Use a ActionQSubMenu to create a sub-menu.
+::
 
 MenuAction will give you the most customizability.
 
@@ -50,15 +61,54 @@ defaults to true. If you want to completely customize MenuAction items, set it t
 ARGUMENT:: showArrow
 show a little down-tick arrow, defaults to true
 
-ARGUMENT:: noButton
-default false.
-
-construct without the button, so you can attach the menu to link::Classes/MainMenu::
-
-See code example below
 
 returns::
 an ActionMenu
+
+
+
+METHOD:: newMenuOnly
+Create an ActionQMenu without the trigger button, so you can attach the menu to link::Classes/MainMenu::
+
+See code examples below.
+
+ARGUMENT:: parent
+The parent view.
+
+ARGUMENT:: bounds
+A Rect
+
+ARGUMENT:: name
+The Menu Button Title
+
+ARGUMENT:: items
+An Array of link::Classes/String::, link::Classes/Association:: (\key->function), link::Classes/MenuAction::, or link::Classes/ActionQSubMenu::.
+
+Note:: items
+
+Use a String to trigger the defaultAction (and globalAction).
+
+If a String starts with "-", it creates a menu separator.
+
+Use an Association to trigger the associated function (and globalAction).
+
+Use a MenuAction to customize all aspects of the menu, and trigger the associated action (and globalAction).
+
+Use a ActionQSubMenu to create a sub-menu.
+::
+
+
+MenuAction will give you the most customizability.
+
+ARGUMENT:: defaultAction
+a default action for action items, in case no action is specified.
+
+ARGUMENT:: globalAction
+a global action which is run for any item.
+
+
+returns::
+an ActionMenu without the trigger button (for attaching to MainMenu)
 
 
 METHOD:: buttonClass
@@ -136,6 +186,19 @@ PRIVATE:: closeOnSelect
 PRIVATE:: unfocusClose
 EXAMPLES::
 
+Note:: Items
+
+Use a String to trigger the defaultAction (and globalAction).
+
+If a String starts with "-", it creates a menu separator.
+
+Use an Association to trigger the associated function (and globalAction).
+
+Use a MenuAction to customize all aspects of the menu, and trigger the associated action (and globalAction).
+
+Use a ActionQSubMenu to create a sub-menu.
+::
+
 code::
 (
 w = Window.new("ActionMenu Examples").front;
@@ -200,10 +263,11 @@ w.flow{arg w;
 code::
 
 (
-// attach to MainMenu with  noButton:true
+// to attach to MainMenu use  *newMenuOnly
+
 var amenu;
 FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
-amenu=ActionQMenu(nil,120@30,"testmenu",[
+amenu=ActionQMenu.newMenuOnly(nil,120@30,"testmenu",[
 	"-divider example",
 	'Test1'->{"-> Test1".postln},
 	"-test2",
@@ -223,7 +287,7 @@ amenu=ActionQMenu(nil,120@30,"testmenu",[
 
 	])
 
-],{"-> default action".postln},{"-> global action".postln;"".postln}, noButton:true);
+],{"-> default action".postln},{"-> global action".postln;"".postln});
 
 MainMenu.register(amenu.menu, "TestActions");
 

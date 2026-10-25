@@ -4,9 +4,14 @@ ActionQMenu{
 	<>fontSize=15,<toolTip, >arrowSize=6.5,>useDefaultFont,
 	name, action, <menu;
 
-	*new{|parent, bounds, name = "default",items,defaultAction,globalAction,useDefaultFont=true,showArrow=true, noButton=false|
-		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,showArrow,noButton);
+	*new{|parent, bounds, name = "default",items,defaultAction,globalAction,useDefaultFont=true,showArrow=true|
+		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,showArrow,false);
 	}
+
+	*newMenuOnly{|parent, bounds, name = "default",items,defaultAction,globalAction|
+		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,true,true,true);
+	}
+
 
 	init{|parent, bounds, nm, argItems,dAction,gAction,argUseDefaultFont, showArrow, noButton|
 		bounds=bounds.asRect;
@@ -153,8 +158,12 @@ PathActionQMenu : ActionQMenu{
 	classvar <>defaultOpenAction,>defaultAllowedFiles,>defaultLazyLoad=false;
 	var  toplevel=true, toplevelarray,  <>openAction, <>allowedFiles,lazyLoad;
 
-	*new{|parent, bounds, name = "New Menu",items,defaultAction,globalAction,useDefaultFont=true,lazyLoad,showArrow=true, noButton=false|
-		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,lazyLoad,showArrow, noButton);
+	*new{|parent, bounds, name = "New Menu",items,defaultAction,globalAction,useDefaultFont=true,lazyLoad,showArrow=true|
+		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,lazyLoad,showArrow, false);
+	}
+
+	*newMenuOnly{|parent, bounds, name = "New Menu",items,defaultAction,globalAction,lazyLoad|
+		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,true,lazyLoad,true, true);
 	}
 
 	init{|parent, bounds, nm,argItems,dAction,gAction,argUseDefaultFont,argLazyLoad, showArrow, noButton|

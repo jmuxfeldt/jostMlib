@@ -43,7 +43,6 @@ Use a MenuAction to customize all aspects of the menu, and trigger the associate
 Use a ActionQSubMenu to create a sub-menu.
 ::
 
-
 ARGUMENT:: defaultAction
 a default action, in case not action is specified.
 
@@ -92,6 +91,7 @@ Use a MenuAction to customize all aspects of the menu, and trigger the associate
 
 Use a ActionQSubMenu to create a sub-menu.
 ::
+WARNING::When registering with  MainMenu, "-" cannot be repeated without adding a unique name (which is not rendered) ::
 
 
 ARGUMENT:: defaultAction
@@ -221,6 +221,9 @@ m.openAction= {|path|path.load.value(v)};
 
 
 ::
+SECTION:: Using with MainMenu
+WARNING::When registering with  MainMenu, "-" cannot be repeated without adding a unique name (which is not rendered) ::
+
 code::
 
 (
@@ -238,7 +241,7 @@ FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
         "~/Documents",
         "~/Shared",
         Platform.userAppSupportDir++"/startup.scd",
-        "-UserAppSupportDir",
+        "-uniqueName", //!!!!
         Platform.userAppSupportDir++"/*",
 
     ],globalAction: {"globalAction".postln},lazyLoad: true);

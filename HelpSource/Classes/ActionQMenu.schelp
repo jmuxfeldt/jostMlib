@@ -90,7 +90,7 @@ Use a MenuAction to customize all aspects of the menu, and trigger the associate
 
 Use a ActionQSubMenu to create a sub-menu.
 ::
-
+WARNING::When registering with  MainMenu, "-" cannot be repeated without adding a unique name (which is not rendered) ::
 
 MenuAction will give you the most customizability.
 
@@ -254,6 +254,10 @@ w.flow{arg w;
 };
 )
 ::
+
+SECTION:: Using with MainMenu
+WARNING::When registering with  MainMenu, "-" cannot be repeated without adding a unique name (which is not rendered) ::
+
 code::
 
 (
@@ -262,13 +266,13 @@ code::
 var amenu;
 FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
 amenu=ActionQMenu.newMenuOnly("testmenu",[
-	"-divider example",
+	"-",
 	'Test1'->{"-> Test1".postln},
 	"-test2",
 	MenuAction("Test2").action_({|a|"-> ".post; a.postln}),
 	MenuAction("Test3"),
 	"Test4", // Plain text item uses defaultAction
-	"-",
+	"-uniqueName", // !!!
 	ActionQSubMenu("Submenu1",[
 		'Submenu1.test1'->{"-> Submenu1.test1".postln},
 		MenuAction("Submenu1.test2"),

@@ -2,7 +2,7 @@ ActionMenu{
 	classvar padding = 36,<>buttonClass;
 	var <>items, listview, modifier,buttonNum, <button,>arrowColor, <>defaultAction,<>unfocusClose = true,<>globalAction, winPosition, <value = "default",
 	<>closeOnSelect=true, <>fontSize=15,<toolTip, >arrowSize=6.5,
-	name,level=0, action, window;
+	name,level=0, action, window,>borderless=false;
 
 	*new{|parent, bounds, name = "default",items,showArrow=true|
 		^super.new.init(parent, bounds, name,items,showArrow);
@@ -112,7 +112,7 @@ ActionMenu{
 
 	prMakeListView{| listitems, winbounds |
 		var escFunc;
-		window = Window.new(name).front.bounds_(winbounds).alwaysOnTop_(true);
+		window = Window.new(name,border:borderless.not).front.bounds_(winbounds).alwaysOnTop_(true);
 
 
 		listview  =  ListView.new(window.view,window.view.bounds);
@@ -168,6 +168,8 @@ ActionMenu{
 		bounds.height = lHeight;
 		bounds.left=winPosition.x;
 		bounds.top=Window.screenBounds.height-lHeight-winPosition.y;
+		borderless.if{bounds.top=bounds.top+20};
+
 		^ bounds;
 	}
 

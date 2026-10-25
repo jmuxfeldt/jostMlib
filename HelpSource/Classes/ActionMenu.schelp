@@ -80,7 +80,7 @@ default 6.5
 
 METHOD:: arrowColor
 
-
+METHOD:: borderless
 
 
 PRIVATE:: prAddSpacer
@@ -103,6 +103,7 @@ EXAMPLES::
 
 code::
 (
+~borderless=true; // try usint true
 w = Window.new("ActionMenu Examples").front;
 // action arguments are |val,modifier,buttonNum|
 w.flow{arg w;
@@ -111,7 +112,7 @@ w.flow{arg w;
         \sing ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
         \shout ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
         \grunt ->{|val,modifier,buttonNum|[ val,modifier,buttonNum].postln},
-    ]);
+    	]).borderless_(~borderless);
 
     // prevent closing, use a separator
     b=ActionMenu(w,Rect(0,0,80,25),"No Close").closeOnSelect_(false);
@@ -120,10 +121,10 @@ w.flow{arg w;
             \sing ->{"sing".postln},
             "-", // separator. no action
             \shout ->{"shout".postln},
-    ]).unfocusClose_(false); // don't close when clicked outside
+    ]).unfocusClose_(false).borderless_(~borderless); // don't close when clicked outside
 
     // Chosen value shown on button label; Use a globalAction.
-    b=ActionMenu(w,Rect(0,0,80,25),"Select",["fast","medium","slow"]).globalAction_{|val|
+    b=ActionMenu(w,Rect(0,0,80,25),"Select",["fast","medium","slow"]).borderless_(~borderless).globalAction_{|val|
         b.button.states_([[val.asString]]);
         b.button.refresh;
         b.button.focus(0);

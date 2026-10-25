@@ -71,6 +71,8 @@ a prefix for directory entries. overrides defaultPrefix. defaults to "/"
 METHOD:: dirSuffix
 a suffix for directory entries. overrides defaultSuffix.
 
+METHOD:: borderless
+
 PRIVATE:: prAddItem
 PRIVATE:: prFileItem
 PRIVATE:: prFolderItem
@@ -91,7 +93,6 @@ code::
 // File paths directly run the openAction.
 // Directories navigate to the next level with a new window and an up (../) option.
 // argumentsfor  openAction and defaultOpenAction are  path,modifier,buttonNum .
-
 w = Window.new("PathActionMenu Examples").front;
 w.flow{arg w;
     var m;
@@ -104,7 +105,7 @@ w.flow{arg w;
 		"-",
 		Platform.userAppSupportDir++"/*",  // '*' will iterate over the dir on the top level
 
-    ]);
+	]).borderless_(false); // try using true
     m.openAction= {|path,modifier,buttonNum|
         [path,modifier,buttonNum].postln;
         Document.open(path);

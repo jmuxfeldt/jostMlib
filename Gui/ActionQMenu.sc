@@ -8,8 +8,8 @@ ActionQMenu{
 		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,showArrow,false);
 	}
 
-	*newMenuOnly{|parent, bounds, name = "default",items,defaultAction,globalAction|
-		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,true,true,true);
+	*newMenuOnly{|name = "default",items,defaultAction,globalAction|
+		^super.new.init(nil, 100@30, name,items,defaultAction,globalAction,true,true,true);
 	}
 
 
@@ -162,8 +162,8 @@ PathActionQMenu : ActionQMenu{
 		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,useDefaultFont,lazyLoad,showArrow, false);
 	}
 
-	*newMenuOnly{|parent, bounds, name = "New Menu",items,defaultAction,globalAction,lazyLoad|
-		^super.new.init(parent, bounds, name,items,defaultAction,globalAction,true,lazyLoad,true, true);
+	*newMenuOnly{|name="New Menu", items,defaultAction,globalAction,lazyLoad|
+		^super.new.init(nil, 100@30, name,items,defaultAction,globalAction,true,lazyLoad,true, true);
 	}
 
 	init{|parent, bounds, nm,argItems,dAction,gAction,argUseDefaultFont,argLazyLoad, showArrow, noButton|

@@ -72,12 +72,6 @@ Create an ActionMenu without the trigger button, so you can attach the menu to l
 
 See code examples below.
 
-ARGUMENT:: parent
-The parent view.
-
-ARGUMENT:: bounds
-A Rect
-
 ARGUMENT:: name
 The Menu Button Title
 
@@ -234,7 +228,7 @@ code::
 
 var pamenu;
 FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
-   pamenu=PathActionQMenu.newMenuOnly(w,Rect(0,0,150,25),"Open Files and Dirs",[
+   pamenu=PathActionQMenu.newMenuOnly("Open Files and Dirs",[
         'An Action'->{|action,what,val|[action,what,val].postln},
         ActionQSubMenu("ActionQSubMenu",[
             "SubAction1",

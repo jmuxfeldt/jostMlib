@@ -72,12 +72,6 @@ Create an ActionQMenu without the trigger button, so you can attach the menu to 
 
 See code examples below.
 
-ARGUMENT:: parent
-The parent view.
-
-ARGUMENT:: bounds
-A Rect
-
 ARGUMENT:: name
 The Menu Button Title
 
@@ -267,7 +261,7 @@ code::
 
 var amenu;
 FlowView.new.flow{|w| StaticText(w, 300@30).string_("Look at the macOS menu")};
-amenu=ActionQMenu.newMenuOnly(nil,120@30,"testmenu",[
+amenu=ActionQMenu.newMenuOnly("testmenu",[
 	"-divider example",
 	'Test1'->{"-> Test1".postln},
 	"-test2",

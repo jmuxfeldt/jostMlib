@@ -1,5 +1,5 @@
 JMDrawIcon {
-
+	classvar >lightColor;
 	*new { |name, rect ... more|
 		rect = (rect ? (32@32)).asRect;
 		^this.drawFuncs.at(name).value( rect, *more ); // returns pen function
@@ -11,11 +11,9 @@ JMDrawIcon {
 			Class.initClassTree(DrawIcon);
 			this.drawFuncs.keysValuesDo{|k,v|
 				DrawIcon.drawFuncs.put(k,v);
-			}{
-				"Needs wslib Quark DrawIcon class.".error;
-
 			}
-		}
+		};
+		lightColor = QtGUI.palette.window;
 
 	}
 
@@ -545,6 +543,72 @@ JMDrawIcon {
 				Pen.addArc((square.center.x +(square.width/3))@square.center.y,square.width*0.4 ,-0.15*pi,pi*0.3 );
 				Pen.addArc((square.center.x +(square.width/3))@square.center.y,square.width*0.8 ,-0.15*pi,pi*0.3 );
 				Pen.addArc((square.center.x +(square.width/3))@square.center.y,square.width*1.2 ,-0.15*pi,pi*0.3 );
+				Pen.stroke;
+
+			},
+			\speaker3: { | rect|
+
+				var square;
+				var penwidth ;
+				var size;
+				size = rect.width.min( rect.height )*0.5;
+				square = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 3,
+					rect.width.min( rect.height ) / 3 );
+				penwidth = 1.max(square.width*0.03);
+				size = rect.width.min( rect.height )*0.37;
+
+				square = square.insetBy( square.width / 6, 0 );
+				square = square.moveBy( square.width / -3, 0 );
+				Pen.moveTo( square.rightTop );
+				Pen.lineTo( square.rightBottom );
+				Pen.lineTo( (square.left + (square.width / 2.5))@
+					(square.center.y + (square.width / 4)) );
+				Pen.lineTo( square.left@(square.center.y + (square.width / 4)) );
+				Pen.lineTo( square.left@(square.center.y - (square.width / 4)) );
+				Pen.lineTo( (square.left + (square.width / 2.5))@
+					(square.center.y - (square.width / 4)) );
+				Pen.lineTo( square.rightTop );
+				// Pen.translate(square.width.neg*0.2,0);
+				Pen.translate(square.width*0.08.neg,0);
+				Pen.draw;
+				Pen.width=1.5;
+				Pen.addArc((square.center.x +(square.width/3))@square.center.y,square.width*0.8 ,-0.15*pi,pi*0.3 );
+				Pen.addArc((square.center.x +(square.width/3))@square.center.y,square.width*1.2 ,-0.15*pi,pi*0.3 );
+				Pen.translate(square.width.neg*0.3,0);
+				Pen.stroke;
+
+			},
+			\speakerMute: { | rect|
+				var square;
+				var penwidth ;
+				var xwidth;
+				square = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 3,
+					rect.width.min( rect.height ) / 3 );
+				penwidth = 1.max(square.width*0.075);
+				xwidth=square.width*0.25;
+
+				square = square.insetBy( square.width / 6, 0 );
+				square = square.moveBy( square.width / -3, 0 );
+				Pen.moveTo( square.rightTop );
+				Pen.lineTo( square.rightBottom );
+				Pen.lineTo( (square.left + (square.width / 2.5))@
+					(square.center.y + (square.width / 4)) );
+				Pen.lineTo( square.left@(square.center.y + (square.width / 4)) );
+				Pen.lineTo( square.left@(square.center.y - (square.width / 4)) );
+				Pen.lineTo( (square.left + (square.width / 2.5))@
+					(square.center.y - (square.width / 4)) );
+				Pen.lineTo( square.rightTop );
+				Pen.translate(square.width*0.08.neg,0);
+				Pen.draw;
+				//
+				Pen.width_(penwidth*1.5);
+				Pen.rotate(pi*0.25,rect.center.x,rect.center.y);
+				Pen.line(Point(rect.center.x-xwidth,rect.center.y),Point(rect.center.x+xwidth,rect.center.y));
+				Pen.line(Point(rect.center.x,rect.center.y-xwidth),Point(rect.center.x,rect.center.y+xwidth));
+				Pen.translate(square.width*0.5,square.width*0.5.neg);
+
 				Pen.stroke;
 
 			},

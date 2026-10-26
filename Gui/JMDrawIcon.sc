@@ -477,14 +477,11 @@ JMDrawIcon {
 				// Pen.stroke;
 				Pen.width= (rad*0.06).ceil(2);
 
-
 				Pen.moveTo(drawRect.center);
-
 
 				Pen.addArc(Point(drawRect.center.x, drawRect.center.y+(rad*0.5)), rad*1.2, pi+angleDiff,pi-(angleDiff*2));
 				Pen.addArc(Point(drawRect.center.x, drawRect.center.y-(rad*0.5)), rad*1.2, 2pi+angleDiff,pi-(angleDiff*2));
-				Pen.strokeColor_(Color.black);
-				Pen.fillStroke;
+				Pen.draw;
 				Pen.color_(lightColor);
 				Pen.strokeColor_(lightColor);
 

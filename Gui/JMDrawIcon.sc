@@ -1,5 +1,5 @@
 JMDrawIcon {
-	classvar >lightColor;
+	classvar lightColor;
 	*new { |name, rect ... more|
 		rect = (rect ? (32@32)).asRect;
 		^this.drawFuncs.at(name).value( rect, *more ); // returns pen function
@@ -16,6 +16,9 @@ JMDrawIcon {
 		lightColor = QtGUI.palette.window;
 
 	}
+
+	*lightColor_{|color| lightColor= color}
+
 
 	*drawFuncs{
 		^(
@@ -480,12 +483,12 @@ JMDrawIcon {
 
 				Pen.addArc(Point(drawRect.center.x, drawRect.center.y+(rad*0.5)), rad*1.2, pi+angleDiff,pi-(angleDiff*2));
 				Pen.addArc(Point(drawRect.center.x, drawRect.center.y-(rad*0.5)), rad*1.2, 2pi+angleDiff,pi-(angleDiff*2));
-				Pen.fill;
 				Pen.strokeColor_(Color.black);
-				Pen.stroke;
+				Pen.fillStroke;
+				Pen.color_(lightColor);
+				Pen.strokeColor_(lightColor);
+
 				Pen.addArc(drawRect.center, rad*0.3, pi, 2*pi);
-				Pen.color_(Color.grey(0.8));
-				Pen.strokeColor_(Color.grey(0.8));
 
 				Pen.fillStroke;
 

@@ -15,10 +15,20 @@ METHOD:: new
 
 METHOD:: initClass
 
+
 METHOD:: drawFuncs
 gets all of the draw function
 
+
 returns:: an Event (\key1: func, \key2: func)
+
+METHOD:: lightColor
+defaults to  QtGUI.palette.window
+
+Allows for painting a contrasting light/dark color, using the default window background color.
+
+For icons that need a punchout suface, like \eyeFill .
+
 
 METHOD:: listKeys
 lists all the functions

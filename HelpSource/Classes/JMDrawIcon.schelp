@@ -27,7 +27,7 @@ defaults to  QtGUI.palette.window
 
 Allows for painting a contrasting light/dark color, using the default window background color.
 
-For icons that need a punchout suface, like \eyeFill .
+For icons that need a punchout surface, like \eyeFill .
 
 
 METHOD:: listKeys

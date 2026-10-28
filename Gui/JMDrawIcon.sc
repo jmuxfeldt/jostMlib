@@ -111,6 +111,49 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
+			\dvd:	{ | rect|
+				var rectSize=min(rect.width,rect.height);
+
+				var inset=rectSize*0.1;
+				var square=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
+				var size=square.width;
+				var penWidth = 1.max(size*0.045);
+				Pen.width_(penWidth);
+				Pen.addArc(rect.center,(size/6)-(1.5*penWidth), 0 ,2*pi);
+				Pen.fill;
+
+				Pen.addArc(rect.center,size/2, 0 ,2*pi);
+				Pen.addArc(rect.center,size/6, 0 ,2*pi);
+				Pen.stroke;
+
+				Pen.addAnnularWedge(rect.center,size/6,(size*0.5)-(penWidth),  1+0.4pi, 0.1pi);
+				Pen.addAnnularWedge(rect.center,size/6,(size*0.5)-(penWidth), 1+pi+0.4pi, 0.1pi);
+				Pen.stringAtPoint("DVD",rect.center+((size*0.11).neg@(size*0.2)),Font.default.size_(size/5.5).bold_(true));
+				Pen.fill;
+
+
+			},
+			\cd:	{ | rect|
+				var rectSize=min(rect.width,rect.height);
+
+				var inset=rectSize*0.1;
+				var square=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
+				var size=square.width;
+				var penWidth = 1.max(size*0.045);
+				Pen.width_(penWidth);
+				Pen.addArc(rect.center,(size/6)-(1.5*penWidth), 0 ,2*pi);
+				Pen.fill;
+
+				Pen.addArc(rect.center,size/2, 0 ,2*pi);
+				Pen.addArc(rect.center,size/6, 0 ,2*pi);
+				Pen.stroke;
+
+				Pen.addAnnularWedge(rect.center,size/6,(size*0.5)-(penWidth),  1+0.4pi, 0.1pi);
+				Pen.addAnnularWedge(rect.center,size/6,(size*0.5)-(penWidth), 1+pi+0.4pi, 0.1pi);
+				Pen.fill;
+
+
+			},
 			\scope: { | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.2;

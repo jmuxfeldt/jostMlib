@@ -663,7 +663,7 @@ JMDrawIcon {
 			\reverb: { | rect|
 				var rectSize=min(rect.width,rect.height);
 
-				var inset=rectSize*0.15;
+				var inset=rectSize*0.2;
 				var square=Rect.aboutPoint(rect.center,(rectSize * 0.6)-inset,(rectSize * 0.5)-inset);
 
 				Pen.width = 1.5.max(square.width*0.05);

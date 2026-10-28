@@ -552,14 +552,14 @@ JMDrawIcon {
 				var space = w*0.08;
 				Pen.width=penwidth;
 
-				Pen.line(Point(drawRect.left,y*0.6),Point(drawRect.left+(2*space),y*0.6));
-				Pen.line(Point(drawRect.left+(4*space),y*0.6),Point(drawRect.right,y*0.6));
+				Pen.line(Point(drawRect.left,y+(w*0.35)),Point(drawRect.left+(2*space),y+(w*0.35)));
+				Pen.line(Point(drawRect.left+(4*space),y+(w*0.35)),Point(drawRect.right,y+(w*0.35)));
 
 				Pen.line(Point(drawRect.left,y),Point(drawRect.left+(2*space),y));
 				Pen.line(Point(drawRect.left+(4*space),y),Point(drawRect.right,y));
 
-				Pen.line(Point(drawRect.left,y*1.4),Point(drawRect.left+(2*space),y*1.4));
-				Pen.line(Point(drawRect.left+(4*space),y*1.4),Point(drawRect.right,y*1.4));
+				Pen.line(Point(drawRect.left,y-(w*0.35)),Point(drawRect.left+(2*space),y-(w*0.35)));
+				Pen.line(Point(drawRect.left+(4*space),y-(w*0.35)),Point(drawRect.right,y-(w*0.35)));
 
 				Pen.stroke;
 

@@ -660,7 +660,26 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
+			\reverb: { | rect|
+				var rectSize=min(rect.width,rect.height);
 
+				var inset=rectSize*0.15;
+				var square=Rect.aboutPoint(rect.center,(rectSize * 0.6)-inset,(rectSize * 0.5)-inset);
+
+				Pen.width = 1.5.max(square.width*0.05);
+				Pen.addArc((square.left-(square.width*0.4*0.4))@(square.top+(square.height*0.3)), square.width*0.4*0.47 , -0.15*pi,pi*0.3 );
+				Pen.addArc((square.left-(square.width*0.4*0.4))@(square.top+(square.height*0.3)), square.width*0.8*0.47  , -0.15*pi,pi*0.3 );
+				Pen.addArc((square.left-(square.width*0.4*0.4))@(square.top+(square.height*0.3)), square.width*1.2*0.47  , -0.15*pi,pi*0.3 );
+
+				Pen.stroke;
+				Pen.addArc((square.left-(square.width*0.4*0.4))@(square.top+(square.height*0.3)), square.width*0.4*0.47 , -0.15*pi,pi*0.3 );
+				Pen.addArc((square.left-(square.width*0.4*0.4))@(square.top+(square.height*0.3)), square.width*0.8*0.47  , -0.15*pi,pi*0.3 );
+				Pen.addArc((square.left-(square.width*0.4*0.4))@(square.top+(square.height*0.3)), square.width*1.2*0.47  , -0.15*pi,pi*0.3 );
+				Pen.rotate(pi,rect.center.x, rect.center.y);
+
+				Pen.stroke;
+
+			},
 			\sine2: { |rect, n = 1, phase = 0, res, fitToRect = false|
 
 				var square, wd, step;

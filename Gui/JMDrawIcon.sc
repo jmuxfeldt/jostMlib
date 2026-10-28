@@ -156,7 +156,7 @@ JMDrawIcon {
 			},
 			\scope: { | rect|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*0.1;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 				Pen.width= drawRect.height*0.07;
@@ -174,7 +174,7 @@ JMDrawIcon {
 			},
 			\fscope: { | rect|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*0.1;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 				Pen.width= drawRect.height*0.07;
@@ -196,7 +196,7 @@ JMDrawIcon {
 
 			\scope2: { | rect|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*0.1;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 				Pen.width= drawRect.height*0.07;
@@ -217,7 +217,7 @@ JMDrawIcon {
 			},
 			\fscope2: { | rect|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*0.1;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 
@@ -240,7 +240,7 @@ JMDrawIcon {
 
 			\freq: { | rect|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*0.1;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 				var amp = drawRect.height*0.35;
@@ -260,7 +260,7 @@ JMDrawIcon {
 
 			\freq2: { | rect|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*0.1;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 				var amp = drawRect.height*0.35;

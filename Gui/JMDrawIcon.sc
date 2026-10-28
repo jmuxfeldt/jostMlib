@@ -428,6 +428,19 @@ JMDrawIcon {
 			},
 
 
+			\lightdark2: { | rect|
+				var rectSize=min(rect.width,rect.height);
+				var inset=rectSize*0.05;
+				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.45)-inset,(rectSize * 0.5)-inset);
+				Pen.width=0;
+				Pen.rotate(0.25pi, drawRect.center.x,drawRect.center.y);
+				Pen.addWedge(rect.center,drawRect.width*0.5,0,pi);
+				Pen.fillStroke;
+				Pen.width=1;
+				Pen.addArc(rect.center,drawRect.width*0.5,pi,2pi);
+				Pen.stroke;
+			},
+
 			\save: { | rect|
 				var rectSize=min(rect.width,rect.height);
 				var inset=rectSize*0.2;

@@ -45,7 +45,7 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\sound:	{ | rect, direction = pi, mode = \fill|
+			\sample:	{ | rect, direction = pi, mode = \fill|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.1;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);

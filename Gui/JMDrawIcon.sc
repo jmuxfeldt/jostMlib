@@ -82,7 +82,7 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
-			\meter:	{ | rect|
+			\levels:	{ | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.2;
 				var drawRect=Rect.aboutPoint(rect.center,(rect.width * 0.5)-inset,(iconSize * 0.5)-inset);

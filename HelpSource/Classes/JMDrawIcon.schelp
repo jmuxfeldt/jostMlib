@@ -29,6 +29,10 @@ Allows for painting a contrasting light/dark color, using the default window bac
 
 For icons that need a punchout surface, like \eyeFill .
 
+METHOD:: randomSeed
+a random seed for icons like \meter, which generate a fixed random series.
+
+Changing it will alter the appearance of those icons.
 
 METHOD:: listKeys
 lists all the functions

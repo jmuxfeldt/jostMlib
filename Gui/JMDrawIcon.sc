@@ -1,5 +1,5 @@
 JMDrawIcon {
-	classvar lightColor;
+	classvar lightColor, randomSeed=77;
 	*new { |name, rect ... more|
 		rect = (rect ? (32@32)).asRect;
 		^this.drawFuncs.at(name).value( rect, *more ); // returns pen function
@@ -45,6 +45,72 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
+			\sound:	{ | rect, direction = pi, mode = \fill|
+				var iconSize=rect.width.min(rect.height);
+				var inset=iconSize*0.1;
+				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
+				var size=drawRect.height;
+				var penWidth= size*0.05;
+				var interval= penWidth*2;
+
+				var x=drawRect.left;
+				var yH=size*0.1;
+				Pen.width= penWidth;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.2;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.15;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.4;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.18;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.25;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.1;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.18;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.3;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.15;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				x=x+interval;yH=size*0.22;
+				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+
+				Pen.stroke;
+
+			},
+			\meter:	{ | rect|
+				var iconSize=rect.width.min(rect.height);
+				var inset=iconSize*0.2;
+				var drawRect=Rect.aboutPoint(rect.center,(rect.width * 0.5)-inset,(iconSize * 0.5)-inset);
+				var size=drawRect.height;
+				var penWidth= 2.max(iconSize*0.1);
+				var interval= 2.5.max(penWidth*1.25);
+				var x=drawRect.left;
+				var y=drawRect.bottom;
+				var n =(drawRect.width/(interval))+1;
+				var nY =(drawRect.height/(interval));
+				var slots = Pseed(randomSeed, Pwhite(1, nY, n)).asStream.nextN(n);
+				Pen.width= penWidth;
+				nY.do{|k|
+					x=drawRect.left;
+					n.do{|i|
+						slots.at(i).notNil.if{
+							(slots.at(i)>k).if{
+								Pen.line(Point(x,y),Point(x,y-penWidth));
+							};
+						};
+						x=x+interval;y;
+					};
+					y=y-interval;
+				};
+
+				Pen.stroke;
+
+			},
 			\scope: { | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.2;
@@ -83,6 +149,7 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
+
 
 			\scope2: { | rect|
 				var iconSize=rect.width.min(rect.height);

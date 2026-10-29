@@ -111,6 +111,40 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
+			\meter:	{ | rect|
+				var rectSize=min(rect.width,rect.height);
+				var inset=rectSize*0.05;
+				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
+				var mCenter = rect.center.y_(rect.center.y+(rectSize*0.4)-inset);
+				var meterSize = drawRect.width;
+				var penWidth = 1.max(1.5*meterSize*0.035);
+				var penWidth2 = 1.max(meterSize*0.035);
+				var penWidth3 = 1.max(meterSize*0.035);
+				Pen.use {
+					Pen.width=penWidth;
+
+					// Pen.addOval(drawRect);
+					// Pen.stroke;
+					Pen.width=penWidth2;
+
+					Pen.rotate(0.3pi,mCenter.x,mCenter.y);
+					7.do{
+						Pen.line(Point(mCenter.x-(meterSize*0.7),mCenter.y), Point(mCenter.x-(meterSize*0.55), mCenter.y));
+						Pen.stroke;
+						Pen.rotate(0.066pi,mCenter.x,mCenter.y);
+					};
+					Pen.stroke;
+					Pen.rotate(0.37pi.neg,mCenter.x,mCenter.y);
+					Pen.line(Point(mCenter.x-(meterSize*0.8),mCenter.y), Point(mCenter.x, mCenter.y));
+					Pen.width=penWidth2;
+					Pen.stroke;
+				};
+				Pen.width=penWidth2;
+
+				Pen.addWedge(mCenter,drawRect.width*0.25,0,pi.neg);
+				Pen.fill;
+
+			},
 			\dvd:	{ | rect|
 				var rectSize=min(rect.width,rect.height);
 

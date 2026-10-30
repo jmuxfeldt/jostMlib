@@ -117,8 +117,8 @@ JMDrawIcon {
 				var penwidth ;
 				var xwidth;
 				square = Rect.aboutPoint( rect.center,
-					1.25*rect.width.min( rect.height ) / 3,
-					1.25*rect.width.min( rect.height ) / 5.5 );
+					1.2*rect.width.min( rect.height ) / 3,
+					1.2*rect.width.min( rect.height ) / 5.5 );
 				penwidth = 1.max(square.width*0.075);
 				xwidth=square.width*0.25;
 				square2=square.copy.width_(square.width*0.67);

@@ -48,37 +48,24 @@ JMDrawIcon {
 
 			\sample:	{ | rect, direction = pi, mode = \fill|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.1;
-				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
+				var inset=iconSize*0.2;
+				var drawRect=Rect.aboutPoint(rect.center,(rect.width * 0.5)-inset,(iconSize * 0.5)-inset);
 				var size=drawRect.height;
-				var penWidth= size*0.05;
-				var interval= penWidth*2;
-
+				var penWidth= size*0.07;
+				var interval= penWidth*2.2;
 				var x=drawRect.left;
-				var yH=size*0.1;
+				var y=rect.center.y;
+				var n =(drawRect.width/(interval))+1;
+				var nY =(drawRect.height*0.6);
+				var slots = Pseed(randomSeed+180, Pwhite(3, nY, n)).asStream.nextN(n);
 				Pen.width= penWidth;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.2;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.15;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.4;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.18;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.25;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.1;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.18;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.3;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.15;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
-				x=x+interval;yH=size*0.22;
-				Pen.line(Point(x,rect.center.y+yH),Point(x,rect.center.y-yH));
+				nY.do{|k|
+					x=drawRect.left;
+					n.do{|i|
+						Pen.line(Point(x,y-slots.at(i)),Point(x,y+slots.at(i)));
+						x=x+interval;y;
+					};
+				};
 
 				Pen.stroke;
 
@@ -603,26 +590,24 @@ JMDrawIcon {
 
 			\eye: { | rect|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.1;
+				var inset=rectSize*0.09;
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
-				var rad = drawRect.height*0.5;
+				var rad = drawRect.height*0.42;
 				var x = drawRect.center.x;
 				var y = drawRect.center.y;
-				var angleDiff = 0.42;
+				var angleDiff = 0.55;
 				// Pen.line(Point(rect.left,rect.height*0.5),Point(rect.right,rect.height*0.5));
 				// Pen.stroke;
 				Pen.width= (rad*0.06).ceil(2);
+
+				Pen.addArc(Point(drawRect.center.x, drawRect.center.y+(rad*0.80)), rad*1.5, pi+angleDiff,pi-(angleDiff*2));
+				Pen.addArc(Point(drawRect.center.x, drawRect.center.y-(rad*0.80)), rad*1.5, 2pi+angleDiff,pi-(angleDiff*2));
+								Pen.stroke;
+
+				Pen.moveTo(drawRect.center);
 				Pen.addArc(drawRect.center, rad*0.3, pi, 2*pi);
 
 				Pen.fillStroke;
-
-				Pen.moveTo(drawRect.center);
-
-
-				Pen.addArc(Point(drawRect.center.x, drawRect.center.y+(rad*0.5)), rad*1.2, pi+angleDiff,pi-(angleDiff*2));
-				Pen.addArc(Point(drawRect.center.x, drawRect.center.y-(rad*0.5)), rad*1.2, 2pi+angleDiff,pi-(angleDiff*2));
-
-				Pen.stroke;
 
 
 
@@ -630,25 +615,25 @@ JMDrawIcon {
 
 			\eyeFill:{ | rect|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.1;
+				var inset=rectSize*0.09;
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
-				var rad = drawRect.height*0.5;
+				var rad = drawRect.height*0.42;
 				var x = drawRect.center.x;
 				var y = drawRect.center.y;
-				var angleDiff = 0.42;
+				var angleDiff = 0.55;
 				// Pen.line(Point(rect.left,rect.height*0.5),Point(rect.right,rect.height*0.5));
 				// Pen.stroke;
 				Pen.width= (rad*0.06).ceil(2);
 
 				Pen.moveTo(drawRect.center);
 
-				Pen.addArc(Point(drawRect.center.x, drawRect.center.y+(rad*0.5)), rad*1.2, pi+angleDiff,pi-(angleDiff*2));
-				Pen.addArc(Point(drawRect.center.x, drawRect.center.y-(rad*0.5)), rad*1.2, 2pi+angleDiff,pi-(angleDiff*2));
-				Pen.draw;
+				Pen.addArc(Point(drawRect.center.x, drawRect.center.y+(rad*0.80)), rad*1.5, pi+angleDiff,pi-(angleDiff*2));
+				Pen.addArc(Point(drawRect.center.x, drawRect.center.y-(rad*0.80)), rad*1.5, 2pi+angleDiff,pi-(angleDiff*2));
+				Pen.fillStroke;
 				Pen.color_(lightColor);
 				Pen.strokeColor_(lightColor);
 
-				Pen.addArc(drawRect.center, rad*0.3, pi, 2*pi);
+				Pen.addArc(drawRect.center, rad*0.25, pi, 2*pi);
 
 				Pen.fillStroke;
 

@@ -45,6 +45,7 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
+
 			\sample:	{ | rect, direction = pi, mode = \fill|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.1;
@@ -109,6 +110,30 @@ JMDrawIcon {
 				};
 
 				Pen.stroke;
+
+			},
+			\cam:	{ | rect|
+				var square, square2;
+				var penwidth ;
+				var xwidth;
+				square = Rect.aboutPoint( rect.center,
+					1.25*rect.width.min( rect.height ) / 3,
+					1.25*rect.width.min( rect.height ) / 5.5 );
+				penwidth = 1.max(square.width*0.075);
+				xwidth=square.width*0.25;
+				square2=square.copy.width_(square.width*0.67);
+
+				Pen.addRoundedRect(square2, penwidth,penwidth);
+
+				Pen.moveTo( square.rightTop );
+				Pen.lineTo( square.rightBottom );
+				Pen.lineTo( (square.left + (square.width / 1.4))@
+					(square.center.y + (square.height / 4)) );
+				Pen.lineTo( (square.left + (square.width /  1.4))@
+					(square.center.y - (square.height / 4)) );
+				Pen.lineTo( square.rightTop );
+				Pen.fill;
+
 
 			},
 			\meter:	{ | rect|

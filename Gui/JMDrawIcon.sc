@@ -30,6 +30,8 @@ JMDrawIcon {
 				var rectSize=min(rect.width,rect.height)*insetFactor;
 				var offset = rectSize.neg*0.2;
 				var offset2 = offset.neg*0.5;
+				var penWidth = 1.max(rectSize*0.05);
+				Pen.width=penWidth;
 
 				square = Rect.aboutPoint(center,rectSize*0.5,rectSize*0.5);
 				Pen.translate(offset2,offset2);
@@ -602,7 +604,7 @@ JMDrawIcon {
 
 				Pen.addArc(Point(drawRect.center.x, drawRect.center.y+(rad*0.80)), rad*1.5, pi+angleDiff,pi-(angleDiff*2));
 				Pen.addArc(Point(drawRect.center.x, drawRect.center.y-(rad*0.80)), rad*1.5, 2pi+angleDiff,pi-(angleDiff*2));
-								Pen.stroke;
+				Pen.stroke;
 
 				Pen.moveTo(drawRect.center);
 				Pen.addArc(drawRect.center, rad*0.3, pi, 2*pi);

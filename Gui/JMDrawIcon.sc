@@ -51,13 +51,13 @@ JMDrawIcon {
 				var inset=iconSize*0.2;
 				var drawRect=Rect.aboutPoint(rect.center,(rect.width * 0.5)-inset,(iconSize * 0.5)-inset);
 				var size=drawRect.height;
-				var penWidth= size*0.07;
-				var interval= penWidth*2.2;
+				var penWidth= (size*0.07);
+				var interval= (penWidth*2.2);
 				var x=drawRect.left;
 				var y=rect.center.y;
 				var n =(drawRect.width/(interval))+1;
 				var nY =(drawRect.height*0.6);
-				var slots = Pseed(randomSeed+180, Pwhite(3, nY, n)).asStream.nextN(n);
+				var slots = Pseed(randomSeed+180, Pwhite(2, nY, n)).asStream.nextN(n);
 				Pen.width= penWidth;
 				nY.do{|k|
 					x=drawRect.left;

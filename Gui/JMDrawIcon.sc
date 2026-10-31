@@ -59,7 +59,31 @@ JMDrawIcon {
 				var y=rect.center.y;
 				var n =(drawRect.width/(interval))+1;
 				var nY =(drawRect.height*0.6);
-				var slots = Pseed(randomSeed+180, Pwhite(2, nY, n)).asStream.nextN(n);
+				var slots = Pseed(randomSeed+12, Pmeanrand(2, nY, n)).asStream.nextN(n);
+				Pen.width= penWidth;
+				nY.do{|k|
+					x=drawRect.left;
+					n.do{|i|
+						Pen.line(Point(x,y-slots.at(i)),Point(x,y+slots.at(i)));
+						x=x+interval;y;
+					};
+				};
+
+				Pen.stroke;
+
+			},
+			\noise:	{ | rect, direction = pi, mode = \fill|
+				var iconSize=rect.width.min(rect.height);
+				var inset=iconSize*0.2;
+				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
+				var size=drawRect.height;
+				var penWidth= 1;
+				var interval= (penWidth);
+				var x=drawRect.left;
+				var y=rect.center.y;
+				var n =(drawRect.width/(interval))+1;
+				var nY =(drawRect.height*0.6);
+				var slots = Pseed(randomSeed+119, Pwhite(0, nY, n)).asStream.nextN(n);
 				Pen.width= penWidth;
 				nY.do{|k|
 					x=drawRect.left;
@@ -803,6 +827,7 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
+
 			\tri:{ | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.2;
@@ -813,26 +838,7 @@ JMDrawIcon {
 				var y=drawRect.top;
 				Pen.addRect(drawRect);
 				Pen.clip;
-				Pen.moveTo(Point(drawRect.left-interval,drawRect.bottom));
-				7.do{|i|
-					var p = i%2;
-					Pen.lineTo(Point(drawRect.left+((i)*interval)
-						,drawRect.top+(inset2*0.5)+( p*(drawRect.height-inset2))));
-				};
-
-				Pen.stroke;
-			},
-			\tri2:{ | rect|
-				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
-				var inset2=iconSize*0.15;
-				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,
-					(iconSize * 0.5)-inset);
-				var interval= drawRect.width*0.2;
-				var y=drawRect.top;
-				Pen.addRect(drawRect);
-				Pen.clip;
-				Pen.width=  drawRect.width*0.1;
+				Pen.width=  (drawRect.width*0.08).max(1);
 				Pen.moveTo(Point(drawRect.left-interval,drawRect.bottom));
 				7.do{|i|
 					var p = i%2;

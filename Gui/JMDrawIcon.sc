@@ -803,7 +803,7 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\saw:{ | rect|
+			\tri:{ | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.2;
 				var inset2=iconSize*0.15;
@@ -822,7 +822,7 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\saw2:{ | rect|
+			\tri2:{ | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.2;
 				var inset2=iconSize*0.15;
@@ -842,7 +842,7 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\saw3:{ | rect|
+			\saw:{ | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.15;
 				var inset2=iconSize*0.15;
@@ -864,7 +864,7 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\saw4:{ | rect|
+			\saw2:{ | rect|
 				var iconSize=rect.width.min(rect.height);
 				var inset=iconSize*0.15;
 				var inset2=iconSize*0.15;

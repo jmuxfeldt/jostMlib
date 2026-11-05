@@ -1040,7 +1040,7 @@ JMDrawIcon {
 
 				var iconSize=rect.width.min(rect.height);
 				var sc = scale??globalScale;
-				var insetFactor = 1-sc-0.1;
+				var insetFactor = 1-sc-0.15;
 
 				var inset=iconSize*(insetFactor*0.5);
 				square = Rect.aboutPoint( rect.center,
@@ -1118,7 +1118,7 @@ JMDrawIcon {
 
 				var iconSize=rect.width.min(rect.height);
 				var sc = scale??globalScale;
-				var insetFactor = 1-sc-0.1;
+				var insetFactor = 1-sc-0.15;
 
 				var inset=iconSize*(insetFactor*0.5);
 				square = Rect.aboutPoint( rect.center,

@@ -1,9 +1,10 @@
 JMDrawIcon {
-	classvar lightColor, randomSeed=77;
+	classvar lightColor, randomSeed=77, globalInsetFactor=0.1;
 	*new { |name, rect ... more|
 		rect = (rect ? (32@32)).asRect;
 		^this.drawFuncs.at(name).value( rect, *more ); // returns pen function
 	}
+
 
 
 	*initClass{
@@ -17,20 +18,32 @@ JMDrawIcon {
 
 	}
 
+	*symbolArgs { |name, rect|
+		var more;
+		more = name.asString.split( $_ );
+		name = more[0].asSymbol;
+		more = more[1..].collect( _.interpret );
+		^this.new( name, rect, *more );
+	}
+
 	*lightColor_{|color| lightColor= color}
 
 
 	*drawFuncs{
 		^(
-			\clone: { | rect|
+			\clone: { | rect, insetFactor|
 				var square,rect2;
-				var insetFactor = 0.55;
+				var scale = 0.55;
 				var moveX;
 				var center = rect.center;
-				var rectSize=min(rect.width,rect.height)*insetFactor;
-				var offset = rectSize.neg*0.2;
-				var offset2 = offset.neg*0.5;
-				var penWidth = 1.max(rectSize*0.05);
+				var offset;
+				var offset2;
+				var penWidth ;
+				var rectSize=(min(rect.width,rect.height)*scale);
+				rectSize = rectSize-(rectSize*(insetFactor??globalInsetFactor));
+				offset = rectSize.neg*0.2;
+				offset2 = offset.neg*0.5;
+				penWidth = 1.max(rectSize*0.05);
 				Pen.width=penWidth;
 
 				square = Rect.aboutPoint(center,rectSize*0.5,rectSize*0.5);
@@ -48,9 +61,9 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
-			\sample:	{ | rect, direction = pi, mode = \fill|
+			\sample:	{ | rect, insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*((insetFactor??globalInsetFactor)+0.1);
 				var drawRect=Rect.aboutPoint(rect.center,(rect.width * 0.5)-inset,(iconSize * 0.5)-inset);
 				var size=drawRect.height;
 				var penWidth= (size*0.07);
@@ -72,9 +85,9 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
-			\noise:	{ | rect, direction = pi, mode = \fill|
+			\noise:	{ | rect, insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*((insetFactor??globalInsetFactor)+0.1);
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var size=drawRect.height;
 				var penWidth= 1;
@@ -96,9 +109,9 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
-			\levels:	{ | rect|
+			\levels:	{ | rect, insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*((insetFactor??globalInsetFactor)+0.1);
 				var drawRect=Rect.aboutPoint(rect.center,(rect.width * 0.5)-inset,(iconSize * 0.5)-inset);
 				var size=drawRect.height;
 				var penWidth= 2.max(iconSize*0.1);
@@ -125,13 +138,16 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
-			\cam:	{ | rect|
+
+			\cam:	{ | rect, insetFactor|
 				var square, square2;
 				var penwidth ;
 				var xwidth;
+				insetFactor=(insetFactor??globalInsetFactor)-0.05;
 				square = Rect.aboutPoint( rect.center,
-					1.2*rect.width.min( rect.height ) / 3,
-					1.2*rect.width.min( rect.height ) / 5.5 );
+					1.35*rect.width.min( rect.height ) / 3,
+					1.35*rect.width.min( rect.height ) / 5.5 );
+				square =square.insetBy(square.width*insetFactor,square.height*insetFactor);
 				penwidth = 1.max(square.width*0.075);
 				xwidth=square.width*0.25;
 				square2=square.copy.width_(square.width*0.67);
@@ -149,9 +165,10 @@ JMDrawIcon {
 
 
 			},
-			\meter:	{ | rect|
+
+			\meter:	{ | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.05;
+				var inset=rectSize*(insetFactor??globalInsetFactor)*0.5;
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var mCenter = rect.center.y_(rect.center.y+(rectSize*0.4)-inset);
 				var meterSize = drawRect.width;
@@ -183,10 +200,10 @@ JMDrawIcon {
 				Pen.fill;
 
 			},
-			\dvd:	{ | rect|
+			\dvd:	{ | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
 
-				var inset=rectSize*0.1;
+				var inset=rectSize*(insetFactor??globalInsetFactor);
 				var square=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var size=square.width;
 				var penWidth = 1.max(size*0.045);
@@ -205,10 +222,10 @@ JMDrawIcon {
 
 
 			},
-			\cd:	{ | rect|
+			\cd:	{ | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
 
-				var inset=rectSize*0.1;
+				var inset=rectSize*(insetFactor??globalInsetFactor);
 				var square=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var size=square.width;
 				var penWidth = 1.max(size*0.045);
@@ -226,9 +243,9 @@ JMDrawIcon {
 
 
 			},
-			\scope: { | rect|
+			\scope: { | rect, insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.1;
+				var inset=iconSize*(insetFactor??globalInsetFactor);
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 				Pen.width= drawRect.height*0.07;
@@ -244,9 +261,9 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\fscope: { | rect|
+			\fscope: { | rect, insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.17;
+				var inset=iconSize*((insetFactor??globalInsetFactor)+0.07);
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 				Pen.width= drawRect.height*0.07;
@@ -267,9 +284,9 @@ JMDrawIcon {
 
 
 
-			\freq: { | rect|
+			\freq: { | rect, insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.1;
+				var inset=iconSize*(insetFactor??globalInsetFactor);
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval= drawRect.width*0.1;
 				var amp = drawRect.height*0.35;
@@ -287,9 +304,9 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
-			\del: { | rect|
+			\del: { | rect, insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.1;
+				var inset=iconSize*(insetFactor??globalInsetFactor);
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,(iconSize * 0.5)-inset);
 				var interval = drawRect.width/3;
 				var intervalV = drawRect.height/8;
@@ -317,9 +334,9 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
-			\bug: { | rect|
+			\bug: { | rect, insetFactor|
 				var rectSize=rect.width.min(rect.height);
-				var inset=rectSize*0.2;
+				var inset=rectSize*((insetFactor??globalInsetFactor)+0.05);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 
 				var h = drawRect.height;
@@ -382,11 +399,12 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
-			\archive: { | rect|
+			\archive: { | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.2;
-				var insetH=rectSize*0.15;
-				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-insetH,(rectSize * 0.5)-inset).moveBy(0,inset/5);
+				var inset=rectSize*0.15;
+				var insetH=inset*0.75;
+				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-insetH,(rectSize * 0.5)-inset)
+				.moveBy(0,inset/5).insetBy(rectSize*(insetFactor??globalInsetFactor)*0.5,rectSize*(insetFactor??globalInsetFactor)*0.5);
 				var w = drawRect.height;
 				var penwidth = w*0.1;
 				var crn=drawRect.height*0.08;
@@ -415,10 +433,10 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
-			\lightdark: { | rect|
+			\lightdark: { | rect, insetFactor|
 				var  m, n;
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.1;
+				var inset=rectSize*(((insetFactor??globalInsetFactor)*0.5)+0.05);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				m=drawRect.width;
 				n=inset;
@@ -435,9 +453,9 @@ JMDrawIcon {
 			},
 
 
-			\lightdark2: { | rect|
+			\lightdark2: { | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.05;
+				var inset=rectSize*((insetFactor??globalInsetFactor)*0.5);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.45)-inset,(rectSize * 0.5)-inset);
 				Pen.width=0;
 				Pen.rotate(0.25pi, drawRect.center.x,drawRect.center.y);
@@ -448,10 +466,11 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
-			\save: { | rect|
+			\save: { | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.2;
-				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
+				var inset=rectSize*0.15;
+				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset)
+				.insetBy(rectSize*(insetFactor??globalInsetFactor)*0.5,rectSize*(insetFactor??globalInsetFactor)*0.5);
 				var w = drawRect.height;
 				var penwidth = w*0.1;
 				var crn=drawRect.height*0.08;
@@ -493,33 +512,33 @@ JMDrawIcon {
 
 			},
 
-			\microphone:{ |rect|
-				var inset = 1;
-				var rectSize=min(rect.width,rect.height)*0.5;
-				var rect2= Rect.aboutPoint(rect.center,rectSize,rectSize);
-				var ir= rect2.insetBy(rect2.width*0.35,2);
-				var scale= rect2.width/(rect2.width+(2*inset));
+			\microphone:{ |rect, insetFactor|
+				var rectSize=min(rect.width,rect.height);
+				var inset = rectSize*(insetFactor??globalInsetFactor);
+				var drawRect= Rect.aboutPoint(rect.center,(rectSize*0.55)-inset,(rectSize*0.55)-inset);
+				var ir= drawRect.insetBy(drawRect.width*0.35,2);
+				var scale= drawRect.width/(drawRect.width+(2));
 				var cx = ir.width*0.5;
 				var rad = ir.width*0.9;
-				var matrix = [scale, 0, 0, scale, inset*scale, inset*scale];
-				var cy = rect2.left+rad;
-				var stand1Y=rect2.center.y+(rectSize*0.07);
+				var matrix = [scale, 0, 0, scale, scale, scale];
+				var cy = drawRect.left+rad;
+				var stand1Y=drawRect.center.y+(rectSize*0.07);
 				var stand2Y=stand1Y+rad;
 
 				Pen.matrix_(matrix);
 
-				Pen.width_(rect2.width*0.08);
+				Pen.width_(drawRect.width*0.08);
 				Pen.addRoundedRect(ir.height_(ir.height*0.7),ir.width*0.5,ir.width*0.5);
 				Pen.fill;
-				Pen.addArc(Point(rect2.center.x,stand1Y), rad, 2*pi, pi);
-				Pen.line(Point(rect2.center.x,stand2Y),Point(rect2.center.x,stand2Y+(rad*0.7)));
+				Pen.addArc(Point(drawRect.center.x,stand1Y), rad, 2*pi, pi);
+				Pen.line(Point(drawRect.center.x,stand2Y),Point(drawRect.center.x,stand2Y+(rad*0.7)));
 				Pen.stroke;
 
 			},
 
-			\midi:{ | rect|
+			\midi:{ | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.13;
+				var inset=rectSize*((insetFactor??globalInsetFactor)+0.03);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var rad = drawRect.height*0.5;
 				var x = drawRect.center.x;
@@ -549,9 +568,9 @@ JMDrawIcon {
 			},
 
 
-			\eye: { | rect|
+			\eye: { | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.09;
+				var inset=rectSize*((insetFactor??globalInsetFactor)-0.01);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var rad = drawRect.height*0.42;
 				var x = drawRect.center.x;
@@ -574,9 +593,9 @@ JMDrawIcon {
 
 			},
 
-			\eyeFill:{ | rect|
+			\eyeFill:{ | rect,insetFactor|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.09;
+				var inset=rectSize*((insetFactor??globalInsetFactor)-0.01);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var rad = drawRect.height*0.42;
 				var x = drawRect.center.x;
@@ -602,9 +621,9 @@ JMDrawIcon {
 
 
 
-			\list: { | rect|
+			\list: { | rect, insetFactor|
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.15;
+				var inset=rectSize*((insetFactor??globalInsetFactor)+0.05);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var w = drawRect.height;
 				var x = drawRect.center.x;
@@ -628,12 +647,15 @@ JMDrawIcon {
 
 			},
 
-			\speaker2: { | rect|
+			\speaker2: { | rect,insetFactor|
 				var square;
-				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 3,
-					rect.width.min( rect.height ) / 3 );
+				var rectSize=min(rect.width,rect.height);
+				var inset=rectSize*(insetFactor??globalInsetFactor)*0.5;
 
+				square = Rect.aboutPoint( rect.center,
+					rect.width.min( rect.height ) / 2.65,
+					rect.width.min( rect.height ) / 2.65 );
+				square=square.insetBy(inset,inset);
 				square = square.insetBy( square.width / 6, 0 );
 				square = square.moveBy( square.width / -3, 0 );
 
@@ -655,15 +677,20 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
-			\speaker3: { | rect|
+			\speaker3: { | rect,insetFactor|
 
 				var square;
 				var penwidth ;
 				var size;
+				var rectSize=min(rect.width,rect.height);
+				var inset=rectSize*(insetFactor??globalInsetFactor)*0.5;
+
 				size = rect.width.min( rect.height )*0.5;
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 3,
-					rect.width.min( rect.height ) / 3 );
+					rect.width.min( rect.height ) / 2.65,
+					rect.width.min( rect.height ) / 2.65 );
+				square=square.insetBy(inset,inset);
+
 				penwidth = 1.max(square.width*0.03);
 				size = rect.width.min( rect.height )*0.37;
 
@@ -688,14 +715,20 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
-			\speakerMute: { | rect|
+			\speakerMute: { | rect,insetFactor|
 				var square;
 				var penwidth ;
 				var xwidth;
+				var rectSize=min(rect.width,rect.height);
+				var inset=rectSize*(insetFactor??globalInsetFactor)*0.5;
+
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 3,
-					rect.width.min( rect.height ) / 3 );
+					rect.width.min( rect.height ) / 2.65,
+					rect.width.min( rect.height ) / 2.65 );
+				square=square.insetBy(inset,inset);
 				penwidth = 1.max(square.width*0.075);
+
+
 				xwidth=square.width*0.25;
 
 				square = square.insetBy( square.width / 6, 0 );
@@ -721,10 +754,10 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
-			\reverb: { | rect|
+			\reverb: { | rect,insetFactor|
 				var rectSize=min(rect.width,rect.height);
 
-				var inset=rectSize*0.2;
+				var inset=rectSize*((insetFactor??globalInsetFactor)+0.1);
 				var square=Rect.aboutPoint(rect.center,(rectSize * 0.6)-inset,(rectSize * 0.5)-inset);
 
 				Pen.width = 1.5.max(square.width*0.05);
@@ -741,18 +774,17 @@ JMDrawIcon {
 				Pen.stroke;
 
 			},
-			\sine2: { |rect, n = 1, phase = 0, res, fitToRect = false|
+			\sine2: { |rect,insetFactor|
 
-				var square, wd, step;
+				var square, wd, step,res, phase = 0,n = 1;
+				var rectSize=min(rect.width,rect.height);
 
-				if( fitToRect )
-				{ square = Rect.aboutPoint( rect.center,
-					rect.width / 2.5,
-					rect.height / 4 ); }
-				{ square = Rect.aboutPoint( rect.center,
+				var inset=rectSize*((insetFactor??globalInsetFactor)-0.1);
+
+				square = Rect.aboutPoint( rect.center,
 					rect.width.min( rect.height ) / 3,
-					rect.width.min( rect.height ) / 4 ); };
-
+					rect.width.min( rect.height ) / 4 );
+				square=square.insetBy(inset,inset);
 
 				wd = square.height.min( square.width ) / 8;
 
@@ -776,10 +808,10 @@ JMDrawIcon {
 
 			},
 
-			\pulse:{ | rect|
+			\pulse:{ | rect,insetFactor|
 				var m, n;
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.2;
+				var inset=rectSize*((insetFactor??globalInsetFactor)+0.1);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var segx= drawRect.height*0.35;
 				var segy= drawRect.height*0.4;
@@ -801,10 +833,10 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\pulse2:{ | rect|
+			\pulse2:{ | rect,insetFactor|
 				var m, n;
 				var rectSize=min(rect.width,rect.height);
-				var inset=rectSize*0.2;
+				var inset=rectSize*((insetFactor??globalInsetFactor)+0.1);
 				var drawRect=Rect.aboutPoint(rect.center,(rectSize * 0.5)-inset,(rectSize * 0.5)-inset);
 				var segx= drawRect.height*0.35;
 				var segy= drawRect.height*0.4;
@@ -828,9 +860,9 @@ JMDrawIcon {
 				Pen.stroke;
 			},
 
-			\tri:{ | rect|
+			\tri:{ | rect,insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.2;
+				var inset=iconSize*((insetFactor??globalInsetFactor)+0.1);
 				var inset2=iconSize*0.15;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,
 					(iconSize * 0.5)-inset);
@@ -848,9 +880,9 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\saw:{ | rect|
+			\saw:{ | rect,insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.15;
+				var inset=iconSize*((insetFactor??globalInsetFactor)+0.05);
 				var inset2=iconSize*0.15;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,
 					(iconSize * 0.5)-inset);
@@ -870,9 +902,9 @@ JMDrawIcon {
 
 				Pen.stroke;
 			},
-			\saw2:{ | rect|
+			\saw2:{  | rect,insetFactor|
 				var iconSize=rect.width.min(rect.height);
-				var inset=iconSize*0.15;
+				var inset=iconSize*((insetFactor??globalInsetFactor)+0.05);
 				var inset2=iconSize*0.15;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,
 					(iconSize * 0.5)-inset);
@@ -894,14 +926,16 @@ JMDrawIcon {
 			},
 
 
-			\fitH:{  | rect, direction = 0, mode = \fill|
+			\fitH:{  | rect,insetFactor|
 				var square, wd;
+				var iconSize=rect.width.min(rect.height);
+
+				var inset=iconSize*((insetFactor??globalInsetFactor)*0.25);
 
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 4.25,
-					rect.width.min( rect.height ) / 4.25 );
-
-				Pen.rotate( direction, square.center.x, square.center.y );
+					rect.width.min( rect.height ) / 4,
+					rect.width.min( rect.height ) / 4);
+				square=square.insetBy(inset,inset);
 
 				Pen.moveTo( (square.left)@(square.center.y) );
 				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
@@ -913,7 +947,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate(square.width/2,0);
-				Pen.perform( mode );
+				Pen.fill;
 
 				Pen.rotate( pi, square.center.x, square.center.y );
 
@@ -928,16 +962,20 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate(square.width,0);
 
-				Pen.perform( mode );
+				Pen.fill;
 
-				Pen.rotate( direction.neg, square.center.x, square.center.y );
 			},
-			\fitV:{  | rect, direction = 0.5pi, mode = \fill|
+			\fitV:{  | rect, insetFactor|
 				var square, wd;
+				var direction= 0.5pi;
+				var iconSize=rect.width.min(rect.height);
+
+				var inset=iconSize*((insetFactor??globalInsetFactor)*0.25);
 
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 4.25,
-					rect.width.min( rect.height ) / 4.25 );
+					rect.width.min( rect.height ) / 4,
+					rect.width.min( rect.height ) / 4);
+				square=square.insetBy(inset,inset);
 
 				Pen.rotate( direction, square.center.x, square.center.y );
 
@@ -951,7 +989,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate(square.width/2,0);
-				Pen.perform( mode );
+				Pen.fill;
 
 				Pen.rotate( pi, square.center.x, square.center.y );
 
@@ -966,25 +1004,28 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate(square.width,0);
 
-				Pen.perform( mode );
+				Pen.fill;
 
 				Pen.rotate( direction.neg, square.center.x, square.center.y );
 			},
-			\xArrow:{  | rect, direction = 0, mode = \fill|
+			\xArrow:{  | rect, insetFactor|
 				var square,square2, wd;
+				var direction=0;
+				var iconSize=rect.width.min(rect.height);
 
+				var inset=iconSize*((insetFactor??globalInsetFactor)*0.5);
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 5,
-					rect.width.min( rect.height ) / 5 );
+					rect.width.min( rect.height ) / 4.5,
+					rect.width.min( rect.height ) / 4.5 );
+				square=square.insetBy(inset,inset);
 
 				square2 = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 15,
-					rect.width.min( rect.height ) / 15 );
-
-
+					square.width.min( rect.height ) / 6,
+					square.width.min( rect.height ) / 6 );
 				Pen.rotate( direction, square.center.x, square.center.y );
 				Pen.addRect(square2);
-				Pen.perform( mode );
+				Pen.fill;
+
 				Pen.moveTo( (square.left)@(square.center.y) );
 				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
 				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
@@ -995,7 +1036,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate((square.width*0.5)+(square.width*(1/8)),0);
-				Pen.perform( mode );
+				Pen.fill;
 
 				Pen.rotate( pi, square.center.x, square.center.y );
 
@@ -1010,7 +1051,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate(square.width+(square.width*(2/8)),0);
 
-				Pen.perform( mode );
+				Pen.fill;
 				Pen.rotate( 0.5pi, square.center.x, square.center.y );
 				Pen.moveTo( (square.left)@(square.center.y) );
 				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
@@ -1022,7 +1063,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate((square.width*0.5)+(square.width*(1/8)),(square.width*0.5)+(square.width*(1/8)));
-				Pen.perform( mode );
+				Pen.fill;
 
 				Pen.rotate( pi, square.center.x, square.center.y );
 
@@ -1037,26 +1078,28 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate(square.width+(square.width*(2/8)),0);
 
-				Pen.perform( mode );
+				Pen.fill;
 				Pen.rotate( 0.5pi, square.center.x, square.center.y );
 
 			},
 
-			\xArrow2:{  | rect, direction = 0.25pi, mode = \fill|
+			\xArrow2:{  | rect, insetFactor|
 				var square,square2, wd;
-
+				var direction=0.25pi;
+				var iconSize=rect.width.min(rect.height);
+				var inset=iconSize*((insetFactor??globalInsetFactor)*0.5);
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 5,
-					rect.width.min( rect.height ) / 5 );
+					rect.width.min( rect.height ) / 4.5,
+					rect.width.min( rect.height ) / 4.5 );
+				square=square.insetBy(inset,inset);
 
 				square2 = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 15,
-					rect.width.min( rect.height ) / 15 );
-
-
+					square.width.min( rect.height ) / 6,
+					square.width.min( rect.height ) / 6 );
 				Pen.rotate( direction, square.center.x, square.center.y );
 				Pen.addRect(square2);
-				Pen.perform( mode );
+				Pen.fill;
+
 				Pen.moveTo( (square.left)@(square.center.y) );
 				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
 				Pen.lineTo( (square.center.x)@(square.top + (square.height * (1/3) ) ) );
@@ -1067,7 +1110,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate((square.width*0.5)+(square.width*(1/8)),0);
-				Pen.perform( mode );
+				Pen.fill;
 
 				Pen.rotate( pi, square.center.x, square.center.y );
 
@@ -1082,7 +1125,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate(square.width+(square.width*(2/8)),0);
 
-				Pen.perform( mode );
+				Pen.fill;
 				Pen.rotate( 0.5pi, square.center.x, square.center.y );
 				Pen.moveTo( (square.left)@(square.center.y) );
 				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
@@ -1094,7 +1137,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.top + (square.height * (2/3) ) ) );
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate((square.width*0.5)+(square.width*(1/8)),(square.width*0.5)+(square.width*(1/8)));
-				Pen.perform( mode );
+				Pen.fill;
 
 				Pen.rotate( pi, square.center.x, square.center.y );
 
@@ -1109,7 +1152,7 @@ JMDrawIcon {
 				Pen.lineTo( (square.left)@(square.center.y) );
 				Pen.translate(square.width+(square.width*(2/8)),0);
 
-				Pen.perform( mode );
+				Pen.fill;
 				Pen.rotate( 0.5pi, square.center.x, square.center.y );
 
 			}

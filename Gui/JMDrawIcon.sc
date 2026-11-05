@@ -1,10 +1,9 @@
 JMDrawIcon {
-	classvar lightColor, randomSeed=77, <>globalInsetFactor=0.1, <>globalScale=0.8;
+	classvar lightColor, >randomSeed=77, <>globalScale=0.8;
 	*new { |name, rect ... more|
 		rect = (rect ? (32@32)).asRect;
 		^this.drawFuncs.at(name).value( rect, *more ); // returns pen function
 	}
-
 
 
 	*initClass{
@@ -16,14 +15,6 @@ JMDrawIcon {
 		};
 		lightColor = QtGUI.palette.window;
 
-	}
-
-	*symbolArgs { |name, rect|
-		var more;
-		more = name.asString.split( $_ );
-		name = more[0].asSymbol;
-		more = more[1..].collect( _.interpret );
-		^this.new( name, rect, *more );
 	}
 
 	*lightColor_{|color| lightColor= color}
@@ -65,9 +56,12 @@ JMDrawIcon {
 
 			\sample:	{ | rect, scale|
 				var sc =  scale??globalScale;
-				var size=min(rect.width,rect.height)*sc*0.8;
+				var size=min(rect.width,rect.height)*sc*0.7;
+				var iconSize=rect.width.min(rect.height);
+				var insetFactor = 1-sc;
+				var inset=iconSize*(insetFactor);
 
-				var drawRect=Rect.aboutPoint(rect.center,(size * 0.5),(size * 0.5));
+				var drawRect=Rect.aboutPoint(rect.center,(rect.width * 0.5)-inset,(size * 0.5));
 				var penWidth= (size*0.07);
 				var interval= (penWidth*2.2);
 				var x=drawRect.left;
@@ -737,7 +731,7 @@ JMDrawIcon {
 				var penwidth ;
 				var xwidth;
 				var iconScale=min(rect.width,rect.height);
-				var inset=iconScale*(insetFactor??globalInsetFactor)*0.5;
+				var inset=iconScale*insetFactor*0.5;
 
 				square = Rect.aboutPoint( rect.center,
 					rect.width.min( rect.height ) / 2.65,
@@ -890,7 +884,7 @@ JMDrawIcon {
 				var sc = scale??globalScale;
 				var insetFactor = 1-sc-0.1;
 
-				var inset=iconSize*((insetFactor??globalInsetFactor)+0.1);
+				var inset=iconSize*(insetFactor+0.1);
 				var inset2=iconSize*0.15;
 				var drawRect=Rect.aboutPoint(rect.center,(iconSize * 0.5)-inset,
 					(iconSize * 0.5)-inset);
@@ -964,14 +958,11 @@ JMDrawIcon {
 				var square, wd;
 				var iconSize=rect.width.min(rect.height);
 				var sc = scale??globalScale;
-				var insetFactor = 1-sc;
 
-				var inset=iconSize*(insetFactor*0.1);
 
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 4,
-					rect.width.min( rect.height ) / 4);
-				square=square.insetBy(inset,inset);
+					sc*rect.width.min( rect.height ) / 3.5,
+					sc*rect.width.min( rect.height ) / 3.5);
 
 				Pen.moveTo( (square.left)@(square.center.y) );
 				Pen.lineTo( (square.left)@(square.top + (square.height * (1/3) ) ) );
@@ -1002,18 +993,15 @@ JMDrawIcon {
 
 			},
 			\fitV:{  | rect, scale|
-				var square, wd;
 				var direction= 0.5pi;
+				var square, wd;
 				var iconSize=rect.width.min(rect.height);
 				var sc = scale??globalScale;
-				var insetFactor = 1-sc;
 
-				var inset=iconSize*(insetFactor*0.1);
 
 				square = Rect.aboutPoint( rect.center,
-					rect.width.min( rect.height ) / 4,
-					rect.width.min( rect.height ) / 4);
-				square=square.insetBy(inset,inset);
+					sc*rect.width.min( rect.height ) / 3.5,
+					sc*rect.width.min( rect.height ) / 3.5);
 
 				Pen.rotate( direction, square.center.x, square.center.y );
 
@@ -1201,9 +1189,7 @@ JMDrawIcon {
 				Pen.rotate( 0.5pi, square.center.x, square.center.y );
 
 			}
-
 		);
-
 
 	}
 

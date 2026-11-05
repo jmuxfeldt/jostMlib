@@ -30,12 +30,18 @@ Allows for painting a contrasting light/dark color, using the default window bac
 For icons that need a punchout surface, like \eyeFill .
 
 METHOD:: randomSeed
-a random seed for icons like \meter, which generate a fixed random series.
+a random seed for icons like \levels an \sample, which generate a fixed random series, and grow with the parent width.
 
 Changing it will alter the appearance of those icons.
 
+METHOD:: globalScale
+defaults to 0.8 of the parent rect.
+
+
 METHOD:: listKeys
-lists all the functions
+lists all the function  keys
+
+
 EXAMPLES::
 SUBSECTION:: Use WITH wslib Quark
 code::
@@ -46,6 +52,15 @@ JMDrawIcon.listKeys;
 (
 FlowView.new.flow{|w|
 	RoundButton(w,50@40).states_([[\bug]]).radius_(0);
+		w.startRow;
+	RoundButton(w,80@40).states_([[\bug]]).radius_(0); // this one centers with width
+		w.startRow;
+	RoundButton(w,80@40).states_([[\levels]]).radius_(0);  // this one grows with width
+		w.startRow;
+	RoundButton(w,80@40).states_([[\sample]]).radius_(0); // this one grows with width
+		w.startRow;
+	RoundButton(w,50@40).states_([[\sample]]).radius_(0); // this one grows with width
+
 }
 )
 
@@ -70,6 +85,17 @@ JMDrawIcon.listKeys;
 (
 FlowView.new.flow{|w|
 	UserView(w,50@50).drawFunc_({JMDrawIcon(\bug,50@50)}).background_(Color.grey(0.7));
+	w.startRow;
+	UserView(w,80@50).drawFunc_({JMDrawIcon(\bug,80@50)}).background_(Color.grey(0.7)); // this one centers with width
+	w.startRow;
+	UserView(w,80@50).drawFunc_({JMDrawIcon(\levels,80@50)}).background_(Color.grey(0.7));  // this one grows with width
+	w.startRow;
+
+	UserView(w,80@50).drawFunc_({JMDrawIcon(\sample,80@50)}).background_(Color.grey(0.7));  // this one grows with width
+	w.startRow;
+
+	UserView(w,50@50).drawFunc_({JMDrawIcon(\sample,50@50)}).background_(Color.grey(0.7));  // this one grows with width
+
 }
 
 )
